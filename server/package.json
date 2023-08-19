@@ -1,0 +1,14 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Instagram-clone backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Francisco, Linderval e Matheus",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
