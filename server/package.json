@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Francisco, Linderval e Matheus",
+  "author": "Bruno, Cayo,Francisco, Jardel, Linderval e Matheus",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2"

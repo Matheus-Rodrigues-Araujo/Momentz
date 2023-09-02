@@ -1,0 +1,26 @@
+{
+  "name": "instagram-clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "npm start --prefix client",
+    "server": "npm start --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matheus-Rodrigues-Araujo/instagram-clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Matheus-Rodrigues-Araujo/instagram-clone/issues"
+  },
+  "homepage": "https://github.com/Matheus-Rodrigues-Araujo/instagram-clone#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
+}
