@@ -1,33 +1,55 @@
+import Image from "next/image"
+import Logo from "../assets/logo.png";
+// import Link from "next/link";
+
 export default function Home()  {
   return (
 
-    <div className="w-full max-w-xs ">
-  <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <div className="mb-4">
-      <label className="block text-gray-700 text-sm font-bold mb-2" >
-        Username
-      </label>
-      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
+    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+      <Image src={Logo} alt="Your Company" />
     </div>
-    <div className="mb-6">
-      <label className="block text-gray-700 text-sm font-bold mb-2">
-        Password
-      </label>
-      <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" />
-      <p className="text-red-500 text-xs italic">Please choose a password.</p>
+
+    <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm ">
+      <form className="space-y-6" action="#" method="POST">
+        
+        
+        <div>
+          <label className="block text-sm font-medium leading-6 text-white-900">Email</label>
+          <div className="mt-2">
+            <input id="email" name="email" type="email" autoComplete="email" required 
+            className="form-input block w-full rounded-md border-0 p-5  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset 
+            focus:ring-indigo-600
+            sm:text-sm sm:leading-6"/>
+          </div>
+        </div>
+
+        <div>
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-medium leading-6 text-white-900">Password</label>
+          </div>
+          <div className="mt-2">
+            <input id="password" name="password" type="password" autoComplete="current-password" required 
+            className="form-input block w-full rounded-md border-0 p-5  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+          </div>
+        </div>
+
+
+        <div>
+          <button type="submit" 
+          className="signin-btn flex w-full  justify-center rounded-md  p-5 text-sm font-semibold uppercase leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+        </div>
+      </form>
+
+      <p className="mt-10 text-center text-md text-white-500">
+        Don't have an account?
+        <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 underline" style={{color: '#EFD370'}} >Create here</a>
+      </p>
+      <p className="mt-10 text-center text-md text-white-500">
+        Forgot password?
+        <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 underline" style={{color: '#EFD370'}} >Click here</a>
+      </p>
     </div>
-    <div className="flex items-center justify-between">
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-        Sign In
-      </button>
-      <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-        Forgot Password?
-      </a>
-    </div>
-  </form>
-  <p className="text-center text-gray-500 text-xs">
-    &copy;2020 Acme Corp. All rights reserved.
-  </p>
 </div>
   )
 }

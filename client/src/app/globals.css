@@ -18,10 +18,20 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #211E1F; 
+}
+
+.signin-btn{
+  background-color: #AD4965;
+  transition: .4s ease-in-out;
+}
+
+.signin-btn:hover{
+  background-color: #8D0164;
+  color: #EFD370;
+}
+
+.form-input{
+  background-color: #403D3D;
+  color: #EFD370;
 }
