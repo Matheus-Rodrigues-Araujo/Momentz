@@ -1,10 +1,9 @@
 import Image from "next/image"
 import Logo from "../assets/logo.png";
-// import Link from "next/link";
+import Link from "next/link";
 
 export default function Home()  {
   return (
-
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
       <Image src={Logo} alt="Your Company" />
@@ -43,11 +42,11 @@ export default function Home()  {
 
       <p className="mt-10 text-center text-md text-white-500">
         Don't have an account?
-        <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 underline" style={{color: '#EFD370'}} >Create here</a>
+        <Link href="/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 underline" style={{color: '#EFD370'}} >Create here</Link>
       </p>
       <p className="mt-10 text-center text-md text-white-500">
         Forgot password?
-        <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 underline" style={{color: '#EFD370'}} >Click here</a>
+        <Link href="/r" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 underline" style={{color: '#EFD370'}} >Click here</Link>
       </p>
     </div>
 </div>
