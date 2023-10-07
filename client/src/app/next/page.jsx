@@ -7,13 +7,7 @@ import connectDB from '../../../db'
 export default async function Next({data}){
 
   const db = await connectDB();
-  
-  // Agora você pode usar `db` para interagir com o MongoDB
-//   const collection = db.collection('users');
-//   const resultado = await collection.find({}).toArray();
-//   console.log(resultado, resultado.length)
-
-const collection = db.collection('users');
+  const collection = db.collection('users');
   const documentoNovo = { "username": "Carlos", "email": "carlos@gmail.com" };
 
   const resultado = await collection.insertOne(documentoNovo);
