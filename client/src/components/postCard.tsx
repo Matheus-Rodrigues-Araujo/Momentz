@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { IPost } from '@/interfaces/IPost'
 import { useEffect, useState } from 'react'
+// import { HeartIcon, Chat, PaperAirplaneIcon } from '@heroicons/react/24/solid';
 
 export const PostCard = ({post}:IPost) => {
     const [isLiked, setIsLiked] = useState(false)
@@ -29,9 +30,9 @@ export const PostCard = ({post}:IPost) => {
                 className="w-[500px] h-auto rounded-md"
                 />
 
-                <div className="flex items-center mt-4">
+                <div className="flex items-center mt-4 space-x-2">
                 <button title='Curtir' onClick={()=> setIsLiked(!isLiked)} 
-                className={`${isLiked ? 'flex items-center mr-4 text-customLightpink': 'flex items-center mr-4 text-white hover:text-customLightpink' }`} >
+                className={`${isLiked ? 'flex items-center text-customLightpink': 'flex items-center text-white hover:text-customLightpink' }`} >
                     <svg
                     className="w-6 h-6 fill-current mr-1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -51,6 +52,12 @@ export const PostCard = ({post}:IPost) => {
                     </svg>
                     Comentar
                 </button>
+
+                <button title='Enviar' className="flex items-center text-white ml-3">
+                <svg className="w-6 h-6 fill-current mr-1" fill="#000000" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>paper-plane</title> <path d="M0 14.016l9.216 6.912 18.784-16.928-14.592 20.064 10.592 7.936 8-32zM8 32l6.016-4-6.016-4v8z"></path> </g></svg>
+         
+                    Enviar
+                    </button>
                 </div>
             </div>
         </div>
