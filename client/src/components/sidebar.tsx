@@ -1,4 +1,6 @@
 import Link from "next/link"
+import Image from "next/image"
+import logo from '../assets/logo.png'
 import { 
   BeakerIcon,
   HomeIcon, 
@@ -7,21 +9,19 @@ import {
   BellIcon,
   EnvelopeIcon,
   UserIcon
-  } from '@heroicons/react/24/solid'
-import Image from "next/image"
-import logo from '../assets/logo.png'
+} from '@heroicons/react/24/solid'
 
 export default function Sidebar(){
     return(
         <div className="h-screen w-60 bg-customDark text-white fixed top-0 left-0 flex flex-col justify-between md:border-r">  
           <div className="mt-5 ml-2">
-            <Link href="/">
+            <Link href="/" className="" style={{marginBottom: '80px'}} >
               <div className="flex items-center text-center">
                 <Image src={logo} width={180} height={100} alt="Logo"/>
               </div>
             </Link>
             <Link href="/" className="nav-item-container" >
-              <div className="flex gap-4 items-center p-4 text-center">
+              <div className="flex gap-4 items-center p-4 text-center mt-10">
                 <div className="icon-container bg-white p-2 bg-white rounded-full " >
                   <HomeIcon className="h-6 w-6 text-customDark  text-black" />
                 </div>

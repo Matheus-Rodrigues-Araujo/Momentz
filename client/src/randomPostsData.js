@@ -4,8 +4,16 @@ import soapBubbles from '@/assets/postImages/soap-bubbles.jpg'
 import flash from '@/assets/postImages/flash.jpg'
 import superman from '@/assets/postImages/superman.jpg'
 import luffy from '@/assets/postImages/luffy.jpg'
+import spiderman from '@/assets/userSuggestions/spiderman.jpg'
 
 const postsList = [
+    {
+      username: 'Spider-Man',
+      profileImage: spiderman,
+      postImage: spiderman,
+      datetime: new Date(),
+      content: 'Hey there! I took a new photo from this tall buildind!'
+    },
     {
       username: 'Clark Kent',
       profileImage: superman,

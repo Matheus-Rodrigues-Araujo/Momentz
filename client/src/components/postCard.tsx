@@ -13,7 +13,7 @@ export const PostCard = ({post}:IPost) => {
                 <Image
                     src={post.profileImage}
                     alt="Avatar do usuário"
-                    className="w-10 h-10 rounded-full mr-2"
+                    className="object-cover w-10 h-10 rounded-full mr-2"
                 />
                 <div className='flex items-center gap-3' >
                     <p className="font-bold text-white">{post.username}</p>
