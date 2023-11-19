@@ -3,7 +3,7 @@ import userSuggestionsList from '@/userSuggestionsData'
 import spiderman from '@/assets/userSuggestions/spiderman.jpg'
 import Link from "next/link"
 import { UserSuggestionCard } from "./userSuggestionCard"
-
+import { Footer } from "./footer"
 export const Aside = () => {
 
     return (
@@ -26,7 +26,8 @@ export const Aside = () => {
                     userSuggestionsList.length >=1 && userSuggestionsList.map((item, key) => <UserSuggestionCard key={key} user={item} />)
                 }
             </div>
-
+            
+            <Footer/>
         </div>
     )
 }
