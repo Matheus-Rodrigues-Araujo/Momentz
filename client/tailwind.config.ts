@@ -8,6 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        customDark: '#0e0d0e',
+        customGray: '#211E1F',
+        customYellow: '#EFD370',
+        customPurple: '#8D0164',
+        customLightpink: '#fc49ae',
+        customLightbrown: '#AD4965',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
