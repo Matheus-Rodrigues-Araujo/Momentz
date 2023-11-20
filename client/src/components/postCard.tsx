@@ -8,11 +8,11 @@ export const PostCard = ({post}:IPost) => {
     const [isLiked, setIsLiked] = useState(false)
     const [text, setText] = useState('');
 
-    const handleChange = (event) => {
+    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(event.target.value);
-    };
-
-    const autoResize = (event) => {
+      };
+    
+      const autoResize = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const textarea = event.target;
         textarea.style.height = 'auto';
         textarea.style.height = `${textarea.scrollHeight}px`;
