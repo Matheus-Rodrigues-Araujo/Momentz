@@ -58,6 +58,7 @@ export default function Home() {
         <p className="mt-10 text-center text-md text-gray-400">
           Don't have an account?
           <Link href="/register" className="font-semibold leading-6 text-indigo-600 text-customYellow hover:text-yellow-100 underline">Create here</Link>
+
         </p>
         <p className="mt-10 text-center text-md text-gray-400">
           Forgot password?
