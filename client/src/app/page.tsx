@@ -4,9 +4,9 @@ import Link from "next/link";
 
 export default function Home()  {
   return (
-    <div className="flex min-h-[500px]  max-w-[500px] mt-10 mx-auto flex-col justify-center px-6 py-12 rounded-md border border-customYellow lg:px-8 "  >
+    <div className="flex min-h-[500px]  max-w-[500px] my-10 mx-auto flex-col justify-center px-6 py-12 rounded-md border border-customYellow lg:px-8 "  >
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-      <Link href={'/'} >
+      <Link href={"/"} >
         <Image src={Logo} alt="Your Company" />
       </Link>
     </div>
@@ -44,11 +44,11 @@ export default function Home()  {
 
       <p className="mt-10 text-center text-md text-gray-400">
         Don't have an account?
-        <Link href="/register" className="font-semibold leading-6 text-indigo-600 text-customYellow hover:text-yellow-100 underline "  >Create here</Link>
+        <Link href={"/register"} className="font-semibold leading-6 text-indigo-600 text-customYellow hover:text-yellow-100 underline "  >Create here</Link>
       </p>
       <p className="mt-10 text-center text-md text-gray-400">
         Forgot password?
-        <Link href="/account/password" className="font-semibold leading-6 text-indigo-600 text-customYellow hover:text-yellow-100 underline "  >Click here</Link>
+        <Link href={"/account/password"} className="font-semibold leading-6 text-indigo-600 text-customYellow hover:text-yellow-100 underline "  >Click here</Link>
       </p>
     </div>
 </div>
