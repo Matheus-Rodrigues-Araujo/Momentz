@@ -1,4 +1,3 @@
-/* eslint react/no-unescaped-entities */
 import Image from "next/image";
 import Logo from "../assets/logo.png";
 import Link from "next/link";
