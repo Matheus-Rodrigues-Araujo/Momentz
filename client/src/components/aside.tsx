@@ -7,7 +7,7 @@ import { Footer } from "./footer"
 export const Aside = () => {
 
     return (
-        <div className="mt-5 w-[250px] flex flex-col gap-5" >
+        <div className="hidden sm:hidden md:hidden lg:flex flex-col mt-5 mr-2 w-[250px] gap-5" >
             <div className="flex gap-4" >
                 <Image src={spiderman} alt="User profile"  className="object-cover h-14 w-14 rounded-full" />
                 <div className="flex flex-col" >
