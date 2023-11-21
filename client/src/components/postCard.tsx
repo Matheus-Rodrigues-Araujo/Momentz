@@ -1,8 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { IPost } from '@/interfaces/IPost'
-import { useEffect, useState } from 'react'
-// import { HeartIcon, Chat, PaperAirplaneIcon } from '@heroicons/react/24/solid';
+import { useState } from 'react'
 
 export const PostCard = ({post}:IPost) => {
     const [isLiked, setIsLiked] = useState(false)
@@ -19,9 +18,9 @@ export const PostCard = ({post}:IPost) => {
       };
 
     return (
-        <div className='post-card cursor-pointer border border-white rounded-md bg-gray-900 p-4 shadow-x-2 shadow-y-9 shadow-blur-2' style={{backgroundColor: "var(--gray)"}} >
-            <div className=" px-2 mt-2 mb-4 rounded-md">
-                <div className="flex items-center mb-4">
+        <div className='post-card cursor-pointer bg-gray-900 shadow-x-2 shadow-y-9 shadow-blur-2 border-b-[1px] rounded-none md:border border-white rounded-md p-4 md:w-[530px]' style={{backgroundColor: "var(--gray)"}} >
+            <div className="p-0 mt-2 mb-4 rounded-md md:px-2">
+                <div className="ml-5 mb-4 flex items-center md:ml-2">
                     <Image
                         src={post.profileImage}
                         alt="Avatar do usuário"
@@ -33,9 +32,9 @@ export const PostCard = ({post}:IPost) => {
                     </div>
                 </div>
 
-                <Image src={post.postImage} alt="Post image" className="w-[500px] h-auto rounded-md"/>
+                <Image src={post.postImage} alt="Post image" className="h-auto w-[460px] mx-auto rounded-md md:max-w-[500px]"/>
 
-                <div className="flex items-center mt-4 space-x-2">
+                <div className="flex items-center mt-4 ml-4 space-x-2 md:ml-2">
                     <button title='Curtir' onClick={()=> setIsLiked(!isLiked)} 
                     className={`${isLiked ? 'flex items-center text-customLightpink': 'flex items-center text-white hover:text-customLightpink' }`} >
                         <svg
@@ -64,12 +63,12 @@ export const PostCard = ({post}:IPost) => {
                 </div>
 
                 <div className='flex flex-wrap flex-col mt-4 gap-2'>
-                    <p className="font-medium text-white self-start">{post.username}</p>
-                    <p className="content mb-4 text-white w-[500px]">
+                    <p className="font-medium text-white self-start pl-5 md:pl-2 ">{post.username}</p>
+                    <p className="content mb-4 text-white w-[500px] pl-5 md:pl-2">
                        {post.content} 
                     </p>
                 </div>
-                <div className='comment-container grid gap-3'>
+                <div className='comment-container grid gap-3 pl-5 md:pl-2'>
                     <p className='text-customLightGray' >See all 32 comment</p>
                     <div className='grid' >
                     <textarea
