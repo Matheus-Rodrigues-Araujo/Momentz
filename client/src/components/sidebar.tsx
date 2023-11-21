@@ -14,12 +14,21 @@ import {
 import { useEffect, useState } from "react"
 
 export default function Sidebar(){
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth || 0)  
-  
-  useEffect(()=> {
-    window.addEventListener('resize', () => setWindowWidth(window.innerWidth))
-    return (()=> window.removeEventListener('resize', () => setWindowWidth(window.innerWidth)))
-  }, [windowWidth])
+  const isClient = typeof window !== 'undefined';
+  const [windowWidth, setWindowWidth] = useState(isClient ? window.innerWidth || 0 : 0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    if (isClient) {
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, [isClient]);
 
   return(
         <div className="bg-customDark w-full text-white px-3 fixed bottom-0 border-t-[1px] md:top-0 md:w-auto md:border-t-0 md:border-r md:left-0">  
