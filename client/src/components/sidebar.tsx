@@ -14,10 +14,13 @@ import {
 import { useEffect, useState } from "react"
 
 export default function Sidebar(){
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)  
+  const [windowWidth, setWindowWidth] = useState(()=> {
+    return typeof window !== 'undefined' ? window.innerWidth : 0
+  })  
   
   useEffect(()=> {
     window.addEventListener('resize', () => setWindowWidth(window.innerWidth))
+    return (()=> window.removeEventListener('resize', () => setWindowWidth(window.innerWidth)))
   }, [windowWidth])
 
   return(
