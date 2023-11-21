@@ -66,7 +66,7 @@ export const PostCard = ({post}:IPost) => {
                 <div className='flex flex-wrap flex-col mt-4 gap-2'>
                     <p className="font-medium text-white self-start">{post.username}</p>
                     <p className="content mb-4 text-white w-[500px]">
-                       {post.content} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sagittis enim massa, in cursus odio imperdiet nec. Nullam bibendum nibh eget ante molestie, non viverra nibh aliquet. Praesent eget leo gravida, sagittis arcu eget, tincidunt dui. Curabitur eu finibus justo. Pellentesque convallis mattis mi.
+                       {post.content} 
                     </p>
                 </div>
                 <div className='comment-container grid gap-3'>
