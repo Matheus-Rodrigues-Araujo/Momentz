@@ -27,6 +27,17 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    ({ addUtilities }:any) => {
+      const newUtilities = {
+        '.clip-custom': {
+          position: 'absolute',
+          clip: 'rect(0px, 65px, 200px, 0px)',
+          top: '1.25em',
+        },
+      };
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    },
+  ],
 }
 export default config

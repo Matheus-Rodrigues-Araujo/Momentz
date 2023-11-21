@@ -33,7 +33,6 @@ export const PostCard = ({post}:IPost) => {
                     </div>
                 </div>
 
-                {/* <p className="mb-4 text-white">{post.content}</p> */}
                 <Image src={post.postImage} alt="Post image" className="w-[500px] h-auto rounded-md"/>
 
                 <div className="flex items-center mt-4 space-x-2">

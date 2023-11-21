@@ -34,3 +34,9 @@ body {
 .nav-item-container:hover .icon-container svg{
   color: white;
 }
+
+
+.clip-custom{
+  position: absolute;
+  clip: rect(0px,65px,200px,0px);
+}
