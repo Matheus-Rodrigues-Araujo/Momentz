@@ -40,3 +40,14 @@ body {
   position: absolute;
   clip: rect(0px,65px,200px,0px);
 }
+
+.skeleton-img{
+  min-width: 500px;
+  height: 280px;
+}
+
+@media screen and (max-width: 600px) {
+  .skeleton-img{
+    min-width: 80vw;
+  }
+}

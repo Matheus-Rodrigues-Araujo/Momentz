@@ -31,7 +31,7 @@ export default function Sidebar(){
   }, [isClient]);
 
   return(
-        <div className="bg-customDark w-full text-white px-3 fixed bottom-0 border-t-[1px] md:top-0 md:w-auto md:border-t-0 md:border-r md:left-0">  
+        <div className="bg-customDark z-10 w-full text-white px-3 fixed bottom-0 border-t-[1px] md:top-0 md:w-auto md:border-t-0 md:border-r md:left-0">  
           <div className="flex flex-row justify-around items-center mt-0 ml-0 md:block md:mt-5 md:justify-center md:ml-1">
             <Link href="/" className="mb-0 md:mb-[80px]">
               <div className="flex items-center text-center">

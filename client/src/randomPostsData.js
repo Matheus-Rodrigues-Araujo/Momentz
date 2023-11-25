@@ -8,18 +8,18 @@ import spiderman from '@/assets/userSuggestions/spiderman.jpg'
 
 const postsList = [
     {
-      username: 'Spider-Man',
-      profileImage: spiderman,
-      postImage: spiderman,
-      datetime: new Date(),
-      content: 'Hey there! I took a new photo from this tall buildind!'
-    },
-    {
       username: 'Clark Kent',
       profileImage: superman,
       postImage: florest,
       datetime: new Date(),
       content: 'Enjoying the view here!'
+    },
+    {
+      username: 'Spider-Man',
+      profileImage: spiderman,
+      postImage: spiderman,
+      datetime: new Date(),
+      content: 'Hey there! I took a new photo from this tall buildind!'
     },
     {
       username: 'Luffy',
