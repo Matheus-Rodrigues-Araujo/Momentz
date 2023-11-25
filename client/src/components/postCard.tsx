@@ -27,8 +27,8 @@ export const PostCard = ({post}:IPost) => {
                         className="object-cover w-10 h-10 rounded-full mr-2"
                     />
                     <div className='flex items-center gap-3' >
-                        <p className="font-medium text-white">{post.username}</p>
-                        <p className="text-gray-500 text-sm">{post.datetime.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'})}</p>
+                        <p className="text-sm font-medium text-white">{post.username}</p>
+                        <p className="text-gray-500 text-sm">{post.datetime.toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'})}</p>
                     </div>
                 </div>
 
@@ -63,8 +63,8 @@ export const PostCard = ({post}:IPost) => {
                 </div>
 
                 <div className='flex flex-wrap flex-col mt-4 gap-2'>
-                    <p className="font-medium text-white self-start">{post.username}</p>
-                    <p className="content mb-4 text-white">
+                    <p className="text-sm font-medium text-white self-start">{post.username}</p>
+                    <p className="text-smcontent mb-4 text-white">
                        {post.content} 
                     </p>
                 </div>
