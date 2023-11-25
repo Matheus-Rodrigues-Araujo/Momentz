@@ -21,12 +21,8 @@ export const Aside = () => {
                     <p className="text-white font-normal text-md">Suggestions for you</p>
                     <Link href={'/explore/people'} className="text-white font-bold hover:text-customLightGray" >See all</Link>
                 </div>
-
-                {
-                    userSuggestionsList.length >=1 && userSuggestionsList.map((item, key) => <UserSuggestionCard key={key} user={item} />)
-                }
+                {userSuggestionsList.length >=1 && userSuggestionsList.map((item, key) => <UserSuggestionCard key={key} user={item} />)}
             </div>
-            
             <Footer/>
         </div>
     )
