@@ -18,8 +18,8 @@ export const PostCard = ({post}:IPost) => {
       };
 
     return (
-        <div className='post-card cursor-pointer bg-gray-900 shadow-x-2 shadow-y-9 shadow-blur-2 rounded-none md:p-4 ' style={{backgroundColor: "var(--gray)"}} >
-            <div className="p-0 mt-2 mb-4 rounded-md">
+        <div className='post-card cursor-pointer bg-gray-900 shadow-x-2 shadow-y-9 shadow-blur-2 rounded-none md:p-4' style={{backgroundColor: "var(--gray)"}} >
+            <div className="p-0 mb-4 rounded-md">
                 <div className="mb-4 flex items-center ">
                     <Image
                         src={post.profileImage}

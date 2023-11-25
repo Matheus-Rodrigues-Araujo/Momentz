@@ -6,7 +6,7 @@ export default function NextLayout({ children }) {
     <div>
       <main className='min-h-screen ' style={{backgroundColor: '#0e0d0e'}} >
         <Sidebar/>
-        <div className='flex justify-center gap-5'>
+        <div className='flex justify-center'>
           <div className='flex justify-center gap-10 mb-20 md:ml-20 md:mb-0' >
             {children}
             <Aside/>
