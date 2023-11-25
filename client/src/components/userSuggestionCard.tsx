@@ -3,7 +3,7 @@ import { IUserSuggestion } from "@/interfaces/IUserSuggestion"
 
 export const UserSuggestionCard = ({user}:IUserSuggestion) =>{
     return (
-        <div className="flex justify-between items-center" >
+        <div className="flex items-center justify-around" >
             <Image src={user.profileImage} alt="User profile"  className="object-cover h-14 w-14 rounded-full" />
             <div className="flex flex-col" >
                 <h4 className="text-white font-medium" >{user.username}</h4>

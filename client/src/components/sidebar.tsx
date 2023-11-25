@@ -32,11 +32,11 @@ export default function Sidebar(){
 
   return(
         <div className="bg-customDark w-full text-white px-3 fixed bottom-0 border-t-[1px] md:top-0 md:w-auto md:border-t-0 md:border-r md:left-0">  
-          <div className="flex flex-row justify-center items-center mt-0 ml-0 md:block md:mt-5 md:ml-1">
+          <div className="flex flex-row justify-around items-center mt-0 ml-0 md:block md:mt-5 md:justify-center md:ml-1">
             <Link href="/" className="mb-0 md:mb-[80px]">
               <div className="flex items-center text-center">
                 {windowWidth >= 1280 ? <Image src={logo} width={180} height={100}   alt="Logo"/>
-                : <Image src={logoClip} className=" w-[50px]" alt="Logo"/>}
+                : <Image src={logoClip} className=" w-auto h-20 pb-1" alt="Logo"/>}
               </div>
             </Link>
             <Link href="/" className="nav-item-container" >
@@ -47,7 +47,7 @@ export default function Sidebar(){
                 <p className="hidden xl:block">Home</p>
               </div>
             </Link>
-            <Link href="/" className="nav-item-container">
+            <Link href="/" className="nav-item-container hidden md:block">
               <div className="flex gap-4 items-center p-2 text-center">
                 <div className="icon-container bg-white p-2 bg-white rounded-full" >
                   <MagnifyingGlassIcon className="h-6 w-6 text-customDark  text-black" />

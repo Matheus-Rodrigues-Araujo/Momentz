@@ -11,7 +11,6 @@
 body {
   color: rgb(var(--foreground-rgb));
   background-color: #0e0d0e; 
-  overflow-x: hidden;
 }
 
 .sign-btn{
