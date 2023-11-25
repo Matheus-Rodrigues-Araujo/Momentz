@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="sm:flex w-[260px] my-10 mx-auto flex-col justify-center px-2 py-8 rounded-md border border-customYellow md:w-[500px] px-6 py-12 lg:px-8">
+    <div className="sm:flex my-10 mx-auto flex-col justify-center px-2 py-8 rounded-md  md:w-[500px] md:bg-customGray px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <Link href={'/'}>
           <Image src={Logo} alt="Your Company" className="w-auto h-50"  />
@@ -65,12 +65,11 @@ export default function Home() {
 
         <p className="text-sm mt-10 text-center text-gray-400 md:text-md">
           Don't have an account?
-          <Link href='/register' className="font-semibold leading-6 text-sm text-indigo-600 text-customYellow hover:text-yellow-100 underline md:text-md">Create here</Link>
-
+          <Link href='/register' className="font-semibold leading-6 text-sm text-indigo-600 text-yellow-100 hover:text-yellow-200 underline md:text-md">Create here</Link>
         </p>
         <p className="text-sm mt-10 text-center text-gray-400 md:text-md">
           Forgot password?
-          <Link href='/account/password' className="font-semibold leading-6 text-sm text-indigo-600 text-customYellow hover:text-yellow-100 underline md:text-md">Click here</Link>
+          <Link href='/account/password' className="font-semibold leading-6 text-sm text-indigo-600 text-yellow-100 hover:text-yellow-200 underline md:text-md">Click here</Link>
         </p>
       </div>
     </div>
