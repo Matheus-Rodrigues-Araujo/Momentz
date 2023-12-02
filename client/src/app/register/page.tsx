@@ -2,41 +2,37 @@
 import Image from "next/image"
 import Link from "next/link";
 import Logo from "../../assets/logo.png";
-import { RegisterFormSchema } from "../lib/validations/form";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from 'zod'
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+const birthDateSchema = z.coerce.date();
+type BirthDateSchema = z.infer<typeof birthDateSchema>;
+
+const schema = z.object({
+  username: z.string().min(5, {message: 'Username must have at minimum 5 characters!'}).max(30, {message: 'Username must have at maximum 30 characters'}),
+  birthdate: birthDateSchema,
+  email: z.string().email({message: 'Please, enter a valid email address!'}),
+  password: z.string().min(6, {message: 'The password must have at least 6 characters long!'}).max(20, {message: 'The password must have a maximum of 20 characters!'}),
+  confirmPassword: z.string().min(6, {message: 'The password must have at least 6 characters long!'}).max(20, {message: 'The password must have a maximum of 20 characters!'})
+}).refine((data) => {
+  return data.password === data.confirmPassword;
+}, {
+  message: "Passwords don't match",
+  path: ['Confirm']
+});
 
 export default function Register()  {
   const router = useRouter()
-  const [registerData, setRegisterData] = useState({
-    username: "",
-    birth: new Date().toISOString().split('T')[0],
-    email: "",
-    password: "",
-    confirmPassword:""
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema)
   })
-
-  const handleFormData = (field:string, value: any)=>{
-    return setRegisterData((name) => ({ ...name, [field]: value }));
-  }
-
-  const handleSubmit = async (e:React.FormEvent) => {
-    e.preventDefault()
-    const {username, birth, email, password, confirmPassword} = registerData
-    
-    try {
-      const validateData = RegisterFormSchema.parse({
-        username,
-        birth: new Date(birth),
-        email,
-        password,
-        confirmPassword
-      })
-      console.log(JSON.stringify(validateData))
-      router.push('/')
-    } 
-    catch(error:any) { console.log(error.message) }
-  }
 
   return (
 
@@ -46,36 +42,50 @@ export default function Register()  {
     </div>
 
     <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm ">
-      <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit} >
+      <form className="space-y-6" action="#" method="POST" onSubmit={
+          handleSubmit((data)=> {
+            Object.entries(data).map(e => {
+              if (e[0] === 'birthdate') {
+                const dia = e[1].getDate() + 1;
+                const mes = e[1].getMonth() + 1;
+                const ano = e[1].getFullYear();
+            
+                const mesFormatado = mes <= 9 ? `0${mes}` : mes;
+            
+                console.log(`${dia}/${mesFormatado}/${ano}`);
+              } else {
+                console.log(`${e[0]}: ${e[1]}`);
+              }
+            });
+            router.push('/next')
+        })
+      }>
         <div>
           <label className="block text-sm font-medium leading-6 text-white">Username</label>
           <div className="mt-2">
             <input id="userName" 
-            name="userName" 
-            type="text" 
-            required
-            value={registerData.username}
-            onChange={(e) => handleFormData('username', e.target.value)}
+            {...register('username')}
             className="
             form-input block w-full rounded-md border-0 p-3 text-white
             shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
             focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5"/>
+            {errors.username?.message && <p className="text-red-600 font-bold" >{errors.username?.message.toString()}</p>}
+
           </div>
         </div>
 
         <div>
           <label className="block text-sm font-medium leading-6 text-white">Birth</label>
           <div className="mt-2">
-            <input 
-            id="birthday"
-             type="date"
-             required
-             value={registerData.birth}
-             onChange={(e) => handleFormData('birth', e.target.value )}
+            <input
+            type="date"
+            {...register('birthdate')}
              className="
                 form-input block w-full rounded-md border-0 p-3 text-white
                 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5"/>
+                focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5"
+            />
+            {errors.birthdate?.message && <p className="text-red-600 font-bold" >{errors.birthdate?.message.toString()}</p>}
           </div>
         </div>
         
@@ -84,17 +94,13 @@ export default function Register()  {
           <div className="mt-2">
             <input 
               id="email" 
-              name="email" 
-              type="email" 
-              autoComplete="email" 
-              required 
-              value={registerData.email}
-              onChange={(e) => handleFormData('email', e.target.value)}
+              {...register('email')}
               className="
               form-input block w-full rounded-md border-0 p-3 text-white
               shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
               focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5"
             />
+            {errors.email?.message && <p className="text-red-600 font-bold" >{errors.email?.message.toString()}</p>}
           </div>
         </div>
 
@@ -104,18 +110,14 @@ export default function Register()  {
           </div>
           <div className="mt-2">
             <input 
-              id="password" 
-              name="password" 
-              type="password" 
-              autoComplete="current-password" 
-              required 
-              value={registerData.password}
-              onChange={(e) => handleFormData('password', e.target.value)}
+            type="password"
+             {...register('password')}
               className="
               form-input block w-full rounded-md border-0 p-3 text-white
               shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
               focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5"
             />
+            {errors.password?.message && <p className="text-red-600 font-bold" >{errors.password?.message.toString()}</p>}
           </div>
         </div>
 
@@ -124,18 +126,14 @@ export default function Register()  {
             <label className="block text-sm font-medium leading-6 text-white">Confirm Password</label>
           </div>
           <div className="mt-2">
-            <input 
-            id="confirmPassword" 
-            name="confirmPassword" 
-            type="password" 
-            autoComplete="confirmPassword" 
-            required 
-            value={registerData.confirmPassword}
-            onChange={(e) => handleFormData('confirmPassword', e.target.value)}
+            <input
+            type="password"
+            {...register('confirmPassword')}
             className="
             form-input block w-full rounded-md border-0 p-3 text-white
             shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
             focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5"/>
+            {errors.confirmPassword?.message && <p className="text-red-600 font-bold" >{errors.confirmPassword?.message.toString()}</p>}
           </div>
         </div>
 
