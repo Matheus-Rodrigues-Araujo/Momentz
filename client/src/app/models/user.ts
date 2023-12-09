@@ -1,10 +1,20 @@
-import mongoose, {Schema, model, models} from "mongoose";
+import mongoose, {Document, Schema, model, models, Types} from "mongoose";
 
-const DBConnection: string | undefined = process.env.DATABASE_URI;
-DBConnection ? mongoose.connect(DBConnection) : console.error(".env is not defined")
+const DBConnection = process.env.DATABASE_URI || "";
+mongoose.connect(DBConnection)
 mongoose.Promise = global.Promise;
 
-const userSchema = new Schema({
+export interface IUser extends Document{
+    username: string;
+    birthdate: Date;
+    email: string;
+    password: string;
+    profileImage: string;
+    followings: Types.ObjectId[],
+    followers: Types.ObjectId[],
+}
+
+const userSchema = new Schema<IUser>({
     username: {
         type: String,
         required: true,
@@ -23,6 +33,7 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
+        minlength: 6,
     },
     profileImage: {
         type: String,
@@ -30,16 +41,19 @@ const userSchema = new Schema({
     },
     followings: {
         type: [Schema.Types.ObjectId],
-        default: []
+        default: [],
     },
     followers: {
         type: [Schema.Types.ObjectId],
         default: []
-    },
-},{
+    }
+    
+},
+{
     timestamps: true,
+    collection: 'App',
 })
 
 const User = models.User || model("User", userSchema);
 
-module.exports = User;
+export default User;

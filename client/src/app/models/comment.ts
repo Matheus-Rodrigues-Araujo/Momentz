@@ -1,10 +1,12 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import { Document, Schema, model, models, Types } from "mongoose";
 
-const DBConnection: string | undefined = process.env.DATABASE_URI;
-DBConnection ? mongoose.connect(DBConnection) : console.error(".env is not defined")
-mongoose.Promise = global.Promise;
+export interface IComment extends Document{
+    authorId: Types.ObjectId;
+    postId: Types.ObjectId;
+    content: string;
+}
 
-const commentSchema = new Schema({
+const commentSchema = new Schema<IComment>({
     authorId: {
         type: Schema.Types.ObjectId,
         ref: "User",
@@ -22,8 +24,9 @@ const commentSchema = new Schema({
     }
 },{
     timestamps: true,
+    collection: 'App',
 });
 
 const Comment = models.Comment || model("Comment", commentSchema);
 
-module.exports = Comment;
+export default Comment;

@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from 'zod'
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+// import { useEffect, useState } from "react";
+// import { User } from "../models/user";
 
 const birthDateSchema = z.coerce.date();
 type BirthDateSchema = z.infer<typeof birthDateSchema>;
@@ -25,6 +26,7 @@ const schema = z.object({
 });
 
 export default function Register()  {
+
   const router = useRouter()
   const {
     register,
@@ -43,28 +45,36 @@ export default function Register()  {
 
     <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm ">
       <form className="space-y-6" action="#" method="POST" onSubmit={
-          handleSubmit((data)=> {
-            Object.entries(data).map(e => {
-              if (e[0] === 'birthdate') {
-                const dia = e[1].getDate() + 1;
-                const mes = e[1].getMonth() + 1;
-                const ano = e[1].getFullYear();
-            
-                const mesFormatado = mes <= 9 ? `0${mes}` : mes;
-            
-                console.log(`${dia}/${mesFormatado}/${ano}`);
-              } else {
-                console.log(`${e[0]}: ${e[1]}`);
+          handleSubmit(async(data)=> {
+          //  const {username, birthdate, email, password} = data
+           try {
+             const response = await fetch("http://localhost:3000/api/handleform",{
+              method: "GET",
+              headers: {
+                "content-type": "application/json"
               }
-            });
-            router.push('/next')
+            })
+            
+            if(response.ok){
+              console.log("Success")
+              router.push('/next')
+            }
+            else{
+              console.log("Something went wrong")
+            }
+            
+           } catch (error) {
+            console.log("error")
+           }
+
         })
       }>
         <div>
           <label className="block text-sm font-medium leading-6 text-white">Username</label>
           <div className="mt-2">
-            <input id="userName" 
+            <input id="userName"
             {...register('username')}
+            name="username"
             className="
             form-input block w-full rounded-md border-0 p-3 text-white
             shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
@@ -80,6 +90,7 @@ export default function Register()  {
             <input
             type="date"
             {...register('birthdate')}
+            name="birthdate"
              className="
                 form-input block w-full rounded-md border-0 p-3 text-white
                 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
@@ -93,8 +104,9 @@ export default function Register()  {
           <label className="block text-sm font-medium leading-6 text-white">Email</label>
           <div className="mt-2">
             <input 
-              id="email" 
+              id="email"
               {...register('email')}
+              name="email"
               className="
               form-input block w-full rounded-md border-0 p-3 text-white
               shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
@@ -112,6 +124,7 @@ export default function Register()  {
             <input 
             type="password"
              {...register('password')}
+             name="password"
               className="
               form-input block w-full rounded-md border-0 p-3 text-white
               shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
@@ -129,6 +142,7 @@ export default function Register()  {
             <input
             type="password"
             {...register('confirmPassword')}
+            name="confirm-password"
             className="
             form-input block w-full rounded-md border-0 p-3 text-white
             shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400

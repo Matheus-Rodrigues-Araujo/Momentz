@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/components/postCard.tsx", "src/app/register/page.tsx", "db.ts", "src/app/api/route.js"  ],
+, "src/components/postCard.tsx", "src/app/register/page.tsx", "db.ts", "src/app/api/handleform/route.ts"  ],
   "exclude": [
     "node_modules"
   ]
