@@ -13,8 +13,64 @@ export default function Register() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
+  const [errors, setErrors] = useState({
+    username: '',
+    birthdate: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { ...errors };
+
+    if (!username.trim()) {
+      newErrors.username = 'Username is required';
+      valid = false;
+    } else {
+      newErrors.username = '';
+    }
+
+    if (!birthdate) {
+      newErrors.birthdate = 'Birthdate is required';
+      valid = false;
+    } else {
+      newErrors.birthdate = '';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      newErrors.email = 'Invalid email address';
+      valid = false;
+    } else {
+      newErrors.email = '';
+    }
+
+    if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+      valid = false;
+    } else {
+      newErrors.password = '';
+    }
+
+    if (password !== confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+      valid = false;
+    } else {
+      newErrors.confirmPassword = '';
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    if(!validateForm()){
+      return
+    }
 
     const formData = {
       username, birthdate, email, password, confirmPassword
@@ -48,10 +104,10 @@ export default function Register() {
                 name="username"
                 autoComplete='username'
                 value={username}
-                required
                 onChange={e => setUsername(e.target.value)}
                 className="form-input block w-full rounded-md border-0 p-3 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5"
               />
+              {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
             </div>
           </div>
 
@@ -62,10 +118,10 @@ export default function Register() {
                 type="date"
                 name="birthdate"
                 value={birthdate}
-                required
                 onChange={e => setBirthdate(e.target.value)}
                 className="form-input block w-full rounded-md border-0 p-3 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5"
               />
+              {errors.birthdate && <p className="text-red-500 text-sm mt-1">{errors.birthdate}</p>}
             </div>
           </div>
 
@@ -76,10 +132,10 @@ export default function Register() {
                 id="email"
                 name="email"
                 value={email}
-                required
                 onChange={e => setEmail(e.target.value)}
                 className="form-input block w-full rounded-md border-0 p-3 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5"
               />
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
             </div>
           </div>
 
@@ -93,10 +149,10 @@ export default function Register() {
                 name="password"
                 autoComplete='new-password'
                 value={password}
-                required
                 onChange={e => setPassword(e.target.value)}
                 className="form-input block w-full rounded-md border-0 p-3 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5"
               />
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
             </div>
           </div>
 
@@ -110,10 +166,10 @@ export default function Register() {
                 name="confirm-password"
                 autoComplete='new-password'
                 value={confirmPassword}
-                required
                 onChange={e => setConfirmPassword(e.target.value)}
                 className="form-input block w-full rounded-md border-0 p-3 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5"
               />
+              {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
             </div>
           </div>
 
