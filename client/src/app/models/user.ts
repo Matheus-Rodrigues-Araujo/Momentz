@@ -51,7 +51,6 @@ const userSchema = new Schema<IUser>({
 },
 {
     timestamps: true,
-    collection: 'App',
 })
 
 const User = models.User || model("User", userSchema);
