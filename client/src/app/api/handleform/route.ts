@@ -18,9 +18,8 @@ export async function GET() {
   
   export async function POST(req: NextRequest): Promise<NextResponse> {
     try {
-      // const { username, birthdate, email, password, confirmPassword } = await req.json();
       const body = await req.json()
-      const {username, birthdate, email, password} = body.formData
+      const {username, birthdate, email, password} = body
       console.log(body)
       await User.create({
         username: username,
@@ -28,9 +27,7 @@ export async function GET() {
         email: email,
         password: password,
       });
-      
-      // const body = await req.json()
-  
+        
       return NextResponse.json({ message: 'User Created' }, { status: 201 });
     } catch (err: any) {
       console.error('Error creating user:', err);
