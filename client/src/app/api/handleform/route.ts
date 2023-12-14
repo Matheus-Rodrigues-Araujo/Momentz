@@ -20,7 +20,7 @@ export async function GET() {
     try {
       const body = await req.json()
       const {username, birthdate, email, password} = body
-      console.log(body)
+      // console.log(body)
       await User.create({
         username: username,
         birthdate: birthdate,

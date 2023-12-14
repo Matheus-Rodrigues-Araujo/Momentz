@@ -1,5 +1,5 @@
 import { PostCard } from "@/components/postCard";
-import Layout from "../../components/nextLayout";
+import Layout from "./nextLayout";
 import postsList from '../../randomPostsData';
 
 export default function Next() {
