@@ -4,11 +4,7 @@ import Logo from "../assets/logo.png";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-const schema = z.object({
-  email: z.string().email({message: 'Please, enter a valid email address!'}),
-  password: z.string().min(6, {message: 'The password must have at least 6 characters long!'}).max(20, {message: 'The password must have a maximum of 20 characters!'})
-})
+import axios from 'axios'
 
 export default function Home() {
   const router = useRouter()
@@ -52,21 +48,11 @@ export default function Home() {
       }
   
       const payload = { email, password };
-      // const response = await fetch('/api/login', {
-      //   method: "POST",
-      //   body: JSON.stringify(formData),
-      //   //@ts-ignore
-      //   "Content-Type": "application/json",
-      // });
-      const response = await axios.post("api/auth/login", payload)
-      alert(JSON.stringify(response?.data))
+     
+      await axios.post("api/auth/login", payload)
       
-
-      // if (response.status === 200) {
-        router.push('/next');
-      // } else {
-        // console.error('Error in Login');
-      // }
+      router.push('/next');
+    
     } catch (error) {
       console.error('Error processing login:', error);
     }
@@ -117,7 +103,6 @@ export default function Home() {
                 focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5
                 "
               />
-              {errors.password && <p className="text-red-500 text-sm mt-1" >{errors.password}</p>}
               {errors.password && <p className="text-red-500 text-sm mt-1" >{errors.password}</p>}
             </div>
           </div>
