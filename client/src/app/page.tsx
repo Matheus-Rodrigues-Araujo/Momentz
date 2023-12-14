@@ -4,7 +4,11 @@ import Logo from "../assets/logo.png";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from 'axios'
+
+const schema = z.object({
+  email: z.string().email({message: 'Please, enter a valid email address!'}),
+  password: z.string().min(6, {message: 'The password must have at least 6 characters long!'}).max(20, {message: 'The password must have a maximum of 20 characters!'})
+})
 
 export default function Home() {
   const router = useRouter()
@@ -113,6 +117,7 @@ export default function Home() {
                 focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5
                 "
               />
+              {errors.password && <p className="text-red-500 text-sm mt-1" >{errors.password}</p>}
               {errors.password && <p className="text-red-500 text-sm mt-1" >{errors.password}</p>}
             </div>
           </div>

@@ -28,6 +28,7 @@ export async function GET() {
         password: password,
       });
         
+        
       return NextResponse.json({ message: 'User Created' }, { status: 201 });
     } catch (err: any) {
       console.error('Error creating user:', err);
