@@ -1,6 +1,7 @@
 import User from '@/app/models/user';
 import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
+import { compare } from 'bcrypt';
 import { serialize } from 'cookie';
 import { MAX_AGE } from '@/constants';
 import { COOKIE_NAME } from '@/constants';
@@ -16,7 +17,9 @@ export async function POST(request: Request) {
         const body:IBodyRequest = await request.json()
         const user = await User.findOne({ email: body.email });
 
-        if (!user || user.email !== body.email || user.password !== body.password) {
+        const comparePassword = await compare(body.password, user.password) 
+
+        if (!user || user.email !== body.email || !comparePassword) {
             return NextResponse.json(
                 { 
                     message: 'Wrong credentials' 

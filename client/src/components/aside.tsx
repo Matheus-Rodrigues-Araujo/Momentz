@@ -15,8 +15,6 @@ export const Aside = ({userData}: {userData: UserData | null}) => {
     const [loading, setLoading] = useState(true)
 
     const profileImage = userData?.profileImage || ''
-    // const dbImage = userData?.profileImage
-    // console.log(profileImage === dbImage)
 
     useEffect(() => {
         const delay = setTimeout(()=>{
