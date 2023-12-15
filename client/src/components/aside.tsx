@@ -8,9 +8,15 @@ import { Footer } from "./footer"
 import Skeleton from 'react-loading-skeleton'
 import '../../node_modules/react-loading-skeleton/dist/skeleton.css';
 import { useState, useEffect } from 'react'
+import { UserData } from "@/app/next/nextLayout"
 
-export const Aside = () => {
+
+export const Aside = ({userData}: {userData: UserData | null}) => {
     const [loading, setLoading] = useState(true)
+
+    const profileImage = userData?.profileImage || ''
+    // const dbImage = userData?.profileImage
+    // console.log(profileImage === dbImage)
 
     useEffect(() => {
         const delay = setTimeout(()=>{
@@ -25,13 +31,13 @@ export const Aside = () => {
             <div className="flex gap-4" >
             {loading ? 
                 <Skeleton width={50} height={50} className=' h-10 rounded-full mr-2 product-image' style={{borderRadius: '10em'}} /> 
-                :<Image src={spiderman} alt="User profile"  className="object-cover h-14 w-14 rounded-full" />
+                :<Image src={profileImage} height={50} width={50} alt="User profile"  className="object-cover h-14 w-14 rounded-full" />
             }
             
                 <div className="flex flex-col" >
                     {loading ?
                         <Skeleton width={100} />
-                        :<h4 className="text-white font-medium" >TheRealJohnDoe</h4>
+                        :<h4 className="text-white font-medium" >{userData?.username}</h4>
                     }
                     {loading ?
                         <Skeleton width={50} /> 

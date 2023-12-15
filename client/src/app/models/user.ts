@@ -37,7 +37,7 @@ const userSchema = new Schema<IUser>({
     },
     profileImage: {
         type: String,
-        default: "../../../public/default-profile-image.jpg",
+        default: "/default-profile-image.jpg",
     },
     followings: {
         type: [Schema.Types.ObjectId],

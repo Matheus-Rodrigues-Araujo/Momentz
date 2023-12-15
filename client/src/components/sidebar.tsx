@@ -12,8 +12,10 @@ import {
   UserIcon
 } from '@heroicons/react/24/solid'
 import { useEffect, useState } from "react"
+import { UserData, UserResponse } from "@/app/next/nextLayout"
 
-export default function Sidebar(){
+export default function Sidebar({userData}: {userData: UserData | null}){
+  
   const isClient = typeof window !== 'undefined';
   const [windowWidth, setWindowWidth] = useState(isClient ? window.innerWidth || 0 : 0);
 

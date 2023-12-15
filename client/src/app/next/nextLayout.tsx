@@ -4,63 +4,70 @@ import { Aside } from '../../components/aside'
 import { useEffect, useState } from 'react'
 import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
-// import Next from './page'
 
-interface UserResponse{
-  user: string | null;
+export interface UserData {
+  username: string;
+  email: string;
+  birthdate: string;
+  profileImage: string;
+}
+
+export interface UserResponse {
+  user: UserData | null;
   error: AxiosError | null;
 }
 
 async function getUser(): Promise<UserResponse> {
   try {
-    const { data } =  await axios.get('/api/auth/user')
-    console.log('data: ',data)
+    const { data } = await axios.get('/api/auth/user');
+    const { user } = data;
     return {
-      user: data,
+      user: user,
       error: null
-    }
+    };
   } catch (e) {
-      const error = e as AxiosError
-      return {
-        user: null,
-        error
-      }
+    const error = e as AxiosError;
+    return {
+      user: null,
+      error
+    };
   }
 }
 
-export default function NextLayout({ children }:{children: React.ReactNode}) {
-  const router = useRouter()
-  const [isLogged, setIsLogged] = useState(false)
-  
-  useEffect(()=>{
-    (async () => {
-      const {user, error} = await getUser()
+export default function NextLayout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const [isLogged, setIsLogged] = useState(false);
+  const [userData, setUserData] = useState<UserData | null>(null);
 
-      if(error){
-        router.push('/')
+  useEffect(() => {
+    (async () => {
+      const { user, error } = await getUser();
+
+      if (error) {
+        router.push('/');
         return;
       }
 
-      setIsLogged(true)
+      setUserData(user);
+      setIsLogged(true);
+    })();
+  }, [router]);
 
-    })()
-  }, [router])
-
-  if(!isLogged){
-    return <p className='text-red-600' >Loading...</p>
+  if (!isLogged) {
+    return <p className='text-red-600'>Loading...</p>;
   }
 
   return (
     <div>
-      <main className='min-h-screen ' style={{backgroundColor: '#0e0d0e'}} >
-        <Sidebar/>
+      <main className='min-h-screen' style={{ backgroundColor: '#0e0d0e' }}>
+        <Sidebar userData={userData} />
         <div className='flex justify-center'>
-          <div className='flex justify-center gap-10 mb-20 md:ml-20 md:mb-0' >
+          <div className='flex justify-center gap-10 mb-20 md:ml-20 md:mb-0'>
             {children}
-            <Aside/>
+            <Aside userData={userData} />
           </div>
         </div>
       </main>
     </div>
-  )
+  );
 }
