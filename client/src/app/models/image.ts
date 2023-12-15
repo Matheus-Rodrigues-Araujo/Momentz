@@ -31,3 +31,4 @@ export interface IImage extends Document {
 const Image = models.Image || model("Image", imageSchema);
 
 export default Image;
+
