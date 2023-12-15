@@ -13,7 +13,6 @@ import { UserData } from "@/app/next/nextLayout"
 
 export const Aside = ({userData}: {userData: UserData | null}) => {
     const [loading, setLoading] = useState(true)
-
     const profileImage = userData?.profileImage || ''
 
     useEffect(() => {
@@ -29,7 +28,7 @@ export const Aside = ({userData}: {userData: UserData | null}) => {
             <div className="flex gap-4" >
             {loading ? 
                 <Skeleton width={50} height={50} className=' h-10 rounded-full mr-2 product-image' style={{borderRadius: '10em'}} /> 
-                :<Image src={profileImage} height={50} width={50} alt="User profile"  className="object-cover h-14 w-14 rounded-full" />
+                :<Image src={profileImage} height={50} width={50} alt="User profile"  className="object-cover bg-white p-[1px] h-14 w-14 rounded-full" />
             }
             
                 <div className="flex flex-col" >

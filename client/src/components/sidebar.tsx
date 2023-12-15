@@ -18,6 +18,7 @@ export default function Sidebar({userData}: {userData: UserData | null}){
   
   const isClient = typeof window !== 'undefined';
   const [windowWidth, setWindowWidth] = useState(isClient ? window.innerWidth || 0 : 0);
+  const profileImage = userData?.profileImage || ''
 
   useEffect(() => {
     const handleResize = () => {
@@ -83,8 +84,9 @@ export default function Sidebar({userData}: {userData: UserData | null}){
             </Link>
             <Link href="/" className="nav-item-container">
               <div className="flex gap-4 items-center p-2 text-center">
-                <div className="icon-container bg-white p-2 bg-white rounded-full" >
-                  <UserIcon className="h-6 w-6 text-customDark  text-black" />
+                <div className="icon-container bg-white p-[1px] rounded-full" >
+                  {/* <UserIcon className="h-6 w-6 text-customDark  text-black" /> */}
+                <Image src={profileImage} width={50} height={50} alt="User profile"  className="object-cover h-9 w-9 rounded-full" />
                 </div>
                 <p className="hidden xl:block">Profile</p>
               </div>
