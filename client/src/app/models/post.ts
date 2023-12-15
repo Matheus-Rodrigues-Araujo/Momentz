@@ -1,10 +1,13 @@
-import { Document, Schema, model, models, Types } from "mongoose";
+import mongoose, { Document, Schema, model, models, Types } from "mongoose";
+import { connectDatabase } from "../lib/db";
+
+connectDatabase()
 
 export interface IPost extends Document {
     authorId: Types.ObjectId;
     content: string;
     likes: Types.ObjectId[];
-    images: Types.ObjectId[]; // Array de referências às imagens associadas
+    images: Types.ObjectId[];
 }
 
 const postSchema = new Schema<IPost>(
@@ -33,7 +36,6 @@ const postSchema = new Schema<IPost>(
 },
 {
     timestamps: true,
-    collection: 'App',
 }
 );
 

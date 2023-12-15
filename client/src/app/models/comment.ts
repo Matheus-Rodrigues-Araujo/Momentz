@@ -1,4 +1,7 @@
 import { Document, Schema, model, models, Types } from "mongoose";
+import { connectDatabase } from "../lib/db";
+
+connectDatabase()
 
 export interface IComment extends Document{
     authorId: Types.ObjectId;

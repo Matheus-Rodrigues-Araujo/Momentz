@@ -1,8 +1,7 @@
 import mongoose, {Document, Schema, model, models, Types} from "mongoose";
+import { connectDatabase } from "../lib/db";
 
-const DBConnection = process.env.DATABASE_URI || "";
-mongoose.connect(DBConnection)
-mongoose.Promise = global.Promise;
+connectDatabase()
 
 export interface IUser extends Document{
     username: string;
