@@ -18,7 +18,7 @@ export default function Sidebar({userData}: {userData: UserData | null}){
   
   const isClient = typeof window !== 'undefined';
   const [windowWidth, setWindowWidth] = useState(isClient ? window.innerWidth || 0 : 0);
-  const profileImage = userData?.profileImage || ''
+  const profileImage = userData?.profileImage || '/default-profile-image.jpg'
 
   useEffect(() => {
     const handleResize = () => {

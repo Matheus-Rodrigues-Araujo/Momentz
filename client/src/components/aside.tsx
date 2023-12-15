@@ -13,7 +13,7 @@ import { UserData } from "@/app/next/nextLayout"
 
 export const Aside = ({userData}: {userData: UserData | null}) => {
     const [loading, setLoading] = useState(true)
-    const profileImage = userData?.profileImage || ''
+    const profileImage = userData?.profileImage || '/default-profile-image.jpg'
 
     useEffect(() => {
         const delay = setTimeout(()=>{
