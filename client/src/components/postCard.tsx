@@ -10,6 +10,17 @@ export const PostCard = ({post}:IPost) => {
     const [text, setText] = useState('');
     const [loading, setLoading] = useState(true)
 
+    function randomNumber() {
+        const number = Math.random();
+        const finalNumber = Math.floor(number * 20) + 1;
+      
+        return finalNumber;
+      }
+    
+    const getNumber = randomNumber() 
+    const postImage = `/uplouds/post-${getNumber}.jpg`
+    const profileImage = '/default-profile-image.jpg'
+
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(event.target.value);
       };
@@ -34,7 +45,7 @@ export const PostCard = ({post}:IPost) => {
                 <div className="mb-4 flex items-center ">
                 {loading ? 
                     <Skeleton width={40} className=' h-10 rounded-full mr-2 product-image' style={{borderRadius: '2em'}} /> 
-                    :<Image src={post.profileImage} alt="Profile image" className="object-cover w-10 h-10 rounded-full mr-2"/>
+                    :<Image src={profileImage} width={50} height={50} alt="Profile image" className="object-cover w-10 h-10 rounded-full mr-2"/>
                 }
                     <div className='flex items-center gap-3' >
                         {loading ? 
@@ -43,14 +54,17 @@ export const PostCard = ({post}:IPost) => {
                         }
                         {loading ? 
                             <Skeleton width={120}/> 
-                            :<p className="text-gray-500 text-sm">{post.datetime.toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'})}</p>
+                            :<p className="text-gray-500 text-sm">
+                                2023-12-10
+                                {/* {post.datetime.toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'})} */}
+                                </p>
                         }
                     </div>
                 </div>
 
                 {loading ? 
                     <Skeleton className='skeleton-img' /> 
-                    : <Image src={post.postImage} alt="Post image" className="h-auto w-[460px] rounded-md md:max-w-[500px]"/>
+                    : <img src={postImage} width={50} height={50} alt="Post image" className="h-auto w-[460px] rounded-md md:max-w-[500px]"/>
                 }
 
                 <div className="flex items-center mt-4 space-x-2">

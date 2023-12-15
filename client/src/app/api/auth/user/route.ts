@@ -9,8 +9,8 @@ interface DecodedToken extends JwtPayload {
 }
 
 export async function GET(req:Request) {
-  const cookieStore = cookies()
-  const token = cookieStore.get(COOKIE_NAME) || null
+  const cookieStore = cookies();
+  const token = cookieStore.get(COOKIE_NAME) || null;
   
   if(!token){
     return NextResponse.json({message: 'Unauthorized'}, {status: 401})
@@ -26,14 +26,14 @@ export async function GET(req:Request) {
       return NextResponse.json({ message: 'Invalid Token' }, { status: 403 });
     }
 
-    const { userId } =  decodedToken
+    const { userId } =  decodedToken;
 
-    const userDocument = await User.findOne({ _id : userId })
-    const { username, email, birthdate, profileImage } =  userDocument
-    const user = {username, email, birthdate, profileImage}
+    const userDocument = await User.findOne({ _id : userId });
+    const { username, email, birthdate, profileImage } =  userDocument;
+    const user = {username, email, birthdate, profileImage};
 
-    return new Response(JSON.stringify({user: user}), {status: 200} )
+    return new Response(JSON.stringify({user: user}), {status: 200} );
   } catch(e){
-    return NextResponse.json({message: 'Something went wrong'}, {status: 400})
+    return NextResponse.json({message: 'Something went wrong'}, {status: 400});
   }
 }

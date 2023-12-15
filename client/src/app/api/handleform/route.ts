@@ -8,6 +8,15 @@ interface CustomError {
     error?:string;
   }
 
+export async function GET(){
+  try {
+    const users = await User.find()
+    return NextResponse.json({users: users}, { status: 200 })
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const body = await req.json()
