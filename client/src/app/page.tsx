@@ -2,40 +2,19 @@
 import Image from "next/image";
 import Logo from "../assets/logo.png";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from 'axios'
-import { UserData, getUser } from "./next/nextLayout";
 
 export default function Home() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [isLogged, setIsLogged] = useState(false);
 
   const [errors, setErrors] = useState({
     email: '',
     password: '',
   });
-
-  useEffect(() => {
-    (async () => {
-      const { error } = await getUser();
-
-      if (error) {
-        router.push('/');
-        return;
-      }
-
-      router.push('/next');
-      // setUserData(user);
-      setIsLogged(true);
-    })();
-  }, [router]);
-
-  if (!isLogged) {
-    return <p className='text-red-600'>Loading...</p>;
-  }
 
   const validateForm = () => {
     let valid = true;
