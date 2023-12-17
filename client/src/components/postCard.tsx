@@ -10,15 +10,16 @@ export const PostCard = ({post}:IPost) => {
     const [text, setText] = useState('');
     const [loading, setLoading] = useState(true)
 
-    function randomNumber() {
-        const number = Math.random();
-        const finalNumber = Math.floor(number * 20) + 1;
+    console.log(post)
+    // function randomNumber() {
+    //     const number = Math.random();
+    //     const finalNumber = Math.floor(number * 20) + 1;
       
-        return finalNumber;
-      }
+    //     return finalNumber;
+    //   }
     
-    const getNumber = randomNumber() 
-    const postImage = `/uplouds/post-${getNumber}.jpg`
+    // const getNumber = randomNumber() 
+    const postImage = `/uplouds/post-3.jpg`
     const profileImage = '/default-profile-image.jpg'
 
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
