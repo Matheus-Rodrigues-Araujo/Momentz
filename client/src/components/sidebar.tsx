@@ -53,7 +53,7 @@ export default function Sidebar({userData}: {userData: UserData | null}){
                 : <Image src={logoClip} className=" w-auto h-20 pb-1" alt="Logo"/>}
               </div>
             </Link>
-            <Link href="/" className="nav-item-container" >
+            <Link href="/" className="hidden md:block nav-item-container" >
               <div className="sm:mt-0 md:mt-10 flex gap-4 items-center p-2 text-center">
                 <div className="icon-container bg-white p-2 bg-white rounded-full " >
                   <HomeIcon className="h-6 w-6 text-customDark  text-black" />
@@ -69,7 +69,7 @@ export default function Sidebar({userData}: {userData: UserData | null}){
                 <p className="hidden xl:block">Search</p>
               </div>
             </Link>
-            <Link href="/" className="nav-item-container">
+            <Link href="/" className="hidden md:block nav-item-container">
               <div className="flex gap-4 items-center p-2 text-center">
                 <div className="icon-container bg-white p-2 bg-white rounded-full" >
                   <BellIcon className="h-6 w-6 text-customDark  text-black" />
@@ -103,7 +103,7 @@ export default function Sidebar({userData}: {userData: UserData | null}){
               
             </Link>
 
-            <div className="hidden absolute bottom-10 md:block" >
+            <div className="md:absolute bottom-10" >
               <div className="cursor-pointer relative " onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                 <div className="flex gap-4 items-center p-2 text-center">
                   <div className="icon-container rounded-full hover:bg-customLighterPink ">
@@ -112,7 +112,7 @@ export default function Sidebar({userData}: {userData: UserData | null}){
                   <p className="hidden xl:block">More</p>
                 </div>
                 {isDropdownOpen && (
-                  <div className="fixed grid left-6 bottom-[85px] bg-white rounded shadow-md">
+                  <div className="fixed grid bg-white rounded shadow-md md:left-6 bottom-[85px]">
                     <Link href="/settings" className="text-black text-sm p-3 hover:bg-customLighterPink hover:text-white" >Settings</Link>
                     <button className="text-black text-sm p-3 hover:bg-customLighterPink hover:text-white" >Theme</button>
                     <button onClick={logout}  className="text-black text-sm p-3 hover:bg-customLighterPink hover:text-white">Logout</button>
