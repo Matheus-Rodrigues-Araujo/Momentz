@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Logo from "../assets/logo.png";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from 'axios'
 
@@ -10,11 +10,25 @@ export default function Home() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
+  const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({
     email: '',
     password: '',
   });
+
+  const verifyAuthentication = async () => {
+    const {data} = await axios.get('api/auth/user')
+    if (!data?.user) {
+      router.push('/')
+    }
+    setIsLoading(true)
+    router.push('/next')
+  }
+
+  useEffect(()=> {
+    verifyAuthentication()
+  }, [])
+
 
   const validateForm = () => {
     let valid = true;
@@ -58,6 +72,10 @@ export default function Home() {
     }
   };
 
+
+  if(!isLoading){
+    return <p>Loading...</p>
+  }
 
   return (
     <div className="sm:flex my-10 mx-auto flex-col justify-center px-2 py-8 rounded-md  md:w-[500px] md:bg-customGray px-6 py-12 lg:px-8">
