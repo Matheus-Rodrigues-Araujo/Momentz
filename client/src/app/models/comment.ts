@@ -1,5 +1,5 @@
 import { Document, Schema, model, models, Types } from "mongoose";
-import { connectDatabase } from "../lib/db";
+import { connectDatabase } from "@/lib/db";
 
 connectDatabase()
 

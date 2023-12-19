@@ -15,7 +15,8 @@ import {
   Cog8ToothIcon,
   SunIcon,
   MoonIcon,
-  ArrowLeftOnRectangleIcon
+  ArrowLeftOnRectangleIcon,
+  UserCircleIcon
 } from '@heroicons/react/24/solid'
 
 import { useRouter } from "next/navigation"
@@ -100,10 +101,10 @@ export default function Sidebar({userData}: {userData: UserData | null}){
                 <p className="hidden xl:block">Create</p>
               </div>
             </Link>
-            <Link href="/" className="nav-item-container">
+            <Link href="/" className="hidden md:block nav-item-container">
               <div className="flex gap-4 items-center p-2 text-center">
                 <div className="icon-container bg-white p-[1px] rounded-full" >
-                <Image src={profileImage} width={50} height={50} alt="User profile"  className="object-cover h-9 w-9 rounded-full" />
+                  <Image src={profileImage} width={50} height={50} alt="User profile"  className="object-cover h-9 w-9 rounded-full" />
                 </div>
                 <p className="hidden xl:block">Profile</p>
               </div>
@@ -114,18 +115,25 @@ export default function Sidebar({userData}: {userData: UserData | null}){
               <div className="cursor-pointer relative nav-item-container" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                 <div className="flex gap-4 items-center p-2 text-center">
                   <div className="rounded-full menu">
-                    <Bars3Icon className=" h-10 w-10 text-customDark  text-white" />
+                    <Bars3Icon className="hidden h-10 w-10 text-customDark  text-white md:block" />
+                    <div className="md:hidden icon-container bg-white p-[1px] rounded-full" >
+                      <Image src={profileImage} width={50} height={50} alt="User profile"  className="object-cover h-9 w-9 rounded-full" />
+                    </div>
                   </div>
                   <p className="hidden xl:block">More</p>
                 </div>
                 {isDropdownOpen && (
-                  <div className="fixed grid bg-customGray rounded-md shadow-md md:left-6 bottom-[85px]">
+                  <div className="w-[125px] fixed grid bg-customGray rounded-md shadow-md right-2 md:left-6 md:right-0 bottom-[85px]">
+                    <Link href="/profile" className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white" >
+                      <UserCircleIcon className=" h-6 w-6 text-customDark  text-white"/>
+                      <p>My Profile</p>
+                    </Link>
                     <Link href="/settings" className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white" >
-                      <Cog8ToothIcon className=" h-7 w-7 text-customDark  text-white"/>
+                      <Cog8ToothIcon className=" h-6 w-6 text-customDark  text-white"/>
                       <p>Settings</p>
                     </Link>
                     <button onClick={()=> setDarkTheme(!darkTheme)} className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white" >
-                      {darkTheme ? <MoonIcon className=" h-7 w-7 text-customDark text-white"/>: <SunIcon className=" h-7 w-7 text-customDark  text-white"/>}
+                      {darkTheme ? <MoonIcon className=" h-6 w-6 text-customDark text-white"/>: <SunIcon className=" h-7 w-7 text-customDark  text-white"/>}
                       <p>Theme</p>
                     </button>
                     <button onClick={logout}  className="flex items-center gap-2 text-white text-sm p-3 hover:bg-red-600 hover:text-white">
