@@ -101,14 +101,14 @@ export default function Sidebar({userData}: {userData: UserData | null}){
                 <p className="hidden xl:block">Create</p>
               </div>
             </Link>
-            <Link href="/" className="hidden md:block nav-item-container">
+            
+            <Link href="#" className="hidden md:block nav-item-container">
               <div className="flex gap-4 items-center p-2 text-center">
                 <div className="icon-container bg-white p-[1px] rounded-full" >
                   <Image src={profileImage} width={50} height={50} alt="User profile"  className="object-cover h-9 w-9 rounded-full" />
                 </div>
                 <p className="hidden xl:block">Profile</p>
               </div>
-              
             </Link>
 
             <div className="md:absolute bottom-10" >
@@ -124,7 +124,7 @@ export default function Sidebar({userData}: {userData: UserData | null}){
                 </div>
                 {isDropdownOpen && (
                   <div className="w-[125px] fixed grid bg-customGray rounded-md shadow-md right-2 md:left-6 md:right-0 bottom-[85px]">
-                    <Link href="/profile" className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white" >
+                    <Link href="#" className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white" >
                       <UserCircleIcon className=" h-6 w-6 text-customDark  text-white"/>
                       <p>My Profile</p>
                     </Link>
