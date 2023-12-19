@@ -4,6 +4,9 @@ import { Aside } from '../../components/aside'
 import { useEffect, useState } from 'react'
 import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
+import { useAppDispatch, useAppSelector } from '@/store'
+import { setUser } from '@/reducers/userSlice'
+import { setTheme } from '@/reducers/themeSlice'
 
 export interface UserData {
   username: string;
@@ -35,9 +38,29 @@ export async function getUser(): Promise<UserResponse> {
 }
 
 export default function NextLayout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
+  const dispatch = useAppDispatch()
+  const user = useAppSelector((state) => state.user)
   const [isLogged, setIsLogged] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
+  const router = useRouter();
+
+  const handleLogin = (data:UserData | null)=>{
+   
+    if(data === null){
+      console.error("User data is null");
+      return;
+    }
+    const {username, email, birthdate, profileImage} = data
+  
+    // const userData = {
+    //   username: username,
+    //   email: email,
+    //   birthdate: birthdate,
+    //   profileImage: profileImage,
+    // }
+    dispatch(setUser(data))
+    console.log('redux:', user)
+  }
 
   useEffect(() => {
     (async () => {
@@ -47,8 +70,10 @@ export default function NextLayout({ children }: { children: React.ReactNode }) 
         router.push('/');
         return;
       }
-
+      // console.log(user)
       setUserData(user);
+      // console.log(userData)
+      handleLogin(user)
       setIsLogged(true);
     })();
   }, [router]);
