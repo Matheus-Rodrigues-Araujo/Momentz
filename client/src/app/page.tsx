@@ -34,7 +34,7 @@ export default function Home() {
       setIsLoading(true);
       router.push('/next');
     } catch (error) {
-      handleAuthenticationError(error);
+      console.error(error);
     }
   };
 
@@ -42,14 +42,14 @@ export default function Home() {
     if (axios.isAxiosError(error)) {
       const status = error.response?.status;
 
-      if (status === 401 || status === 403) {
+      if (status === 401 || status === 403 || status === 500) {
         setErrors({ ...errors, general: 'Authentication failed. Please check your credentials.' });
+        setErrors({ ...errors, invalid: 'Invalid credentials!' });
       } else if (status === 400) {
         // Handle other HTTP status codes (e.g., 400) and display appropriate messages
         setErrors({ ...errors, general: 'Bad Request. Please check your input.' });
-      } else if(status === 500){
-        setErrors({ ...errors, invalid: 'Invalid credentials!' });
-        // console.error('Login error', error);
+      } else{
+        console.error('Login error', error);
       }
     }
   };
