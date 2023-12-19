@@ -31,6 +31,10 @@ body {
   background-color: #fc49ae;
 }
 
+.menu:hover{
+  background-color: #fc49ae;
+}
+
 .nav-item-container:hover .icon-container svg{
   color: white;
 }

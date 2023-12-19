@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import logo from '../assets/logo.png'
 import logoClip from '../assets/logo-clip.png'
+
 import { 
   HomeIcon, 
   PlusIcon, 
@@ -10,8 +11,13 @@ import {
   BellIcon,
   EnvelopeIcon,
   UserIcon,
-  Bars3Icon
+  Bars3Icon,
+  Cog8ToothIcon,
+  SunIcon,
+  MoonIcon,
+  ArrowLeftOnRectangleIcon
 } from '@heroicons/react/24/solid'
+
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { UserData, UserResponse } from "@/app/next/nextLayout"
@@ -21,8 +27,9 @@ export default function Sidebar({userData}: {userData: UserData | null}){
   const router = useRouter()
   const isClient = typeof window !== 'undefined';
   const [windowWidth, setWindowWidth] = useState(isClient ? window.innerWidth || 0 : 0);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Novo estado
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const profileImage = userData?.profileImage || '/default-profile-image.jpg'
+  const [darkTheme, setDarkTheme] = useState(true)
 
   const logout = async () => {
     const response = await axios.get('api/auth/logout')
@@ -104,18 +111,27 @@ export default function Sidebar({userData}: {userData: UserData | null}){
             </Link>
 
             <div className="md:absolute bottom-10" >
-              <div className="cursor-pointer relative " onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+              <div className="cursor-pointer relative nav-item-container" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                 <div className="flex gap-4 items-center p-2 text-center">
-                  <div className="icon-container rounded-full hover:bg-customLighterPink ">
+                  <div className="rounded-full menu">
                     <Bars3Icon className=" h-10 w-10 text-customDark  text-white" />
                   </div>
                   <p className="hidden xl:block">More</p>
                 </div>
                 {isDropdownOpen && (
-                  <div className="fixed grid bg-white rounded shadow-md md:left-6 bottom-[85px]">
-                    <Link href="/settings" className="text-black text-sm p-3 hover:bg-customLighterPink hover:text-white" >Settings</Link>
-                    <button className="text-black text-sm p-3 hover:bg-customLighterPink hover:text-white" >Theme</button>
-                    <button onClick={logout}  className="text-black text-sm p-3 hover:bg-customLighterPink hover:text-white">Logout</button>
+                  <div className="fixed grid bg-customGray rounded-md shadow-md md:left-6 bottom-[85px]">
+                    <Link href="/settings" className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white" >
+                      <Cog8ToothIcon className=" h-7 w-7 text-customDark  text-white"/>
+                      <p>Settings</p>
+                    </Link>
+                    <button onClick={()=> setDarkTheme(!darkTheme)} className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white" >
+                      {darkTheme ? <MoonIcon className=" h-7 w-7 text-customDark text-white"/>: <SunIcon className=" h-7 w-7 text-customDark  text-white"/>}
+                      <p>Theme</p>
+                    </button>
+                    <button onClick={logout}  className="flex items-center gap-2 text-white text-sm p-3 hover:bg-red-600 hover:text-white">
+                      <ArrowLeftOnRectangleIcon className=" h-6 w-6 text-customDark  text-white"/>
+                      <p>Logout</p>
+                    </button>
                   </div>
                 )}
               </div>
