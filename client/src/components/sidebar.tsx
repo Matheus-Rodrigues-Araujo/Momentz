@@ -9,16 +9,27 @@ import {
   MagnifyingGlassIcon, 
   BellIcon,
   EnvelopeIcon,
-  UserIcon
+  UserIcon,
+  Bars3Icon
 } from '@heroicons/react/24/solid'
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { UserData, UserResponse } from "@/app/next/nextLayout"
+import axios from "axios"
 
 export default function Sidebar({userData}: {userData: UserData | null}){
-  
+  const router = useRouter()
   const isClient = typeof window !== 'undefined';
   const [windowWidth, setWindowWidth] = useState(isClient ? window.innerWidth || 0 : 0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Novo estado
   const profileImage = userData?.profileImage || '/default-profile-image.jpg'
+
+  const logout = async () => {
+    const response = await axios.get('api/auth/logout')
+    if(response.status === 200){
+      router.push('/')
+    }
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -85,12 +96,30 @@ export default function Sidebar({userData}: {userData: UserData | null}){
             <Link href="/" className="nav-item-container">
               <div className="flex gap-4 items-center p-2 text-center">
                 <div className="icon-container bg-white p-[1px] rounded-full" >
-                  {/* <UserIcon className="h-6 w-6 text-customDark  text-black" /> */}
                 <Image src={profileImage} width={50} height={50} alt="User profile"  className="object-cover h-9 w-9 rounded-full" />
                 </div>
                 <p className="hidden xl:block">Profile</p>
               </div>
+              
             </Link>
+
+            <div className="hidden absolute bottom-10 md:block" >
+              <div className="cursor-pointer relative " onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                <div className="flex gap-4 items-center p-2 text-center">
+                  <div className="icon-container rounded-full hover:bg-customLighterPink ">
+                    <Bars3Icon className=" h-10 w-10 text-customDark  text-white" />
+                  </div>
+                  <p className="hidden xl:block">More</p>
+                </div>
+                {isDropdownOpen && (
+                  <div className="fixed grid left-6 bottom-[85px] bg-white rounded shadow-md">
+                    <Link href="/settings" className="text-black text-sm p-3 hover:bg-customLighterPink hover:text-white" >Settings</Link>
+                    <button className="text-black text-sm p-3 hover:bg-customLighterPink hover:text-white" >Theme</button>
+                    <button onClick={logout}  className="text-black text-sm p-3 hover:bg-customLighterPink hover:text-white">Logout</button>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
       </div>
     )
