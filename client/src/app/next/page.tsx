@@ -23,9 +23,9 @@ interface IUser {
 export default function Next() {
   const [postsList, setPostsList] = useState<[] | undefined>([])
   const [usersList, setUsersList] = useState<[] | undefined>([])
+ 
   const getPosts = async () => {
     try {
-     
       const {data} = await axios.get("api/auth/post")
       const {posts} = data
       setPostsList(posts)
@@ -59,8 +59,6 @@ export default function Next() {
     return usersList && postsList && postsList.map((post: IPost) => {
       const userRelacionado:any = usersList.find((user: IUser) => user._id === post.authorId);
   
-      // Adicionar a propriedade relacionada se encontrada
-      // return userRelacionado ? { ...post, ...userRelacionado } : post;
       return (userRelacionado ? { ...post, ...userRelacionado } : post)
 
     });

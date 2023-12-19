@@ -9,11 +9,12 @@ import Skeleton from 'react-loading-skeleton'
 import '../../node_modules/react-loading-skeleton/dist/skeleton.css';
 import { useState, useEffect } from 'react'
 import { UserData } from "@/app/next/nextLayout"
+import { useAppSelector } from "@/store"
 
-
-export const Aside = ({userData}: {userData: UserData | null}) => {
+export const Aside = () => {
+    const user = useAppSelector((state) => state.user)
     const [loading, setLoading] = useState(true)
-    const profileImage = userData?.profileImage || '/default-profile-image.jpg'
+    const profileImage = user?.profileImage || '/default-profile-image.jpg'
 
     useEffect(() => {
         const delay = setTimeout(()=>{
@@ -34,7 +35,7 @@ export const Aside = ({userData}: {userData: UserData | null}) => {
                 <div className="flex flex-col" >
                     {loading ?
                         <Skeleton width={100} />
-                        :<h4 className="text-white font-medium" >{userData?.username}</h4>
+                        :<h4 className="text-white font-medium" >{user?.username}</h4>
                     }
                     {loading ?
                         <Skeleton width={50} /> 

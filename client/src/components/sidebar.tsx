@@ -3,6 +3,8 @@ import Link from "next/link"
 import Image from "next/image"
 import logo from '../assets/logo.png'
 import logoClip from '../assets/logo-clip.png'
+import { setUser } from "@/reducers/userSlice"
+import { setTheme } from "@/reducers/themeSlice"
 
 import { 
   HomeIcon, 
@@ -23,20 +25,36 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { UserData, UserResponse } from "@/app/next/nextLayout"
 import axios from "axios"
+import { useAppDispatch, useAppSelector } from "@/store"
 
-export default function Sidebar({userData}: {userData: UserData | null}){
+export default function Sidebar(){
+  const dispatch = useAppDispatch()
+  const user = useAppSelector((state) => state.user)
+  const theme = useAppSelector((state) => state.theme)
   const router = useRouter()
+
   const isClient = typeof window !== 'undefined';
   const [windowWidth, setWindowWidth] = useState(isClient ? window.innerWidth || 0 : 0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const profileImage = userData?.profileImage || '/default-profile-image.jpg'
+  const profileImage = user?.profileImage || '/default-profile-image.jpg'
   const [darkTheme, setDarkTheme] = useState(true)
 
   const logout = async () => {
-    const response = await axios.get('api/auth/logout')
-    if(response.status === 200){
+    // const response = await axios.get('api/auth/logout')
+    dispatch(setUser({
+      username: '',
+      email: '',
+      birthdate: '',
+      profileImage: ''
+    }))
+    if(!user){
       router.push('/')
     }
+  }
+
+  const handleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    dispatch(setTheme(newTheme))
   }
 
   useEffect(() => {
@@ -132,8 +150,8 @@ export default function Sidebar({userData}: {userData: UserData | null}){
                       <Cog8ToothIcon className=" h-6 w-6 text-customDark  text-white"/>
                       <p>Settings</p>
                     </Link>
-                    <button onClick={()=> setDarkTheme(!darkTheme)} className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white" >
-                      {darkTheme ? <MoonIcon className=" h-6 w-6 text-customDark text-white"/>: <SunIcon className=" h-7 w-7 text-customDark  text-white"/>}
+                    <button onClick={handleTheme} className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white" >
+                      {theme === 'dark' ? <MoonIcon className=" h-6 w-6 text-customDark text-white"/>: <SunIcon className=" h-7 w-7 text-customDark  text-white"/>}
                       <p>Theme</p>
                     </button>
                     <button onClick={logout}  className="flex items-center gap-2 text-white text-sm p-3 hover:bg-red-600 hover:text-white">
