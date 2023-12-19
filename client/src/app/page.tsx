@@ -6,24 +6,53 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from 'axios'
 
+interface Errors {
+  email: string;
+  password: string;
+  general: string;
+  invalid: string;
+}
+
 export default function Home() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<Errors>({
     email: '',
     password: '',
+    general: '',
+    invalid: ''
   });
 
   const verifyAuthentication = async () => {
-    const {data} = await axios.get('api/auth/user')
-    if (!data?.user) {
-      router.push('/')
+    try {
+      const { data } = await axios.get('api/auth/user');
+      if (!data?.user) {
+        router.push('/');
+      }
+      setIsLoading(true);
+      router.push('/next');
+    } catch (error) {
+      handleAuthenticationError(error);
     }
-    setIsLoading(true)
-    router.push('/next')
-  }
+  };
+
+  const handleAuthenticationError = (error: any) => {
+    if (axios.isAxiosError(error)) {
+      const status = error.response?.status;
+
+      if (status === 401 || status === 403) {
+        setErrors({ ...errors, general: 'Authentication failed. Please check your credentials.' });
+      } else if (status === 400) {
+        // Handle other HTTP status codes (e.g., 400) and display appropriate messages
+        setErrors({ ...errors, general: 'Bad Request. Please check your input.' });
+      } else if(status === 500){
+        setErrors({ ...errors, invalid: 'Invalid credentials!' });
+        // console.error('Login error', error);
+      }
+    }
+  };
 
   useEffect(()=> {
     verifyAuthentication()
@@ -68,14 +97,9 @@ export default function Home() {
       router.push('/next');
     
     } catch (error) {
-      console.error('Error processing login:', error);
+      handleAuthenticationError(error)
     }
   };
-
-
-  if(!isLoading){
-    return <p>Loading...</p>
-  }
 
   return (
     <div className="sm:flex my-10 mx-auto flex-col justify-center px-2 py-8 rounded-md  md:w-[500px] md:bg-customGray px-6 py-12 lg:px-8">
@@ -88,6 +112,8 @@ export default function Home() {
       <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}
         >
+              {errors.invalid && <p className="bg-customYellow py-2 text-center font-bold  text-sm mt-1" >{errors.invalid}</p>}
+
           <div>
             <label className="block text-sm font-medium leading-6 text-white">Email</label>
             <div className="mt-2">
