@@ -4,7 +4,9 @@ import { IUserSuggestion } from "@/interfaces/IUserSuggestion";
 import Skeleton from "react-loading-skeleton";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
 import { useState, useEffect } from "react";
+import { useAppSelector } from "@/store/store";
 export const UserSuggestionCard = ({ user }: IUserSuggestion) => {
+  const theme = useAppSelector((state) => state.theme)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export const UserSuggestionCard = ({ user }: IUserSuggestion) => {
             style={{ borderRadius: "2em" }}
           />
         ) : (
-          <h4 className="text-white font-medium">{user.username}</h4>
+          <h4 className={`${theme === 'dark' ? 'text-white' : 'text-black'}  font-medium`}>{user.username}</h4>
         )}
         {loading ? (
           <Skeleton
@@ -62,7 +64,7 @@ export const UserSuggestionCard = ({ user }: IUserSuggestion) => {
           style={{ borderRadius: "2em" }}
         />
       ) : (
-        <button className="text-customLightBlue text-semibold hover:text-customLighterBlue">
+        <button className={`${theme === 'dark' ? 'text-customLightBlue hover:text-customLighterBlue' : 'text-blue-600 hover:text-blue-500'}`}>
           Follow
         </button>
       )}

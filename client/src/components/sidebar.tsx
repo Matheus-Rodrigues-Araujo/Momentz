@@ -30,7 +30,7 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 export default function Sidebar() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
-  const theme = useAppSelector((state) => state.theme);
+  const theme = useAppSelector((state) => state.theme)
   const router = useRouter();
 
   const isClient = typeof window !== "undefined";
@@ -44,15 +44,6 @@ export default function Sidebar() {
   const logout = async () => {
     await axios.get("api/auth/logout");
     router.push("/");
-    // dispatch(setUser({
-    //   username: '',
-    //   email: '',
-    //   birthdate: '',
-    //   profileImage: ''
-    // }))
-    // if(!user){
-    //   router.push('/')
-    // }
   };
 
   const handleTheme = () => {
@@ -74,7 +65,7 @@ export default function Sidebar() {
   }, [isClient]);
 
   return (
-    <div className="bg-customDark z-10 w-full text-white px-3 fixed bottom-0 border-t-[1px] md:top-0 md:w-auto md:border-t-0 md:border-r md:left-0">
+    <div className={`${theme === 'dark' ? 'bg-customDark' : 'bg-white'} z-10 w-full text-white px-3 fixed bottom-0 border-t-[1px] md:top-0 md:w-auto md:border-t-0 md:border-r md:left-0`}>
       <div className="flex flex-row justify-around items-center mt-0 ml-0 md:block md:mt-5 md:justify-center md:ml-1">
         <Link href="/" className="mb-0 md:mb-[80px]">
           <div className="flex items-center text-center">
@@ -90,7 +81,7 @@ export default function Sidebar() {
             <div className="icon-container bg-white p-2 bg-white rounded-full ">
               <HomeIcon className="h-6 w-6 text-customDark  text-black" />
             </div>
-            <p className="hidden xl:block">Home</p>
+            <p className={`${theme === 'dark' ? 'text-white' : 'text-black'} hidden xl:block`}>Home</p>
           </div>
         </Link>
         <Link href="/" className="nav-item-container hidden md:block">
@@ -98,7 +89,7 @@ export default function Sidebar() {
             <div className="icon-container bg-white p-2 bg-white rounded-full">
               <MagnifyingGlassIcon className="h-6 w-6 text-customDark  text-black" />
             </div>
-            <p className="hidden xl:block">Search</p>
+            <p className={`${theme === 'dark' ? 'text-white' : 'text-black'} hidden xl:block`}>Search</p>
           </div>
         </Link>
         <Link href="/" className="hidden md:block nav-item-container">
@@ -106,7 +97,7 @@ export default function Sidebar() {
             <div className="icon-container bg-white p-2 bg-white rounded-full">
               <BellIcon className="h-6 w-6 text-customDark  text-black" />
             </div>
-            <p className="hidden xl:block">Notifications</p>
+            <p className={`${theme === 'dark' ? 'text-white' : 'text-black'} hidden xl:block`}>Notifications</p>
           </div>
         </Link>
         <Link href="/" className="nav-item-container">
@@ -114,7 +105,7 @@ export default function Sidebar() {
             <div className="icon-container bg-white p-2 bg-white rounded-full">
               <EnvelopeIcon className="h-6 w-6 text-customDark  text-black" />
             </div>
-            <p className="hidden xl:block">Messages</p>
+            <p className={`${theme === 'dark' ? 'text-white' : 'text-black'} hidden xl:block`}>Messages</p>
           </div>
         </Link>
         <Link href="/next/post" className="nav-item-container">
@@ -122,7 +113,7 @@ export default function Sidebar() {
             <div className="icon-container bg-white p-2 bg-white rounded-full">
               <PlusIcon className=" h-6 w-6 text-customDark  text-black" />
             </div>
-            <p className="hidden xl:block">Create</p>
+            <p className={`${theme === 'dark' ? 'text-white' : 'text-black'} hidden xl:block`}>Create</p>
           </div>
         </Link>
 
@@ -137,7 +128,7 @@ export default function Sidebar() {
                 className="object-cover h-9 w-9 rounded-full"
               />
             </div>
-            <p className="hidden xl:block">Profile</p>
+            <p className={`${theme === 'dark' ? 'text-white' : 'text-black'} hidden xl:block`}>Profile</p>
           </div>
         </Link>
 
@@ -148,7 +139,7 @@ export default function Sidebar() {
           >
             <div className="flex gap-4 items-center p-2 text-center">
               <div className="rounded-full menu">
-                <Bars3Icon className="hidden h-10 w-10 text-customDark  text-white md:block" />
+                <Bars3Icon className={`hidden h-10 w-10 ${theme === 'dark' ? 'text-white' : 'text-black hover:text-white'} md:block`} />
                 <div className="md:hidden icon-container bg-white p-[1px] rounded-full">
                   <Image
                     src={profileImage}
@@ -159,7 +150,7 @@ export default function Sidebar() {
                   />
                 </div>
               </div>
-              <p className="hidden xl:block">More</p>
+              <p className={`${theme === 'dark' ? 'text-white' : 'text-black'} hidden xl:block`}>More</p>
             </div>
             {isDropdownOpen && (
               <div className="w-[125px] fixed grid bg-customGray rounded-md shadow-md right-2 md:left-6 md:right-0 bottom-[85px]">

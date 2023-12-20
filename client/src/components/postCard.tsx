@@ -4,8 +4,15 @@ import { IPost } from "@/interfaces/IPost";
 import Skeleton from "react-loading-skeleton";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
 import { useState, useEffect } from "react";
+import { useAppSelector } from "@/store/store";
+import {
+  HeartIcon,
+  PaperAirplaneIcon,
+  ChatBubbleOvalLeftIcon,
+} from "@heroicons/react/24/solid";
 
 export const PostCard = ({ post }: IPost) => {
+  const theme = useAppSelector((state) => state.theme);
   const [isLiked, setIsLiked] = useState(false);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(true);
@@ -15,6 +22,15 @@ export const PostCard = ({ post }: IPost) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
+  };
+
+  const handleLikeStyle = () => {
+    if (isLiked) {
+      return "text-customLightpink h-6 w-6";
+    } else if (!isLiked && theme === "dark") {
+      return "text-white h-6 w-6 hover:text-customLightpink";
+    }
+    return "text-black h-6 w-6 hover:text-customLightpink";
   };
 
   const autoResize = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -90,33 +106,27 @@ export const PostCard = ({ post }: IPost) => {
               title="Curtir"
               onClick={() => setIsLiked(!isLiked)}
               className={`${
-                isLiked
-                  ? "flex items-center text-customLightpink"
-                  : "flex items-center text-white hover:text-customLightpink"
-              }`}
+                theme === "dark" ? "text-white" : "text-black"
+              } gap-1 flex items-center`}
             >
-              <svg
-                className="w-6 h-6 fill-current mr-1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C15.09 3.81 16.76 3 18.5 3 21.58 3 24 5.42 24 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
+              <HeartIcon className={handleLikeStyle()} />
               Like
             </button>
           )}
           {loading ? (
             <Skeleton width={25} height={25} style={{ borderRadius: "2em" }} />
           ) : (
-            <button title="Comentar" className="flex items-center text-white">
-              {" "}
-              <svg
-                className="w-6 h-6 fill-current mr-1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="M21 2H3a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5v3.74L12.53 19H21a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm-1 13H7.47L6 16.26V15h13v.74l-1.47-1.74zM12 14a7 7 0 0 0-7-7H3V4h2a1 1 0 0 0 1-1V1h2v2a1 1 0 0 0 1 1h6a7 7 0 0 0 0 14h-1z" />
-              </svg>
+            <button
+              title="Comentar"
+              className={`${
+                theme === "dark" ? "text-white" : "text-black"
+              } gap-1 flex items-center`}
+            >
+              <ChatBubbleOvalLeftIcon
+                className={`${
+                  theme === "dark" ? "text-white" : "text-black"
+                } h-6 w-6`}
+              />
               Comment
             </button>
           )}
@@ -125,27 +135,15 @@ export const PostCard = ({ post }: IPost) => {
           ) : (
             <button
               title="Enviar"
-              className="flex items-center text-white ml-3"
+              className={`${
+                theme === "dark" ? "text-white" : "text-black"
+              } gap-1 flex items-center`}
             >
-              <svg
-                className="w-6 h-6 fill-current mr-1"
-                fill="#000000"
-                viewBox="0 0 32 32"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <title>paper-plane</title>{" "}
-                  <path d="M0 14.016l9.216 6.912 18.784-16.928-14.592 20.064 10.592 7.936 8-32zM8 32l6.016-4-6.016-4v8z"></path>{" "}
-                </g>
-              </svg>
+              <PaperAirplaneIcon
+                className={`${
+                  theme === "dark" ? "text-white" : "text-black"
+                } h-6 w-6`}
+              />
               Send
             </button>
           )}
@@ -160,7 +158,7 @@ export const PostCard = ({ post }: IPost) => {
               style={{ borderRadius: "2em" }}
             />
           ) : (
-            <p className="text-sm font-medium text-white self-start">
+            <p className={`${theme === "dark" ? "text-white" : "text-black"} text-sm font-medium self-start`}>
               {post.username}
             </p>
           )}
@@ -172,9 +170,10 @@ export const PostCard = ({ post }: IPost) => {
               style={{ borderRadius: "2em" }}
             />
           ) : (
-            <p className="text-smcontent mb-4 text-white">{post.content}</p>
+            <p className={`${theme === "dark" ? "text-white" : "text-customDark"} text-sm content mb-4`}>{post.content}</p>
           )}
         </div>
+
         <div className="comment-container grid gap-3">
           {loading ? (
             <Skeleton
@@ -196,7 +195,7 @@ export const PostCard = ({ post }: IPost) => {
           ) : (
             <div className="grid">
               <textarea
-                className="bg-customDark w-full text-white h-12  focus:outline-none resize-none overflow-y-auto"
+                className={`${theme === 'dark' ? "bg-customDark text-white" : "bg-white text-black"} w-full h-12  focus:outline-none resize-none overflow-y-auto`}
                 value={text}
                 placeholder="Add comment"
                 onChange={handleChange}

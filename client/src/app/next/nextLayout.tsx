@@ -42,7 +42,7 @@ export default function NextLayout({
   children: React.ReactNode;
 }) {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
+  const theme = useAppSelector((state) => state.theme);
   const [isLogged, setIsLogged] = useState(false);
   const router = useRouter();
 
@@ -73,7 +73,7 @@ export default function NextLayout({
 
   return (
     <div>
-      <main className="min-h-screen" style={{ backgroundColor: "#0e0d0e" }}>
+      <main className={`min-h-screen ${theme === 'dark' ? 'bg-customDark' : 'bg-white'}`}>
         <Sidebar />
         <div className="flex justify-center">
           <div className="flex justify-center gap-10 mb-20 md:ml-20 md:mb-0">
