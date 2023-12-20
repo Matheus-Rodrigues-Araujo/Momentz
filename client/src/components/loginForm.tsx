@@ -1,11 +1,11 @@
-'use client'
+"use client";
 import Image from "next/image";
 import Logo from "@/assets/logo.png";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from 'axios'
-import {  useAppSelector, useAppDispatch } from "@/store/store";
+import axios from "axios";
+import { useAppSelector, useAppDispatch } from "@/store/store";
 import { setUser } from "@/reducers/userSlice";
 
 interface Errors {
@@ -16,27 +16,28 @@ interface Errors {
 }
 
 export default function LoginForm() {
-  const dispatch = useAppDispatch()
-  const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Errors>({
-    email: '',
-    password: '',
-    general: '',
-    invalid: ''
+    email: "",
+    password: "",
+    general: "",
+    invalid: "",
   });
 
   const verifyAuthentication = async () => {
     try {
-      const { data } = await axios.get('api/auth/user');
+      const { data } = await axios.get("api/auth/user");
       if (!data?.user) {
-        router.push('/');
+        router.push("/");
       }
-      dispatch(setUser(data?.user))
+
+      dispatch(setUser(data?.user));
       setIsLoading(true);
-      router.push('/next');
+      router.push("/next");
     } catch (error) {
       console.error(error);
     }
@@ -47,21 +48,25 @@ export default function LoginForm() {
       const status = error.response?.status;
 
       if (status === 401 || status === 403 || status === 500) {
-        setErrors({ ...errors, general: 'Authentication failed. Please check your credentials.' });
-        setErrors({ ...errors, invalid: 'Invalid credentials!' });
+        setErrors({
+          ...errors,
+          general: "Authentication failed. Please check your credentials.",
+        });
+        setErrors({ ...errors, invalid: "Invalid credentials!" });
       } else if (status === 400) {
-        // Handle other HTTP status codes (e.g., 400) and display appropriate messages
-        setErrors({ ...errors, general: 'Bad Request. Please check your input.' });
-      } else{
-        console.error('Login error', error);
+        setErrors({
+          ...errors,
+          general: "Bad Request. Please check your input.",
+        });
+      } else {
+        console.error("Login error", error);
       }
     }
   };
 
-  useEffect(()=> {
-    verifyAuthentication()
-  }, [])
-
+  useEffect(() => {
+    verifyAuthentication();
+  }, []);
 
   const validateForm = () => {
     let valid = true;
@@ -69,17 +74,17 @@ export default function LoginForm() {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      newErrors.email = 'Invalid email address';
+      newErrors.email = "Invalid email address";
       valid = false;
     } else {
-      newErrors.email = '';
+      newErrors.email = "";
     }
 
     if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+      newErrors.password = "Password must be at least 6 characters";
       valid = false;
     } else {
-      newErrors.password = '';
+      newErrors.password = "";
     }
 
     setErrors(newErrors);
@@ -89,37 +94,46 @@ export default function LoginForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-  
+
       if (!validateForm()) {
         return;
       }
-  
+
       const payload = { email, password };
-     
-      await axios.post("api/auth/login", payload)
-      
-      router.push('/next');
-    
+
+      await axios.post("api/auth/login", payload);
+
+      router.push("/next");
     } catch (error) {
-      handleAuthenticationError(error)
+      handleAuthenticationError(error);
     }
   };
 
   return (
     <div className="sm:flex my-10 mx-auto flex-col justify-center px-2 py-8 rounded-md  md:w-[500px] md:bg-customGray px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <Link href={'/'}>
-          <Image src={Logo} alt="Your Company" className="w-auto h-50"  />
+        <Link href={"/"}>
+          <Image src={Logo} alt="Your Company" className="w-auto h-50" />
         </Link>
       </div>
 
       <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}
+        <form
+          className="space-y-6"
+          action="#"
+          method="POST"
+          onSubmit={handleSubmit}
         >
-              {errors.invalid && <p className="bg-customYellow py-2 text-center font-bold  text-sm mt-1" >{errors.invalid}</p>}
+          {errors.invalid && (
+            <p className="bg-customYellow py-2 text-center font-bold  text-sm mt-1">
+              {errors.invalid}
+            </p>
+          )}
 
           <div>
-            <label className="block text-sm font-medium leading-6 text-white">Email</label>
+            <label className="block text-sm font-medium leading-6 text-white">
+              Email
+            </label>
             <div className="mt-2">
               <input
                 id="email"
@@ -131,17 +145,21 @@ export default function LoginForm() {
                 focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5
                 "
               />
-              {errors.email && <p className="text-red-500 text-sm mt-1" >{errors.email}</p>}
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              )}
             </div>
           </div>
 
           <div>
             <div className="flex items-center justify-between">
-              <label className="block text-sm font-medium leading-6 text-white">Password</label>
+              <label className="block text-sm font-medium leading-6 text-white">
+                Password
+              </label>
             </div>
             <div className="mt-2">
               <input
-               onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 id="password"
                 name="password"
                 type="password"
@@ -151,7 +169,9 @@ export default function LoginForm() {
                 focus:ring-2 focus:ring-inset focus:ring-yellow-100 sm:text-sm sm:leading-6 md:p-5
                 "
               />
-              {errors.password && <p className="text-red-500 text-sm mt-1" >{errors.password}</p>}
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+              )}
             </div>
           </div>
 
@@ -171,11 +191,21 @@ export default function LoginForm() {
 
         <p className="text-sm mt-10 text-center text-gray-400 md:text-md">
           Don't have an account?
-          <Link href='/register' className="font-semibold leading-6 text-sm text-indigo-600 text-yellow-100 hover:text-yellow-200 underline md:text-md">Create here</Link>
+          <Link
+            href="/register"
+            className="font-semibold leading-6 text-sm text-indigo-600 text-yellow-100 hover:text-yellow-200 underline md:text-md"
+          >
+            Create here
+          </Link>
         </p>
         <p className="text-sm mt-10 text-center text-gray-400 md:text-md">
           Forgot password?
-          <Link href='/account/password' className="font-semibold leading-6 text-sm text-indigo-600 text-yellow-100 hover:text-yellow-200 underline md:text-md">Click here</Link>
+          <Link
+            href="/account/password"
+            className="font-semibold leading-6 text-sm text-indigo-600 text-yellow-100 hover:text-yellow-200 underline md:text-md"
+          >
+            Click here
+          </Link>
         </p>
       </div>
     </div>

@@ -1,31 +1,31 @@
-import User from '@/app/models/user';
-import { NextRequest, NextResponse } from 'next/server';
-import { hash } from 'bcrypt'; 
-import { sign } from 'jsonwebtoken';
+import User from "@/app/models/user";
+import { NextRequest, NextResponse } from "next/server";
+import { hash } from "bcrypt";
+import { sign } from "jsonwebtoken";
 
 interface CustomError {
-    message: string;
-    error?:string;
-  }
+  message: string;
+  error?: string;
+}
 
-export async function GET(){
+export async function GET() {
   try {
-    const users = await User.find()
-    return NextResponse.json({users: users}, { status: 200 })
+    const users = await User.find();
+    return NextResponse.json({ users: users }, { status: 200 });
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const body = await req.json()
-    const formData = body.formData
-    const {username, birthdate, email, password} = formData
-    const hashedPassword = await hash(password, 10)
-    
+    const body = await req.json();
+    const formData = body.formData;
+    const { username, birthdate, email, password } = formData;
+    const hashedPassword = await hash(password, 10);
+
     if (!password) {
-      const customError: CustomError = { message: 'Password is required' };
+      const customError: CustomError = { message: "Password is required" };
       return NextResponse.json(customError, { status: 400 });
     }
 
@@ -35,10 +35,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       email: email,
       password: hashedPassword,
     });
-      
-    return NextResponse.json({ message: 'User Created' }, { status: 201 });
+
+    return NextResponse.json({ message: "User Created" }, { status: 201 });
   } catch (err: any) {
-    console.error('Error creating user:', err);
+    console.error("Error creating user:", err);
     return NextResponse.json({ status: 500 });
   }
 }

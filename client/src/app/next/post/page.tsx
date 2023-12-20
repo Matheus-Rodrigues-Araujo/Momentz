@@ -1,7 +1,5 @@
-import { PostForm } from "@/components/postForm"
+import { PostForm } from "@/components/postForm";
 
-export default function CreatePost () {
-    return (
-        <PostForm/>
-    )
+export default function CreatePost() {
+  return <PostForm />;
 }

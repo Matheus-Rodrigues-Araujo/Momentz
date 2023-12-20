@@ -1,19 +1,19 @@
-'use client'
+"use client";
 import { PostCard } from "@/components/postCard";
 import Layout from "./nextLayout";
 // import postsList from '../../randomPostsData';
-import axios from 'axios'
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { useAppSelector } from "@/store/store";
 
-interface IPost{
-  authorId: string,
-  postImage: string,
+interface IPost {
+  authorId: string;
+  postImage: string;
   datetime: Date;
   content: string;
 }
 interface IUser {
-  _id: string,
+  _id: string;
   username: string;
   birthdate: Date;
   email: string;
@@ -22,34 +22,34 @@ interface IUser {
 }
 
 export default function Next() {
-  const [postsList, setPostsList] = useState<[] | undefined>([])
-  const [usersList, setUsersList] = useState<[] | undefined>([])
+  const [postsList, setPostsList] = useState<[] | undefined>([]);
+  const [usersList, setUsersList] = useState<[] | undefined>([]);
 
   const getPosts = async () => {
     try {
-      const {data} = await axios.get("api/auth/post")
-      const {posts} = data
-      setPostsList(posts)
+      const { data } = await axios.get("api/auth/post");
+      const { posts } = data;
+      setPostsList(posts);
     } catch (error) {
-      console.error('Error processing login:', error);
+      console.error("Error processing login:", error);
     }
   };
 
   const getUsers = async () => {
-      try {
-        const {data} = await axios.get("api/handleform")
-        const { users } = data
-      } catch (error) {
-        console.error('Error processing login:', error);
-      }
-  }
+    try {
+      const { data } = await axios.get("api/handleform");
+      const { users } = data;
+    } catch (error) {
+      console.error("Error processing login:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         await Promise.all([getUsers(), getPosts()]);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -57,21 +57,29 @@ export default function Next() {
   }, []);
 
   function relacionarArrays() {
-    return usersList && postsList && postsList.map((post: IPost) => {
-      const userRelacionado:any = usersList.find((user: IUser) => user._id === post.authorId);
-  
-      return (userRelacionado ? { ...post, ...userRelacionado } : post)
+    return (
+      usersList &&
+      postsList &&
+      postsList.map((post: IPost) => {
+        const userRelacionado: any = usersList.find(
+          (user: IUser) => user._id === post.authorId
+        );
 
-    });
+        return userRelacionado ? { ...post, ...userRelacionado } : post;
+      })
+    );
   }
 
-  const union = relacionarArrays()
+  const union = relacionarArrays();
   return (
     <Layout>
-      <div className="min-h-screen bg-gray-600" style={{ backgroundColor: 'var(--gray)' }}>
+      <div
+        className="min-h-screen bg-gray-600"
+        style={{ backgroundColor: "var(--gray)" }}
+      >
         <div className="grid gap-10 items-center justify-items-center p-5">
           {union && union ? (
-            union.map((item, key) => <PostCard key={key}  post={item} />)
+            union.map((item, key) => <PostCard key={key} post={item} />)
           ) : (
             <p className="text-white text-lg">Loading...</p>
           )}

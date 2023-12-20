@@ -10,48 +10,47 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: #0e0d0e; 
+  background-color: #0e0d0e;
 }
 
-.sign-btn{
-  transition: .4s ease-in-out;
+.sign-btn {
+  transition: 0.4s ease-in-out;
 }
 
-.sign-btn:hover{
+.sign-btn:hover {
   background-color: #a92047;
   color: white;
 }
 
-.form-input{
-  background-color: #403D3D;
+.form-input {
+  background-color: #403d3d;
   color: white;
 }
 
-.nav-item-container:hover .icon-container{
+.nav-item-container:hover .icon-container {
   background-color: #fc49ae;
 }
 
-.menu:hover{
+.menu:hover {
   background-color: #fc49ae;
 }
 
-.nav-item-container:hover .icon-container svg{
+.nav-item-container:hover .icon-container svg {
   color: white;
 }
 
-
-.clip-custom{
+.clip-custom {
   position: absolute;
-  clip: rect(0px,65px,200px,0px);
+  clip: rect(0px, 65px, 200px, 0px);
 }
 
-.skeleton-img{
+.skeleton-img {
   min-width: 500px;
   height: 280px;
 }
 
 @media screen and (max-width: 600px) {
-  .skeleton-img{
+  .skeleton-img {
     min-width: 80vw;
   }
 }
