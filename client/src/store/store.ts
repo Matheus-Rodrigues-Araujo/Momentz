@@ -1,8 +1,8 @@
 // src/app/store.ts
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
-import userReducer from './reducers/userSlice';
-import themeReducer from './reducers/themeSlice';
+import userReducer from '../reducers/userSlice';
+import themeReducer from '../reducers/themeSlice';
 
 export const store = configureStore({
   reducer: {

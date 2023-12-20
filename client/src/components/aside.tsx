@@ -9,7 +9,7 @@ import Skeleton from 'react-loading-skeleton'
 import '../../node_modules/react-loading-skeleton/dist/skeleton.css';
 import { useState, useEffect } from 'react'
 import { UserData } from "@/app/next/nextLayout"
-import { useAppSelector } from "@/store"
+import { useAppSelector } from "@/store/store"
 
 export const Aside = () => {
     const user = useAppSelector((state) => state.user)

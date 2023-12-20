@@ -2,15 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
     username: string,
-    email: string,
-    birthdate: string,
     profileImage: string
 }
 
 const initialState: UserState = {
     username: '',
-    email: '',
-    birthdate: '',
     profileImage: '',
 }
 

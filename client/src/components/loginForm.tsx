@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from 'axios'
-import {  useAppSelector } from "@/store";
+import {  useAppSelector, useAppDispatch } from "@/store/store";
+import { setUser } from "@/reducers/userSlice";
 
 interface Errors {
   email: string;
@@ -14,8 +15,8 @@ interface Errors {
   invalid: string;
 }
 
-export default function Login() {
-  
+export default function LoginForm() {
+  const dispatch = useAppDispatch()
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -30,15 +31,10 @@ export default function Login() {
   const verifyAuthentication = async () => {
     try {
       const { data } = await axios.get('api/auth/user');
-      const user = useAppSelector((state) => state.user)
-      console.log('user dads:', user)
-      // if (!user) {
-      //   router.push('/');
-      // }
-
       if (!data?.user) {
         router.push('/');
       }
+      dispatch(setUser(data?.user))
       setIsLoading(true);
       router.push('/next');
     } catch (error) {

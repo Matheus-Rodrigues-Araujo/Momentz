@@ -1,5 +1,5 @@
 'use client'
-import { store } from '@/store'
+import { store } from '@/store/store'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'

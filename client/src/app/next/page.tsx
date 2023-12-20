@@ -4,6 +4,7 @@ import Layout from "./nextLayout";
 // import postsList from '../../randomPostsData';
 import axios from 'axios'
 import { useState, useEffect } from "react";
+import { useAppSelector } from "@/store/store";
 
 interface IPost{
   authorId: string,
@@ -23,7 +24,7 @@ interface IUser {
 export default function Next() {
   const [postsList, setPostsList] = useState<[] | undefined>([])
   const [usersList, setUsersList] = useState<[] | undefined>([])
- 
+
   const getPosts = async () => {
     try {
       const {data} = await axios.get("api/auth/post")
@@ -37,7 +38,7 @@ export default function Next() {
   const getUsers = async () => {
       try {
         const {data} = await axios.get("api/handleform")
-        const { users} = data
+        const { users } = data
       } catch (error) {
         console.error('Error processing login:', error);
       }

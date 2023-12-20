@@ -29,8 +29,8 @@ export async function GET(req:Request) {
     const { userId } =  decodedToken;
 
     const userDocument = await User.findOne({ _id : userId });
-    const { username, email, birthdate, profileImage } =  userDocument;
-    const user = {username, email, birthdate, profileImage};
+    const { username, profileImage } =  userDocument;
+    const user = {username, profileImage};
 
     return new Response(JSON.stringify({user: user}), {status: 200} );
   } catch(e){

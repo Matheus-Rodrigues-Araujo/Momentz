@@ -8,9 +8,7 @@ import axios from 'axios'
 
 export const PostForm = () => {
     const router = useRouter()
-    const [content, setContent] = useState('')
-    // const [password, setPassword] = useState('')
-  
+    const [content, setContent] = useState('')  
     const [errors, setErrors] = useState({
       content: ''
     });

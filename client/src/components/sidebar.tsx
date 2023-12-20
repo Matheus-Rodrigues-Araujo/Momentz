@@ -25,7 +25,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { UserData, UserResponse } from "@/app/next/nextLayout"
 import axios from "axios"
-import { useAppDispatch, useAppSelector } from "@/store"
+import { useAppDispatch, useAppSelector } from "@/store/store"
 
 export default function Sidebar(){
   const dispatch = useAppDispatch()
@@ -40,16 +40,17 @@ export default function Sidebar(){
   const [darkTheme, setDarkTheme] = useState(true)
 
   const logout = async () => {
-    // const response = await axios.get('api/auth/logout')
-    dispatch(setUser({
-      username: '',
-      email: '',
-      birthdate: '',
-      profileImage: ''
-    }))
-    if(!user){
-      router.push('/')
-    }
+    await axios.get('api/auth/logout')
+    router.push('/')
+    // dispatch(setUser({
+    //   username: '',
+    //   email: '',
+    //   birthdate: '',
+    //   profileImage: ''
+    // }))
+    // if(!user){
+    //   router.push('/')
+    // }
   }
 
   const handleTheme = () => {

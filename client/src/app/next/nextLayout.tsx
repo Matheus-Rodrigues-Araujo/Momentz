@@ -4,7 +4,7 @@ import { Aside } from '../../components/aside'
 import { useEffect, useState } from 'react'
 import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
-import { useAppDispatch, useAppSelector } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store/store'
 import { setUser } from '@/reducers/userSlice'
 
 export interface UserData {
