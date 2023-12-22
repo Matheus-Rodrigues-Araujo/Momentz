@@ -30,7 +30,9 @@ export const Aside = () => {
   }, []);
 
   return (
-    <div className={`hidden sm:hidden md:hidden lg:flex flex-col mt-12 mr-2 w-[250px] gap-5`}>
+    <div
+      className={`hidden sm:hidden md:hidden lg:flex flex-col mt-12 mr-2 w-[250px] gap-5`}
+    >
       <div className="flex gap-4">
         {loading ? (
           <Skeleton
@@ -53,14 +55,24 @@ export const Aside = () => {
           {loading ? (
             <Skeleton width={100} />
           ) : (
-            <h4 className={`${theme === 'dark' ? 'text-white' : 'text-black'} font-medium`}>{user?.username}</h4>
+            <h4
+              className={`${
+                theme === "dark" ? "text-white" : "text-black"
+              } font-medium`}
+            >
+              {user?.username}
+            </h4>
           )}
           {loading ? (
             <Skeleton width={50} />
           ) : (
             <Link
               href={"/"}
-              className={`text-semibold ${theme === 'dark' ? 'text-customLightBlue hover:text-customLighterBlue' : 'text-blue-600 hover:text-blue-500'}`}
+              className={`text-semibold ${
+                theme === "dark"
+                  ? "text-customLightBlue hover:text-customLighterBlue"
+                  : "text-blue-600 hover:text-blue-500"
+              }`}
             >
               Change
             </Link>
@@ -73,7 +85,11 @@ export const Aside = () => {
           {loading ? (
             <Skeleton width={150} />
           ) : (
-            <p className={`${theme === 'dark' ? 'text-white' : 'text-black'} font-normal text-md`}>
+            <p
+              className={`${
+                theme === "dark" ? "text-white" : "text-black"
+              } font-normal text-md`}
+            >
               Suggestions for you
             </p>
           )}
@@ -82,7 +98,9 @@ export const Aside = () => {
           ) : (
             <Link
               href={"/explore/people"}
-              className={`${theme === 'dark' ? 'text-white' : 'text-black'} font-bold hover:text-customLightGray`}
+              className={`${
+                theme === "dark" ? "text-white" : "text-black"
+              } font-bold hover:text-customLightGray`}
             >
               See all
             </Link>
