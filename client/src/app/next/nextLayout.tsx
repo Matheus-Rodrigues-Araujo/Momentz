@@ -68,7 +68,7 @@ export default function NextLayout({
   }, [router]);
 
   if (!isLogged) {
-    return <p className="text-red-600">Loading...</p>;
+    return <p className="text-yellow-600">Loading...</p>;
   }
 
   return (
