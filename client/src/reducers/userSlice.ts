@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
+  _id: string;
   username: string;
   profileImage: string;
 }
 
 const initialState: UserState = {
+  _id: "",
   username: "",
   profileImage: "",
 };

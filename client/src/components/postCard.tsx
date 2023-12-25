@@ -10,13 +10,14 @@ import {
   PaperAirplaneIcon,
   ChatBubbleOvalLeftIcon,
 } from "@heroicons/react/24/solid";
+import axios from "axios";
 
 export const PostCard = ({ post }: IPost) => {
+  const user = useAppSelector((state) => state.user);
   const theme = useAppSelector((state) => state.theme);
   const [isLiked, setIsLiked] = useState(false);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(true);
-
   const postImage = `/uplouds/post-3.jpg`;
   const profileImage = "/default-profile-image.jpg";
 
@@ -28,9 +29,19 @@ export const PostCard = ({ post }: IPost) => {
     if (isLiked) {
       return "text-customLightpink h-6 w-6";
     } else if (!isLiked && theme === "dark") {
-      return "text-white h-6 w-6 hover:text-customLightpink";
+      return "text-white h-6 w-6 ";
     }
-    return "text-black h-6 w-6 hover:text-customLightpink";
+    return "text-black h-6 w-6";
+  };
+
+  const handleLike = async () => {
+    const payload = {
+      postId: post["_id"],
+      currentUserId: user._id,
+    };
+    const { data } = await axios.put("/api/auth/like", payload);
+    const { totalLikes, liked } = data;
+    console.log(data);
   };
 
   const autoResize = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -104,13 +115,15 @@ export const PostCard = ({ post }: IPost) => {
           ) : (
             <button
               title="Curtir"
-              onClick={() => setIsLiked(!isLiked)}
+              onClick={() => {
+                handleLike();
+                setIsLiked(!isLiked);
+              }}
               className={`${
                 theme === "dark" ? "text-white" : "text-black"
               } gap-1 flex items-center`}
             >
               <HeartIcon className={handleLikeStyle()} />
-              Like
             </button>
           )}
           {loading ? (
@@ -127,7 +140,6 @@ export const PostCard = ({ post }: IPost) => {
                   theme === "dark" ? "text-white" : "text-black"
                 } h-6 w-6`}
               />
-              Comment
             </button>
           )}
           {loading ? (
@@ -144,7 +156,6 @@ export const PostCard = ({ post }: IPost) => {
                   theme === "dark" ? "text-white" : "text-black"
                 } h-6 w-6`}
               />
-              Send
             </button>
           )}
         </div>
@@ -158,7 +169,11 @@ export const PostCard = ({ post }: IPost) => {
               style={{ borderRadius: "2em" }}
             />
           ) : (
-            <p className={`${theme === "dark" ? "text-white" : "text-black"} text-sm font-medium self-start`}>
+            <p
+              className={`${
+                theme === "dark" ? "text-white" : "text-black"
+              } text-sm font-medium self-start`}
+            >
               {post.username}
             </p>
           )}
@@ -170,7 +185,13 @@ export const PostCard = ({ post }: IPost) => {
               style={{ borderRadius: "2em" }}
             />
           ) : (
-            <p className={`${theme === "dark" ? "text-white" : "text-customDark"} text-sm content mb-4`}>{post.content}</p>
+            <p
+              className={`${
+                theme === "dark" ? "text-white" : "text-customDark"
+              } text-sm content mb-4`}
+            >
+              {post.content}
+            </p>
           )}
         </div>
 
@@ -195,7 +216,11 @@ export const PostCard = ({ post }: IPost) => {
           ) : (
             <div className="grid">
               <textarea
-                className={`${theme === 'dark' ? "bg-customDark text-white" : "bg-white text-black"} w-full h-12  focus:outline-none resize-none overflow-y-auto`}
+                className={`${
+                  theme === "dark"
+                    ? "bg-customDark text-white"
+                    : "bg-white text-black"
+                } w-full h-12  focus:outline-none resize-none overflow-y-auto`}
                 value={text}
                 placeholder="Add comment"
                 onChange={handleChange}
