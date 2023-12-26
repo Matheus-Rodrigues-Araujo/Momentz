@@ -9,6 +9,7 @@ import { setUser } from "@/reducers/userSlice";
 import { Types } from "mongoose";
 
 export interface UserData {
+  _id: string,
   username: string;
   email: string;
   birthdate: string;
@@ -24,7 +25,6 @@ export async function getUser(): Promise<UserResponse> {
   try {
     const { data } = await axios.get("/api/auth/user");
     const { user } = data;
-    console.log('user', user)
     return {
       user: user,
       error: null,

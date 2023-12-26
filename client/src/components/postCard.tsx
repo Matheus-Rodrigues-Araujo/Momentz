@@ -11,22 +11,42 @@ import {
   ChatBubbleOvalLeftIcon,
 } from "@heroicons/react/24/solid";
 import axios from "axios";
+import { UserState } from "@/reducers/userSlice";
 
 export const PostCard = ({ post }: IPost) => {
-  const user = useAppSelector((state) => state.user);
+  const user: UserState = useAppSelector((state) => state.user);
   const theme = useAppSelector((state) => state.theme);
   const [isLiked, setIsLiked] = useState(false);
+  const [likes, setLikes] = useState(0);
+  const [comments, setComments] = useState(null);
+
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(true);
+
   const postImage = `/uplouds/post-3.jpg`;
   const profileImage = "/default-profile-image.jpg";
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(delay);
+  }, []);
+
+  useEffect(() => {
+    if (post.likes) {
+      setLikes(post.likes.length);
+    }
+  });
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 
   const handleLikeStyle = () => {
-    if (isLiked) {
+    // @ts-ignore
+    if (post.likes.includes(user._id)) {
       return "text-customLightpink h-6 w-6";
     } else if (!isLiked && theme === "dark") {
       return "text-white h-6 w-6 ";
@@ -36,12 +56,12 @@ export const PostCard = ({ post }: IPost) => {
 
   const handleLike = async () => {
     const payload = {
-      postId: post["_id"],
       currentUserId: user._id,
+      postId: post._id
     };
-    const { data } = await axios.put("/api/auth/like", payload);
-    const { totalLikes, liked } = data;
-    console.log(data);
+    const { data } = await axios.put(`/api/auth/like`, payload);
+    const { totalLikes } = data;
+    setLikes(totalLikes);
   };
 
   const autoResize = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,14 +69,6 @@ export const PostCard = ({ post }: IPost) => {
     textarea.style.height = "auto";
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
-
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(delay);
-  }, []);
 
   return (
     <div
@@ -115,15 +127,13 @@ export const PostCard = ({ post }: IPost) => {
           ) : (
             <button
               title="Curtir"
-              onClick={() => {
-                handleLike();
-                setIsLiked(!isLiked);
-              }}
+              onClick={handleLike}
               className={`${
                 theme === "dark" ? "text-white" : "text-black"
               } gap-1 flex items-center`}
             >
               <HeartIcon className={handleLikeStyle()} />
+              {likes}
             </button>
           )}
           {loading ? (

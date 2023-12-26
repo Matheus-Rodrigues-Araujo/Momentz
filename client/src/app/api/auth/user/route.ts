@@ -30,7 +30,7 @@ export async function GET(req: Request) {
 
     const userDocument = await User.findOne({ _id: userId });
     const { username, profileImage } = userDocument;
-    const user = { userId, username, profileImage };
+    const user = { _id: userId, username, profileImage };
 
     return new Response(JSON.stringify({ user: user }), { status: 200 });
   } catch (e) {

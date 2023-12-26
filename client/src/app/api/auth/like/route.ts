@@ -1,6 +1,7 @@
 import Post from "@/app/models/post";
 import { Types } from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
+import { useRouter } from "next/navigation";
 
 const isIdInArray = async (
   userId: string,
