@@ -6,6 +6,7 @@ export type postType = {
   username: string;
   profileImage: StaticImageData;
   postImage: StaticImageData;
+  likes: [];
   datetime: Date;
   content: string;
 };

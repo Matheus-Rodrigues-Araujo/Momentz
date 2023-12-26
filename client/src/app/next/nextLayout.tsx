@@ -24,7 +24,6 @@ export async function getUser(): Promise<UserResponse> {
   try {
     const { data } = await axios.get("/api/auth/user");
     const { user } = data;
-    console.log('user', user)
     return {
       user: user,
       error: null,
@@ -53,6 +52,7 @@ export default function NextLayout({
       console.error("User data is null");
       return;
     }
+    // @ts-ignore
     dispatch(setUser(data));
   };
 

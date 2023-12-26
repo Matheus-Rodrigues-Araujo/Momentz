@@ -13,9 +13,10 @@ const isIdInArray = async (
   return post.likes.includes(userId);
 };
 
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest, context: { params: { id: string; }; } ) {
   try {
-    const { currentUserId, postId } = await req.json();
+    const postId = context.params.id
+    const { currentUserId} = await req.json();
     const isLiked = await isIdInArray(currentUserId, postId);
 
     if (isLiked) {

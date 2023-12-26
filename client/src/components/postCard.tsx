@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import Image from "next/image";
 import { IPost } from "@/interfaces/IPost";
 import Skeleton from "react-loading-skeleton";
@@ -11,6 +11,7 @@ import {
   ChatBubbleOvalLeftIcon,
 } from "@heroicons/react/24/solid";
 import axios from "axios";
+import PostButtons from "./postButtons";
 
 export const PostCard = ({ post }: IPost) => {
   const user = useAppSelector((state) => state.user);
@@ -18,6 +19,10 @@ export const PostCard = ({ post }: IPost) => {
   const [isLiked, setIsLiked] = useState(false);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(true);
+  const [postData, setPostData] = useState(post)
+  const [likes, setLikes] = useState(0)
+  const [comment, setComment] = useState("")
+  const [comments, setComments] = useState("")
   const postImage = `/uplouds/post-3.jpg`;
   const profileImage = "/default-profile-image.jpg";
 
@@ -34,21 +39,54 @@ export const PostCard = ({ post }: IPost) => {
     return "text-black h-6 w-6";
   };
 
-  const handleLike = async () => {
-    const payload = {
-      postId: post["_id"],
-      currentUserId: user._id,
-    };
-    const { data } = await axios.put("/api/auth/like", payload);
-    const { totalLikes, liked } = data;
-    console.log(data);
-  };
-
   const autoResize = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = event.target;
     textarea.style.height = "auto";
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
+
+  const updatePost = async () => {
+    await axios.get(`/api/auth/post/${post._id}`)
+    .then((res)=>{
+      const {data} = res
+      setPostData(data)
+    })
+    .catch((error) => console.log(error))
+    
+  }
+
+  const handleLike = async () => {
+    const payload = {
+      postId: post["_id"],
+      currentUserId: user._id,
+    };
+  
+    try {
+      // Make the like API call
+      await axios.put("/api/auth/like", payload);
+  
+      // Fetch the updated post data
+      const response = await axios.get(`/api/auth/post/${post._id}`);
+      const updatedPostData = response.data;
+  
+      // Update the likes state with the new count
+      setLikes(updatedPostData.likes.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(()=>{
+    if(postData.likes){
+      setLikes(postData.likes.length)
+    }
+  }, [])
+
+  useEffect(()=>{
+    if(postData.content){
+      setLikes(postData.likes.length)
+    }
+  }, [])
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -109,7 +147,7 @@ export const PostCard = ({ post }: IPost) => {
           />
         )}
 
-        <div className="flex items-center mt-4 space-x-2">
+        {/* <div className="flex items-center mt-4 space-x-2">
           {loading ? (
             <Skeleton width={25} height={25} style={{ borderRadius: "2em" }} />
           ) : (
@@ -117,13 +155,14 @@ export const PostCard = ({ post }: IPost) => {
               title="Curtir"
               onClick={() => {
                 handleLike();
-                setIsLiked(!isLiked);
+                // setIsLiked(!isLiked);
               }}
               className={`${
                 theme === "dark" ? "text-white" : "text-black"
               } gap-1 flex items-center`}
             >
               <HeartIcon className={handleLikeStyle()} />
+              {likes}
             </button>
           )}
           {loading ? (
@@ -158,7 +197,8 @@ export const PostCard = ({ post }: IPost) => {
               />
             </button>
           )}
-        </div>
+        </div> */}
+        <PostButtons loading={loading} post={post} user={user} likes={post.likes.length} />
 
         <div className="flex flex-wrap flex-col mt-4 gap-2">
           {loading ? (
@@ -174,7 +214,7 @@ export const PostCard = ({ post }: IPost) => {
                 theme === "dark" ? "text-white" : "text-black"
               } text-sm font-medium self-start`}
             >
-              {post.username}
+              {'User123'}
             </p>
           )}
           {loading ? (
@@ -190,7 +230,7 @@ export const PostCard = ({ post }: IPost) => {
                 theme === "dark" ? "text-white" : "text-customDark"
               } text-sm content mb-4`}
             >
-              {post.content}
+              {postData?.content}
             </p>
           )}
         </div>
