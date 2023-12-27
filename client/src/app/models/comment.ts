@@ -29,7 +29,6 @@ const commentSchema = new Schema<IComment>(
   },
   {
     timestamps: true,
-    collection: "App",
   }
 );
 
