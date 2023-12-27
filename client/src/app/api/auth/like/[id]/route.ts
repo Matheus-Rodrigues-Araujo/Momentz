@@ -2,6 +2,7 @@ import Post from "@/app/models/post";
 import { Types } from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 import { useRouter } from "next/navigation";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
 const isIdInArray = async (
   userId: string,
@@ -14,9 +15,10 @@ const isIdInArray = async (
   return post.likes.includes(userId);
 };
 
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest, context: { params: { id: any } }) {
   try {
-    const { currentUserId, postId } = await req.json();
+    const postId = context.params.id;
+    const { currentUserId } = await req.json();
     const isLiked = await isIdInArray(currentUserId, postId);
 
     if (isLiked) {

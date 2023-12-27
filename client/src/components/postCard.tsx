@@ -20,6 +20,8 @@ export const PostCard = ({ post }: IPost) => {
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState(null);
 
+  const [postInfo, setPostInfo] = useState(post);
+
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -35,8 +37,8 @@ export const PostCard = ({ post }: IPost) => {
   }, []);
 
   useEffect(() => {
-    if (post.likes) {
-      setLikes(post.likes.length);
+    if (postInfo.likes) {
+      setLikes(postInfo.likes.length);
     }
   });
 
@@ -46,7 +48,7 @@ export const PostCard = ({ post }: IPost) => {
 
   const handleLikeStyle = () => {
     // @ts-ignore
-    if (post.likes.includes(user._id)) {
+    if (postInfo.likes.includes(user._id)) {
       return "text-customLightpink h-6 w-6";
     } else if (!isLiked && theme === "dark") {
       return "text-white h-6 w-6 ";
@@ -57,11 +59,20 @@ export const PostCard = ({ post }: IPost) => {
   const handleLike = async () => {
     const payload = {
       currentUserId: user._id,
-      postId: post._id
     };
-    const { data } = await axios.put(`/api/auth/like`, payload);
-    const { totalLikes } = data;
-    setLikes(totalLikes);
+    await axios
+      .put(`/api/auth/like/${postInfo._id}`, payload)
+      .then(() => {
+        updatePost();
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const updatePost = async () => {
+    const response = await axios.get(`/api/auth/post/${post._id}`);
+    const data = response.data;
+    const postUpdated = data.data;
+    setPostInfo(postUpdated)
   };
 
   const autoResize = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -96,7 +107,7 @@ export const PostCard = ({ post }: IPost) => {
             {loading ? (
               <Skeleton width={40} />
             ) : (
-              <p className="text-sm font-medium text-white">{post.username}</p>
+              <p className="text-sm font-medium text-white">RandomUser</p>
             )}
             {loading ? (
               <Skeleton width={120} />
@@ -184,7 +195,7 @@ export const PostCard = ({ post }: IPost) => {
                 theme === "dark" ? "text-white" : "text-black"
               } text-sm font-medium self-start`}
             >
-              {post.username}
+              {"User"}
             </p>
           )}
           {loading ? (
@@ -200,7 +211,7 @@ export const PostCard = ({ post }: IPost) => {
                 theme === "dark" ? "text-white" : "text-customDark"
               } text-sm content mb-4`}
             >
-              {post.content}
+              {postInfo.content}
             </p>
           )}
         </div>
