@@ -5,13 +5,9 @@ import Skeleton from "react-loading-skeleton";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
 import { useState, useEffect } from "react";
 import { useAppSelector } from "@/store/store";
-import {
-  HeartIcon,
-  PaperAirplaneIcon,
-  ChatBubbleOvalLeftIcon,
-} from "@heroicons/react/24/solid";
 import axios from "axios";
 import { UserState } from "@/reducers/userSlice";
+import { PostButtons } from "./postButtons";
 
 export const PostCard = ({ post }: IPost) => {
   const user: UserState = useAppSelector((state) => state.user);
@@ -72,7 +68,7 @@ export const PostCard = ({ post }: IPost) => {
     const response = await axios.get(`/api/auth/post/${post._id}`);
     const data = response.data;
     const postUpdated = data.data;
-    setPostInfo(postUpdated)
+    setPostInfo(postUpdated);
   };
 
   const autoResize = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -107,7 +103,13 @@ export const PostCard = ({ post }: IPost) => {
             {loading ? (
               <Skeleton width={40} />
             ) : (
-              <p className="text-sm font-medium text-white">RandomUser</p>
+              <p
+                className={`${
+                  theme === "dark" ? "text-white" : "text-black"
+                } text-sm font-medium`}
+              >
+                RandomUser
+              </p>
             )}
             {loading ? (
               <Skeleton width={120} />
@@ -132,54 +134,12 @@ export const PostCard = ({ post }: IPost) => {
           />
         )}
 
-        <div className="flex items-center mt-4 space-x-2">
-          {loading ? (
-            <Skeleton width={25} height={25} style={{ borderRadius: "2em" }} />
-          ) : (
-            <button
-              title="Curtir"
-              onClick={handleLike}
-              className={`${
-                theme === "dark" ? "text-white" : "text-black"
-              } gap-1 flex items-center`}
-            >
-              <HeartIcon className={handleLikeStyle()} />
-              {likes}
-            </button>
-          )}
-          {loading ? (
-            <Skeleton width={25} height={25} style={{ borderRadius: "2em" }} />
-          ) : (
-            <button
-              title="Comentar"
-              className={`${
-                theme === "dark" ? "text-white" : "text-black"
-              } gap-1 flex items-center`}
-            >
-              <ChatBubbleOvalLeftIcon
-                className={`${
-                  theme === "dark" ? "text-white" : "text-black"
-                } h-6 w-6`}
-              />
-            </button>
-          )}
-          {loading ? (
-            <Skeleton width={25} height={25} style={{ borderRadius: "2em" }} />
-          ) : (
-            <button
-              title="Enviar"
-              className={`${
-                theme === "dark" ? "text-white" : "text-black"
-              } gap-1 flex items-center`}
-            >
-              <PaperAirplaneIcon
-                className={`${
-                  theme === "dark" ? "text-white" : "text-black"
-                } h-6 w-6`}
-              />
-            </button>
-          )}
-        </div>
+        <PostButtons
+          loading={loading}
+          likes={likes}
+          handleLike={handleLike}
+          handleLikeStyle={handleLikeStyle}
+        />
 
         <div className="flex flex-wrap flex-col mt-4 gap-2">
           {loading ? (
