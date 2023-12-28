@@ -40,12 +40,12 @@ export const PostCard = ({ post }: IPost) => {
     }
   });
 
-  useEffect(()=> {
-    if(postInfo._id){
-      handleComments()
+  useEffect(() => {
+    if (postInfo._id) {
+      handleComments();
     }
-  }, [])
-  
+  }, []);
+
   const handleLikeStyle = () => {
     // @ts-ignore
     if (postInfo.likes.includes(user._id)) {
@@ -70,8 +70,8 @@ export const PostCard = ({ post }: IPost) => {
 
   const handleComments = async () => {
     await axios.get(`/api/auth/comment/${postInfo._id}`).then((res) => {
-      const data = res.data
-      const { total, comment } = data
+      const data = res.data;
+      const { total, comment } = data;
       setTotalComments(total);
       setCommentContent(comment);
     });
@@ -103,7 +103,14 @@ export const PostCard = ({ post }: IPost) => {
 
         <PostContent loading={loading} content={postInfo.content} />
 
-        <PostComments postId={String(postInfo._id)} loading={loading} totalComments={totalComments} commentContent={commentContent}  />
+        <PostComments
+          postId={String(postInfo._id)}
+          loading={loading}
+          totalComments={totalComments}
+          commentContent={commentContent}
+          image={postImage}
+          content={postInfo.content}
+        />
 
         <div
           className={`${

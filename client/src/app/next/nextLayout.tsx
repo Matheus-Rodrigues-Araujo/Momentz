@@ -75,7 +75,7 @@ export default function NextLayout({
 
   return (
     <div>
-      <main className={`min-h-screen ${theme === 'dark' ? 'bg-customDark' : 'bg-white'}`}>
+      <main className={`relative min-h-screen ${theme === 'dark' ? 'bg-customDark' : 'bg-white'}`}>
         <Sidebar />
         <div className="flex justify-center">
           <div className="flex justify-center gap-10 mb-20 md:ml-20 md:mb-0">
