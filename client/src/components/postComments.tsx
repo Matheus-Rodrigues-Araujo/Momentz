@@ -2,11 +2,15 @@ import Skeleton from "react-loading-skeleton";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
 import { useState } from "react";
 import { useAppSelector } from "@/store/store";
+
 interface IPostComments {
   loading: boolean;
+  postId: string;
+  totalComments: number;
+  commentContent: any;
 }
 
-export const PostComments = ({ loading }: IPostComments) => {
+export const PostComments = ({ loading, postId, totalComments, commentContent }: IPostComments) => {
   const [text, setText] = useState("");
   const theme = useAppSelector((state) => state.theme);
 
@@ -30,7 +34,9 @@ export const PostComments = ({ loading }: IPostComments) => {
           style={{ borderRadius: "2em" }}
         />
       ) : (
-        <p className="text-customLightGray">See all 32 comment</p>
+        <p className="text-customLightGray">
+          {totalComments ? `See all ${totalComments} comments` : 'No comment'}
+        </p>
       )}
       {loading ? (
         <Skeleton

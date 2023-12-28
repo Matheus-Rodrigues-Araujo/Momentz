@@ -16,10 +16,10 @@ import { PostHeader } from "./postHeader";
 export const PostCard = ({ post }: IPost) => {
   const user: UserState = useAppSelector((state) => state.user);
   const theme = useAppSelector((state) => state.theme);
-  
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(0);
-  const [comments, setComments] = useState(null);
+  const [totalComments, setTotalComments] = useState(0);
+  const [commentContent, setCommentContent] = useState("");
   const [postInfo, setPostInfo] = useState(post);
   const [loading, setLoading] = useState(true);
 
@@ -40,6 +40,12 @@ export const PostCard = ({ post }: IPost) => {
     }
   });
 
+  useEffect(()=> {
+    if(postInfo._id){
+      handleComments()
+    }
+  }, [])
+  
   const handleLikeStyle = () => {
     // @ts-ignore
     if (postInfo.likes.includes(user._id)) {
@@ -60,6 +66,15 @@ export const PostCard = ({ post }: IPost) => {
         updatePost();
       })
       .catch((e) => console.log(e));
+  };
+
+  const handleComments = async () => {
+    await axios.get(`/api/auth/comment/${postInfo._id}`).then((res) => {
+      const data = res.data
+      const { total, comment } = data
+      setTotalComments(total);
+      setCommentContent(comment);
+    });
   };
 
   const updatePost = async () => {
@@ -88,7 +103,7 @@ export const PostCard = ({ post }: IPost) => {
 
         <PostContent loading={loading} content={postInfo.content} />
 
-        <PostComments loading={loading} />
+        <PostComments postId={String(postInfo._id)} loading={loading} totalComments={totalComments} commentContent={commentContent}  />
 
         <div
           className={`${
