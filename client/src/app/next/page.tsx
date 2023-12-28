@@ -1,7 +1,6 @@
 "use client";
 import { PostCard } from "@/components/postCard";
 import Layout from "./nextLayout";
-// import postsList from '../../randomPostsData';
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useAppSelector } from "@/store/store";

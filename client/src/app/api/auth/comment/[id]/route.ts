@@ -8,9 +8,8 @@ export async function GET(
 ) {
   try {
     const postId = context.params.id;
-    const comment = await Comment.findOne({ postId: postId });
-
-    return NextResponse.json(comment, { status: 200 });
+    const comment = await Comment.find({ postId: postId });
+    return NextResponse.json({total: comment.length, comment}, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: "Error receiving comment", error },
@@ -27,7 +26,7 @@ export async function POST(
     const postId = context.params.id;
     const { userId, content } = await req.json();
 
-    const comments: IComment = await Comment.create({
+    await Comment.create({
       authorId: userId,
       postId: postId,
       content: content,
