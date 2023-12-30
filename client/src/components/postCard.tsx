@@ -23,7 +23,7 @@ export const PostCard = ({ post }: IPost) => {
   const [postInfo, setPostInfo] = useState(post);
   const [loading, setLoading] = useState(true);
 
-  const postImage = `/uplouds/post-3.jpg`;
+  const postImage = `/uplouds/post-6.jpg`;
   const profileImage = "/default-profile-image.jpg";
 
   useEffect(() => {
