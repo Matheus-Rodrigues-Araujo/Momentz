@@ -123,7 +123,9 @@ export const PostInformation = ({
             ) : (
               <p
                 className={`${
-                  theme === "dark" ? "text-white bg-black" : "text-black bg-gray-100"
+                  theme === "dark"
+                    ? "text-white bg-black"
+                    : "text-black bg-gray-100"
                 } text-md font-light`}
               >
                 No comments
