@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, model, models, Types } from "mongoose";
+import mongoose from "mongoose";
 
 const DBConnection = process.env.DATABASE_URI || "";
 

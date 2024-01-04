@@ -1,7 +1,4 @@
 "use client";
-import Image from "next/image";
-import { IPost } from "@/interfaces/IPost";
-import Skeleton from "react-loading-skeleton";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
 import { useState, useEffect } from "react";
 import { useAppSelector } from "@/store/store";
@@ -13,18 +10,46 @@ import { PostContent } from "./postContent";
 import { PostImage } from "./postImage";
 import { PostHeader } from "./postHeader";
 
-export const PostCard = ({ post }: IPost) => {
+interface IPostType {
+  _id: string;
+  user: [
+    {
+      username: string;
+      profileImage: string;
+    }
+  ];
+  likes: string[];
+  datetime: Date;
+  content: string;
+}
+
+interface IPostCard {
+  _id: string;
+  user: [{ username: string; profileImage: string }];
+  postImage: string;
+  likes: string[];
+  content: string;
+  post: IPostType;
+}
+
+export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
   const user: UserState = useAppSelector((state) => state.user);
   const theme = useAppSelector((state) => state.theme);
-  const [isLiked, setIsLiked] = useState(false);
-  const [likes, setLikes] = useState(0);
-  const [totalComments, setTotalComments] = useState(0);
-  const [commentContent, setCommentContent] = useState("");
-  const [postInfo, setPostInfo] = useState(post);
   const [loading, setLoading] = useState(true);
 
+  const [isLiked, setIsLiked] = useState(false);
+  const [likes, setLikes] = useState(0);
+
+  const [totalComments, setTotalComments] = useState(0);
+  const [commentContent, setCommentContent] = useState("");
+
+  const [postInfo, setPostInfo] = useState(post);
+  const [postAuthor, setPostAuthor] = useState({
+    username: "",
+    profileImage: "",
+  });
+
   const postImage = `/uplouds/post-6.jpg`;
-  const profileImage = "/default-profile-image.jpg";
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -32,6 +57,16 @@ export const PostCard = ({ post }: IPost) => {
     }, 1000);
 
     return () => clearTimeout(delay);
+  }, []);
+
+  useEffect(() => {
+    if (postInfo.user) {
+      const { username, profileImage } = postInfo.user[0];
+      setPostAuthor({
+        username: username,
+        profileImage: profileImage,
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -90,7 +125,11 @@ export const PostCard = ({ post }: IPost) => {
       style={{ backgroundColor: "var(--gray)" }}
     >
       <div className="p-0 mb-4 rounded-md">
-        <PostHeader loading={loading} profileImage={profileImage} />
+        <PostHeader
+          loading={loading}
+          username={postAuthor.username}
+          profileImage={postAuthor.profileImage}
+        />
 
         <PostImage loading={loading} image={postImage} />
 
@@ -101,7 +140,12 @@ export const PostCard = ({ post }: IPost) => {
           handleLikeStyle={handleLikeStyle}
         />
 
-        <PostContent loading={loading} content={postInfo.content} />
+        <PostContent
+          loading={loading}
+          username={postAuthor.username}
+          profileImage={postAuthor.profileImage}
+          content={postInfo.content}
+        />
 
         <PostComments
           postId={String(postInfo._id)}
@@ -109,6 +153,8 @@ export const PostCard = ({ post }: IPost) => {
           totalComments={totalComments}
           commentContent={commentContent}
           image={postImage}
+          username = {postAuthor.username}
+          profileImage = {postAuthor.profileImage}
           content={postInfo.content}
         />
 

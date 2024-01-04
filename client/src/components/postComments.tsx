@@ -11,11 +11,14 @@ interface IPostComments {
   commentContent: any;
   image: string;
   content: string;
+  username: string;
+  profileImage: string;
 }
 
 export const PostComments = ({
   loading,
-  postId,
+  username,
+  profileImage,
   totalComments,
   commentContent,
   image,
@@ -93,6 +96,8 @@ export const PostComments = ({
             <PostInformation
               loading={loading}
               setPostVisibility={handlePostInformation}
+              username ={username}
+              profileImage={profileImage}
               image={image}
               content={content}
               commentContent={commentContent}

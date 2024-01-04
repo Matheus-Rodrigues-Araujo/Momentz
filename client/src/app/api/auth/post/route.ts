@@ -10,12 +10,33 @@ interface DecodedToken extends JwtPayload {
 
 export async function GET() {
   try {
-    const postList = await Post.find();
-    if (!postList) {
+    const posts = await Post.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "authorId",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $project: {
+          "content": 1,
+          "likes": 1,
+          "user.username": 1,
+          "user.profileImage": 1,
+        },
+      },
+      
+    ]).then(
+      result => result.reverse()
+    )
+
+    if (!posts) {
       return NextResponse.json({ posts: [] }, { status: 403 });
     }
 
-    return new Response(JSON.stringify({ posts: postList }), { status: 200 });
+    return new Response(JSON.stringify({ posts: posts }), { status: 200 });
   } catch (e) {
     return NextResponse.json(
       { message: "Something went wrong" },

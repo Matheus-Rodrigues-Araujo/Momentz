@@ -153,7 +153,7 @@ export default function Sidebar() {
               <p className={`${theme === 'dark' ? 'text-white' : 'text-black'} hidden xl:block`}>More</p>
             </div>
             {isDropdownOpen && (
-              <div className="w-[125px] fixed grid bg-customGray rounded-md shadow-md right-2 md:left-6 md:right-0 bottom-[85px]">
+              <div className="w-[125px] fixed grid bg-customGray rounded-md shadow-md right-2 md:left-6 md:right-0 bottom-[90px]">
                 <Link
                   href="#"
                   className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white"

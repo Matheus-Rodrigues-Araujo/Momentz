@@ -4,10 +4,12 @@ import { useAppSelector } from "@/store/store";
 
 interface IPostContent {
     loading: boolean,
+    username: string,
     content: string,
+    profileImage: string,
 }
 
-export const PostContent = ({loading, content}: IPostContent) => {
+export const PostContent = ({loading, username, profileImage, content}: IPostContent) => {
     const theme = useAppSelector((state) => state.theme)
 
     return (
@@ -25,7 +27,7 @@ export const PostContent = ({loading, content}: IPostContent) => {
                 theme === "dark" ? "text-white" : "text-black"
               } text-sm font-medium self-start`}
             >
-              User
+              {username}
             </p>
           )}
           {loading ? (

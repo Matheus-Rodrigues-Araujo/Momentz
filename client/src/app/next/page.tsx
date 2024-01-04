@@ -3,7 +3,6 @@ import { PostCard } from "@/components/postCard";
 import Layout from "./nextLayout";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useAppSelector } from "@/store/store";
 
 interface IPost {
   authorId: string;
@@ -36,8 +35,7 @@ export default function Next() {
 
   const getUsers = async () => {
     try {
-      const { data } = await axios.get("api/handleform");
-      const { users } = data;
+      await axios.get("api/handleform");
     } catch (error) {
       console.error("Error processing login:", error);
     }

@@ -7,6 +7,8 @@ import Image from "next/image";
 
 interface PostInformation {
   loading: boolean;
+  username: string;
+  profileImage: string;
   image: string;
   content: string;
   commentContent: any;
@@ -18,24 +20,29 @@ export const PostInformation = ({
   image,
   content,
   commentContent,
+  username,
+  profileImage,
   setPostVisibility,
 }: PostInformation) => {
   const theme = useAppSelector((state) => state.theme);
-  const profileImage = "/default-profile-image.jpg";
-  console.log(commentContent);
+
   return (
-    <div className={`${theme === 'dark' ? 'bg-transparentBlack' : 'bg-transparentWhite' } fixed z-40 top-0 left-0 flex justify-center items-center min-w-full min-h-full`} >
+    <div
+      className={`${
+        theme === "dark" ? "bg-transparentBlack" : "bg-transparentWhite"
+      } fixed z-40 top-0 left-0 flex justify-center items-center min-w-full min-h-full`}
+    >
       <div
         className={`${
-          theme === "dark" ? "bg-customDark" : "bg-white"
-        } flex gap-2 rounded-md`}
-        style={{width: '60%'}}
-       >
+          theme === "dark" ? "bg-black" : "bg-gray-100"
+        } flex gap-2 rounded-md p-3`}
+        style={{ width: "90%", height: "80vh" }}
+      >
         <img
           src={image}
           alt="Post image"
           className=" rounded-xl "
-          style={{ width: '50%', height: '50%', transform: 'scale(2,2)' }}
+          style={{ width: "auto", height: "100%" }}
         />
         <div className="w-[95%] grid-span-6">
           <div className="flex pt-2 justify-between">
@@ -52,28 +59,41 @@ export const PostInformation = ({
                   theme === "dark" ? "text-white" : "text-black"
                 } text-md`}
               >
-                RandomUser
+                {username}
               </p>
             </div>
             <button
               onClick={setPostVisibility}
-              className="text-white text-md font-bold"
+              className={`${
+                theme === "dark" ? "text-white" : "text-black"
+              } close-btn text-lg font-bold hover:text-red-600`}
             >
               X
             </button>
           </div>
-          <div style={{ borderBottom: "1px solid white" }}>
-            <PostContent loading={loading} content={content} />
+          <div
+            style={
+              theme === "dark"
+                ? { borderBottom: "1px solid white" }
+                : { borderBottom: "1px solid black" }
+            }
+          >
+            <PostContent
+              loading={loading}
+              content={content}
+              username={username}
+              profileImage={profileImage}
+            />
           </div>
 
-          <div className="post-comments mt-2">
+          <div
+            className={`${
+              theme === "dark" ? "bg-customDark" : "bg-white"
+            } post-comments mt-1`}
+          >
             {commentContent.length ? (
               commentContent.map((data: any) => (
-                <div
-                  className={`${
-                    theme === "dark" ? "bg-customDark" : "bg-customGray"
-                  } flex  items-center gap-2 mt-2`}
-                >
+                <div className="flex items-center gap-2 mt-1 py-1">
                   <div className="w-full flex items-center ">
                     <Image
                       src={profileImage}
@@ -84,9 +104,7 @@ export const PostInformation = ({
                     />
                     <p
                       className={`${
-                        theme === "dark"
-                          ? "text-white bg-black "
-                          : "text-white bg-customGray"
+                        theme === "dark" ? "text-white " : "text-black"
                       }`}
                     >
                       User
@@ -95,10 +113,8 @@ export const PostInformation = ({
 
                   <p
                     className={`${
-                      theme === "dark"
-                        ? "text-white bg-black "
-                        : "text-white bg-customGray"
-                    } w-80`}
+                      theme === "dark" ? "text-white " : "text-black bg-white"
+                    } w-80 text-[14px] text-left`}
                   >
                     {data.content}
                   </p>
@@ -106,10 +122,11 @@ export const PostInformation = ({
               ))
             ) : (
               <p
-                className={`${theme === "dark" ? "text-white" : "text-black"}`}
-                style={{ borderBottom: "1px solid white" }}
+                className={`${
+                  theme === "dark" ? "text-white" : "text-black"
+                } text-md font-light`}
               >
-                Post don't have comment
+                No comments
               </p>
             )}
           </div>
