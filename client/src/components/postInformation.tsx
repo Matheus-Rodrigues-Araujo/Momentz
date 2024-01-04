@@ -89,11 +89,11 @@ export const PostInformation = ({
           <div
             className={`${
               theme === "dark" ? "bg-customDark" : "bg-white"
-            } post-comments mt-1`}
+            } post-comments mt-1 overflow-y-auto h-[72%] max-h-[72%]`}
           >
             {commentContent.length ? (
               commentContent.map((data: any) => (
-                <div className="flex items-center gap-2 mt-1 py-1">
+                <div className="flex items-center gap-2 mt-1 py-1" >
                   <div className="w-full flex items-center ">
                     <Image
                       src={profileImage}
@@ -110,7 +110,7 @@ export const PostInformation = ({
                       User
                     </p>
                   </div>
-
+                  
                   <p
                     className={`${
                       theme === "dark" ? "text-white " : "text-black bg-white"
