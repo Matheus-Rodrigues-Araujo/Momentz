@@ -21,6 +21,7 @@ export async function GET() {
       },
       {
         $project: {
+          "createdAt": 1,
           "content": 1,
           "likes": 1,
           "user.username": 1,
@@ -31,7 +32,7 @@ export async function GET() {
     ]).then(
       result => result.reverse()
     )
-
+  
     if (!posts) {
       return NextResponse.json({ posts: [] }, { status: 403 });
     }

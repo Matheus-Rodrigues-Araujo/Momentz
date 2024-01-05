@@ -29,6 +29,7 @@ interface IPostCard {
   postImage: string;
   likes: string[];
   content: string;
+  createdAt: string;
   post: IPostType;
 }
 
@@ -37,19 +38,24 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
   const theme = useAppSelector((state) => state.theme);
   const [loading, setLoading] = useState(true);
 
-  const [isLiked, setIsLiked] = useState(false);
-  const [likes, setLikes] = useState(0);
-
-  const [totalComments, setTotalComments] = useState(0);
-  const [commentContent, setCommentContent] = useState("");
-
   const [postInfo, setPostInfo] = useState(post);
   const [postAuthor, setPostAuthor] = useState({
     username: "",
     profileImage: "",
   });
 
-  const postImage = `/uplouds/post-6.jpg`;
+  const [postDate, setPostDate] = useState({
+    date: "",
+    time: "",
+  });
+
+  const [isLiked, setIsLiked] = useState(false);
+  const [likes, setLikes] = useState(0);
+
+  const [totalComments, setTotalComments] = useState(0);
+  const [commentContent, setCommentContent] = useState("");
+
+  const postImage = `/uplouds/post-10.jpg`;
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -59,36 +65,52 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
     return () => clearTimeout(delay);
   }, []);
 
-  useEffect(() => {
-    if (postInfo.user) {
-      const { username, profileImage } = postInfo.user[0];
-      setPostAuthor({
-        username: username,
-        profileImage: profileImage,
+  const formattedDateAndTime = (date: string) => {
+    if (date) {
+      const formattedDate = new Date(date).toLocaleDateString();
+      const formattedTime = new Date(date).toLocaleTimeString();
+      setPostDate({
+        date: formattedDate,
+        time: formattedTime,
       });
     }
-  }, []);
-
-  useEffect(() => {
-    if (postInfo.likes) {
-      setLikes(postInfo.likes.length);
-    }
-  });
+  };
 
   useEffect(() => {
     if (postInfo._id) {
       handleComments();
     }
-  }, []);
+
+    if (postInfo.createdAt) {
+      formattedDateAndTime(post.createdAt);
+    }
+
+    if (postInfo.likes) {
+      setLikes(postInfo.likes.length);
+    }
+
+    if (postInfo.user) {
+      const { username, profileImage } = postInfo.user[0];
+      setPostAuthor({
+        username,
+        profileImage,
+      });
+    }
+  }, [postInfo]);
+
+  const updatePost = async () => {
+    const response = await axios.get(`/api/auth/post/${post._id}`);
+    const data = response.data;
+    const postUpdated = data.data;
+    setPostInfo(postUpdated);
+  };
 
   const handleLikeStyle = () => {
-    // @ts-ignore
-    if (postInfo.likes.includes(user._id)) {
-      return "text-customLightpink h-6 w-6";
-    } else if (!isLiked && theme === "dark") {
-      return "text-white h-6 w-6 ";
-    }
-    return "text-black h-6 w-6";
+    return postInfo.likes?.includes(user._id)
+      ? "text-customLightpink h-6 w-6"
+      : theme === "dark"
+      ? "text-white h-6 w-6"
+      : "text-black h-6 w-6";
   };
 
   const handleLike = async () => {
@@ -112,11 +134,25 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
     });
   };
 
-  const updatePost = async () => {
-    const response = await axios.get(`/api/auth/post/${post._id}`);
-    const data = response.data;
-    const postUpdated = data.data;
-    setPostInfo(postUpdated);
+  const handlePublishComment = async (postId: string, text: string) => {
+    try {
+      if (text.length > 0) {
+        const payload = {
+          userId: user._id,
+          content: text,
+        };
+        await axios
+          .post(`/api/auth/comment/${postId}`, payload)
+          .then(() => {
+            updatePost();
+          })
+          .catch((e) => console.log(e));
+      } else {
+        alert("Comment is empty!");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -129,6 +165,7 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
           loading={loading}
           username={postAuthor.username}
           profileImage={postAuthor.profileImage}
+          createdAt={postDate}
         />
 
         <PostImage loading={loading} image={postImage} />
@@ -153,9 +190,10 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
           totalComments={totalComments}
           commentContent={commentContent}
           image={postImage}
-          username = {postAuthor.username}
-          profileImage = {postAuthor.profileImage}
+          username={postAuthor.username}
+          profileImage={postAuthor.profileImage}
           content={postInfo.content}
+          handlePublishComment={handlePublishComment}
         />
 
         <div

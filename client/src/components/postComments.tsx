@@ -3,6 +3,7 @@ import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
 import { useState } from "react";
 import { useAppSelector } from "@/store/store";
 import { PostInformation } from "./postInformation";
+import axios from "axios";
 
 interface IPostComments {
   loading: boolean;
@@ -13,9 +14,11 @@ interface IPostComments {
   content: string;
   username: string;
   profileImage: string;
+  handlePublishComment: any;
 }
 
 export const PostComments = ({
+  postId,
   loading,
   username,
   profileImage,
@@ -23,6 +26,7 @@ export const PostComments = ({
   commentContent,
   image,
   content,
+  handlePublishComment,
 }: IPostComments) => {
   const [text, setText] = useState("");
   const [isButtonVisible, setIsButtonVisible] = useState(false);
@@ -61,7 +65,11 @@ export const PostComments = ({
           onClick={() => setIsInformationVisible(!isInformationVisible)}
           className="text-customLightGray hover:text-gray-200"
         >
-          {totalComments ? `See all ${totalComments} comments` : "No comment"}
+          {totalComments === 1
+            ? `See ${totalComments} comment`
+            : totalComments >= 2
+            ? `See ${totalComments} comments`
+            : "No comment"}
         </p>
       )}
       {loading ? (
@@ -88,7 +96,13 @@ export const PostComments = ({
             }}
           />
           {isButtonVisible && (
-            <button className="w-20 text-customBlue text-md hover:text-customLightBlue">
+            <button
+              onClick={() => {
+                handlePublishComment(postId, text);
+                setText("");
+              }}
+              className="w-20 text-customBlue text-md hover:text-customLightBlue"
+            >
               Publish
             </button>
           )}
@@ -96,7 +110,7 @@ export const PostComments = ({
             <PostInformation
               loading={loading}
               setPostVisibility={handlePostInformation}
-              username ={username}
+              username={username}
               profileImage={profileImage}
               image={image}
               content={content}

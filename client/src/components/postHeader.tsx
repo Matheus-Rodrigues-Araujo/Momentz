@@ -7,12 +7,17 @@ interface IPostHeader {
   loading: boolean;
   username: string;
   profileImage: string;
+  createdAt: {
+    date: string;
+    time: string;
+  };
 }
 
 export const PostHeader = ({
   loading,
   username,
   profileImage,
+  createdAt
 }: IPostHeader) => {
   const theme = useAppSelector((state) => state.theme);
 
@@ -48,9 +53,8 @@ export const PostHeader = ({
         {loading ? (
           <Skeleton width={120} />
         ) : (
-          <p className="text-gray-500 text-sm">
-            2023-12-10
-            {/* {post.datetime.toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'})} */}
+          <p className="text-gray-500 text-sm font-light">
+            {createdAt.date}
           </p>
         )}
       </div>
