@@ -49,7 +49,6 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
     time: "",
   });
 
-  const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(0);
 
   const [totalComments, setTotalComments] = useState(0);

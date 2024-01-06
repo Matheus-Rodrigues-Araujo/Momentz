@@ -1,6 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/store";
 import { PostContent } from "./postContent";
 import Image from "next/image";
@@ -25,7 +25,7 @@ export const PostInformation = ({
   setPostVisibility,
 }: PostInformation) => {
   const theme = useAppSelector((state) => state.theme);
-
+  
   return (
     <div
       className={`${

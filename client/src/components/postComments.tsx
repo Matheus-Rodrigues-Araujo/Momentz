@@ -1,6 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppSelector } from "@/store/store";
 import { PostInformation } from "./postInformation";
 import axios from "axios";
@@ -47,9 +47,23 @@ export const PostComments = ({
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
+  const disableScroll = () => {
+    window.onscroll = function () {
+      window.scrollTo(0, 0);
+    };
+  };
+
+  const enableScroll = () => {
+    window.onscroll = function () {};
+  };
+
   const handlePostInformation = () => {
     setIsInformationVisible(!isInformationVisible);
   };
+
+  useEffect(() => {
+    isInformationVisible ? disableScroll() : enableScroll();
+  }, [isInformationVisible]);
 
   return (
     <div className="comment-container grid gap-3">
