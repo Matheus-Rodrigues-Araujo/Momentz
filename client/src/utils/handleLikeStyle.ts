@@ -6,6 +6,6 @@ export const handleLikeStyle = (
   return postLikes?.includes(userId)
     ? "text-customLightpink h-6 w-6"
     : theme === "dark"
-    ? "text-white h-6 w-6 hover:text-gray-400"
-    : "text-black h-6 w-6 hover:text-gray-400";
+    ? "text-white h-6 w-6"
+    : "text-black h-6 w-6";
 };
