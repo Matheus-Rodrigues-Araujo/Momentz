@@ -40,6 +40,7 @@ interface IPostCard {
   post: IPostType;
 }
 
+
 export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
   const user: UserState = useAppSelector((state) => state.user);
   const theme = useAppSelector((state) => state.theme);
@@ -81,6 +82,14 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
       setCommentContent(comment)
     }
   }
+
+  const handleLikeStyle = () => {
+    return postInfo.likes?.includes(user._id)
+      ? "text-customLightpink h-6 w-6"
+      : theme === "dark"
+      ? "text-white h-6 w-6"
+      : "text-black h-6 w-6";
+  };
 
   useEffect(() => {
     if (postInfo._id) {
@@ -169,7 +178,7 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
           likes={postInfo?.likes}
           likesCount={likesCount}
           handleLike={handleLike}
-          // handleLikeStyle={handleLikeStyle}
+          handleLikeStyle={handleLikeStyle}
           setCommentsCardVisibility={handleCommentsCardVisibility}
         />
 

@@ -13,6 +13,7 @@ interface IPostButtons {
   likes: String[];
   likesCount: number;
   handleLike: () => void;
+  handleLikeStyle: () => string;
   setCommentsCardVisibility: () => void;
 }
 
@@ -21,6 +22,7 @@ export const PostButtons = ({
   likes,
   likesCount,
   handleLike,
+  handleLikeStyle,
   setCommentsCardVisibility,
 }: IPostButtons) => {
   const user = useAppSelector((state) => state.user);
@@ -38,7 +40,7 @@ export const PostButtons = ({
             theme === "dark" ? "text-white" : "text-black"
           } gap-1 flex items-center`}
         >
-          <HeartIcon className={handleLikeStyle(likes, user._id, theme)} />
+          <HeartIcon className={handleLikeStyle()} />
           {likesCount}
         </button>
       )}
