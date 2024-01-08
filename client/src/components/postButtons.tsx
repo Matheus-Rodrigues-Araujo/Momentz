@@ -1,6 +1,5 @@
 import Skeleton from "react-loading-skeleton";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
-import { handleLikeStyle } from "@/utils/handleLikeStyle";
 import { useAppSelector } from "@/store/store";
 import {
   HeartIcon,
