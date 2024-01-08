@@ -2,7 +2,6 @@ import Skeleton from "react-loading-skeleton";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
 import { useState, useEffect } from "react";
 import { useAppSelector } from "@/store/store";
-import { PostInformation } from "./postCommentsCard";
 import axios from "axios";
 
 interface IPostComments {
