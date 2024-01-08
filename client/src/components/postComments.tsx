@@ -2,7 +2,7 @@ import Skeleton from "react-loading-skeleton";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
 import { useState, useEffect } from "react";
 import { useAppSelector } from "@/store/store";
-import { PostInformation } from "./postInformation";
+import { PostInformation } from "./postCommentsCard";
 import axios from "axios";
 
 interface IPostComments {
@@ -15,6 +15,7 @@ interface IPostComments {
   username: string;
   profileImage: string;
   handlePublishComment: any;
+  setCommentsCardVisibility: () => void;
 }
 
 export const PostComments = ({
@@ -27,10 +28,10 @@ export const PostComments = ({
   image,
   content,
   handlePublishComment,
+  setCommentsCardVisibility,
 }: IPostComments) => {
   const [text, setText] = useState("");
   const [isButtonVisible, setIsButtonVisible] = useState(false);
-  const [isInformationVisible, setIsInformationVisible] = useState(false);
 
   const theme = useAppSelector((state) => state.theme);
 
@@ -47,24 +48,6 @@ export const PostComments = ({
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
-  const disableScroll = () => {
-    window.onscroll = function () {
-      window.scrollTo(0, 0);
-    };
-  };
-
-  const enableScroll = () => {
-    window.onscroll = function () {};
-  };
-
-  const handlePostInformation = () => {
-    setIsInformationVisible(!isInformationVisible);
-  };
-
-  useEffect(() => {
-    isInformationVisible ? disableScroll() : enableScroll();
-  }, [isInformationVisible]);
-
   return (
     <div className="comment-container grid gap-3">
       {loading ? (
@@ -76,7 +59,7 @@ export const PostComments = ({
         />
       ) : (
         <p
-          onClick={() => setIsInformationVisible(!isInformationVisible)}
+          onClick={setCommentsCardVisibility}
           className="text-customLightGray hover:text-gray-200"
         >
           {totalComments === 1
@@ -119,17 +102,6 @@ export const PostComments = ({
             >
               Publish
             </button>
-          )}
-          {isInformationVisible && (
-            <PostInformation
-              loading={loading}
-              setPostVisibility={handlePostInformation}
-              username={username}
-              profileImage={profileImage}
-              image={image}
-              content={content}
-              commentContent={commentContent}
-            />
           )}
         </div>
       )}

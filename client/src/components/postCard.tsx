@@ -1,14 +1,21 @@
 "use client";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { useAppSelector } from "@/store/store";
-import axios from "axios";
 import { UserState } from "@/reducers/userSlice";
 import { PostButtons } from "./postButtons";
 import { PostComments } from "./postComments";
 import { PostContent } from "./postContent";
 import { PostImage } from "./postImage";
 import { PostHeader } from "./postHeader";
+import { PostCommentsCard } from "./postCommentsCard";
+// utils
+import { formatDateAndTime } from "@/utils/formatDateAndTime";
+import { enableScroll } from "@/utils/enableScroll";
+import { disableScroll } from "@/utils/disableScroll";
+//services
+import { handleComments } from "@/services/handleComments";
 
 interface IPostType {
   _id: string;
@@ -36,21 +43,19 @@ interface IPostCard {
 export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
   const user: UserState = useAppSelector((state) => state.user);
   const theme = useAppSelector((state) => state.theme);
-  const [loading, setLoading] = useState(true);
 
+  const [loading, setLoading] = useState(true);
+  const [commentsCardVisibility, setCommentsCardVisibility] = useState(false);
   const [postInfo, setPostInfo] = useState(post);
   const [postAuthor, setPostAuthor] = useState({
     username: "",
     profileImage: "",
   });
-
   const [postDate, setPostDate] = useState({
     date: "",
     time: "",
   });
-
-  const [likes, setLikes] = useState(0);
-
+  const [likesCount, setLikesCount] = useState(0);
   const [totalComments, setTotalComments] = useState(0);
   const [commentContent, setCommentContent] = useState("");
 
@@ -64,28 +69,31 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
     return () => clearTimeout(delay);
   }, []);
 
-  const formattedDateAndTime = (date: string) => {
-    if (date) {
-      const formattedDate = new Date(date).toLocaleDateString();
-      const formattedTime = new Date(date).toLocaleTimeString();
-      setPostDate({
-        date: formattedDate,
-        time: formattedTime,
-      });
-    }
+  const handleCommentsCardVisibility = () => {
+    setCommentsCardVisibility(!commentsCardVisibility);
   };
+
+  async function getComment(){
+    const data = await handleComments(postInfo._id)
+    if(data){
+      const { total, comment } = data
+      setTotalComments(total)
+      setCommentContent(comment)
+    }
+  }
 
   useEffect(() => {
     if (postInfo._id) {
-      handleComments();
+      getComment()
     }
 
     if (postInfo.createdAt) {
-      formattedDateAndTime(post.createdAt);
+      const datetime = formatDateAndTime(postInfo.createdAt);
+      datetime && setPostDate(datetime);
     }
 
     if (postInfo.likes) {
-      setLikes(postInfo.likes.length);
+      setLikesCount(postInfo.likes.length);
     }
 
     if (postInfo.user) {
@@ -104,14 +112,6 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
     setPostInfo(postUpdated);
   };
 
-  const handleLikeStyle = () => {
-    return postInfo.likes?.includes(user._id)
-      ? "text-customLightpink h-6 w-6"
-      : theme === "dark"
-      ? "text-white h-6 w-6"
-      : "text-black h-6 w-6";
-  };
-
   const handleLike = async () => {
     const payload = {
       currentUserId: user._id,
@@ -122,15 +122,6 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
         updatePost();
       })
       .catch((e) => console.log(e));
-  };
-
-  const handleComments = async () => {
-    await axios.get(`/api/auth/comment/${postInfo._id}`).then((res) => {
-      const data = res.data;
-      const { total, comment } = data;
-      setTotalComments(total);
-      setCommentContent(comment);
-    });
   };
 
   const handlePublishComment = async (postId: string, text: string) => {
@@ -154,6 +145,10 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
     }
   };
 
+  useEffect(() => {
+    commentsCardVisibility ? disableScroll() : enableScroll();
+  }, [commentsCardVisibility]);
+
   return (
     <div
       className="post-card cursor-pointer bg-gray-900 shadow-x-2 shadow-y-9 shadow-blur-2 rounded-none md:p-4"
@@ -171,9 +166,11 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
 
         <PostButtons
           loading={loading}
-          likes={likes}
+          likes={postInfo?.likes}
+          likesCount={likesCount}
           handleLike={handleLike}
-          handleLikeStyle={handleLikeStyle}
+          // handleLikeStyle={handleLikeStyle}
+          setCommentsCardVisibility={handleCommentsCardVisibility}
         />
 
         <PostContent
@@ -193,7 +190,21 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
           profileImage={postAuthor.profileImage}
           content={postInfo.content}
           handlePublishComment={handlePublishComment}
+          setCommentsCardVisibility={handleCommentsCardVisibility}
         />
+
+        {commentsCardVisibility && (
+          <PostCommentsCard
+            loading={loading}
+            commentsCardVisibility={commentsCardVisibility}
+            setCommentsCardVisibility={handleCommentsCardVisibility}
+            username={postAuthor.username}
+            profileImage={postAuthor.profileImage}
+            image={postImage}
+            content={postInfo.content}
+            commentContent={commentContent}
+          />
+        )}
 
         <div
           className={`${

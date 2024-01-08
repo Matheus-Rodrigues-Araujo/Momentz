@@ -5,27 +5,29 @@ import { useAppSelector } from "@/store/store";
 import { PostContent } from "./postContent";
 import Image from "next/image";
 
-interface PostInformation {
+interface PostCommentsCard {
   loading: boolean;
   username: string;
   profileImage: string;
   image: string;
   content: string;
   commentContent: any;
-  setPostVisibility: () => void;
+  commentsCardVisibility: boolean;
+  setCommentsCardVisibility: () => void;
 }
 
-export const PostInformation = ({
+export const PostCommentsCard = ({
   loading,
   image,
   content,
   commentContent,
   username,
   profileImage,
-  setPostVisibility,
-}: PostInformation) => {
+  commentsCardVisibility,
+  setCommentsCardVisibility,
+}: PostCommentsCard) => {
   const theme = useAppSelector((state) => state.theme);
-  
+
   return (
     <div
       className={`${
@@ -63,7 +65,7 @@ export const PostInformation = ({
               </p>
             </div>
             <button
-              onClick={setPostVisibility}
+              onClick={setCommentsCardVisibility}
               className={`${
                 theme === "dark" ? "text-white" : "text-black"
               } close-btn text-lg font-bold hover:text-red-600`}
@@ -93,7 +95,7 @@ export const PostInformation = ({
           >
             {commentContent.length ? (
               commentContent.map((data: any) => (
-                <div className="flex items-center gap-2 mt-1 py-1" >
+                <div className="flex items-center gap-2 mt-1 py-1">
                   <div className="w-full flex items-center ">
                     <Image
                       src={profileImage}
@@ -110,7 +112,7 @@ export const PostInformation = ({
                       User
                     </p>
                   </div>
-                  
+
                   <p
                     className={`${
                       theme === "dark" ? "text-white " : "text-black bg-white"

@@ -1,5 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 import "../../node_modules/react-loading-skeleton/dist/skeleton.css";
+import { handleLikeStyle } from "@/utils/handleLikeStyle";
 import { useAppSelector } from "@/store/store";
 import {
   HeartIcon,
@@ -9,17 +10,20 @@ import {
 
 interface IPostButtons {
   loading: boolean;
-  likes: number;
-  handleLikeStyle: () => string;
+  likes: String[];
+  likesCount: number;
   handleLike: () => void;
+  setCommentsCardVisibility: () => void;
 }
 
 export const PostButtons = ({
   loading,
   likes,
+  likesCount,
   handleLike,
-  handleLikeStyle,
+  setCommentsCardVisibility,
 }: IPostButtons) => {
+  const user = useAppSelector((state) => state.user);
   const theme = useAppSelector((state) => state.theme);
 
   return (
@@ -34,8 +38,8 @@ export const PostButtons = ({
             theme === "dark" ? "text-white" : "text-black"
           } gap-1 flex items-center`}
         >
-          <HeartIcon className={handleLikeStyle()} />
-          {likes}
+          <HeartIcon className={handleLikeStyle(likes, user._id, theme)} />
+          {likesCount}
         </button>
       )}
       {loading ? (
@@ -43,6 +47,7 @@ export const PostButtons = ({
       ) : (
         <button
           title="Comentar"
+          onClick={setCommentsCardVisibility}
           className={`${
             theme === "dark" ? "text-white" : "text-black"
           } gap-1 flex items-center`}
@@ -50,7 +55,7 @@ export const PostButtons = ({
           <ChatBubbleOvalLeftIcon
             className={`${
               theme === "dark" ? "text-white" : "text-black"
-            } h-6 w-6`}
+            } h-6 w-6 hover:text-gray-400`}
           />
         </button>
       )}
@@ -66,7 +71,7 @@ export const PostButtons = ({
           <PaperAirplaneIcon
             className={`${
               theme === "dark" ? "text-white" : "text-black"
-            } h-6 w-6`}
+            } h-6 w-6 hover:text-gray-400`}
           />
         </button>
       )}
