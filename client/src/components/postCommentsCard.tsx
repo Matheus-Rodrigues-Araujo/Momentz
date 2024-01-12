@@ -37,17 +37,16 @@ export const PostCommentsCard = ({
       <div
         className={`${
           theme === "dark" ? "bg-black" : "bg-gray-100"
-        } flex gap-2 rounded-md p-3`}
-        style={{ width: "90%", height: "80vh" }}
+        } flex gap-2 rounded-md p-3 justify-center h-[80dvh] `}
       >
         <img
           src={image}
           alt="Post image"
-          className=" rounded-xl "
-          style={{ width: "auto", height: "100%" }}
+          className=" rounded-xl"
+          style={{ maxWidth: "100%", height: "auto" }}
         />
-        <div className="w-[95%] grid-span-6">
-          <div className="flex pt-2 justify-between">
+        <div className="bg-black p-2 grid-span-6">
+          <div className="flex justify-between">
             <div className="flex items-center gap-2">
               <Image
                 src={profileImage}
@@ -88,51 +87,53 @@ export const PostCommentsCard = ({
             />
           </div>
 
-          <div
-            className={`${
-              theme === "dark" ? "bg-customDark" : "bg-white"
-            } post-comments mt-1 overflow-y-auto h-[72%] max-h-[72%]`}
-          >
-            {commentContent.length ? (
-              commentContent.map((data: any) => (
-                <div className="flex items-center gap-2 mt-1 py-1">
-                  <div className="w-full flex items-center ">
-                    <Image
-                      src={profileImage}
-                      width={50}
-                      height={50}
-                      alt="Profile image"
-                      className="object-cover w-10 h-10 rounded-full mr-2"
-                    />
+          <div className="post-comments-container" >
+            <div
+              className={`${
+                theme === "dark" ? "bg-black" : "bg-white"
+              } post-comments custom-scrollbars__content mt-1`}
+            >
+              {commentContent.length ? (
+                commentContent.map((data: any) => (
+                  <div className="flex items-center gap-2 mt-1 py-1">
+                    <div className="w-full flex items-center ">
+                      <Image
+                        src={profileImage}
+                        width={50}
+                        height={50}
+                        alt="Profile image"
+                        className="object-cover w-10 h-10 rounded-full mr-2"
+                      />
+                      <p
+                        className={`${
+                          theme === "dark" ? "text-white " : "text-black"
+                        }`}
+                      >
+                        User
+                      </p>
+                    </div>
+
                     <p
                       className={`${
-                        theme === "dark" ? "text-white " : "text-black"
-                      }`}
+                        theme === "dark" ? "text-white " : "text-black bg-white"
+                      } w-80 text-[14px] text-left`}
                     >
-                      User
+                      {data.content}
                     </p>
                   </div>
-
-                  <p
-                    className={`${
-                      theme === "dark" ? "text-white " : "text-black bg-white"
-                    } w-80 text-[14px] text-left`}
-                  >
-                    {data.content}
-                  </p>
-                </div>
-              ))
-            ) : (
-              <p
-                className={`${
-                  theme === "dark"
-                    ? "text-white bg-black"
-                    : "text-black bg-gray-100"
-                } text-md font-light`}
-              >
-                No comments
-              </p>
-            )}
+                ))
+              ) : (
+                <p
+                  className={`${
+                    theme === "dark"
+                      ? "text-white bg-black"
+                      : "text-black bg-gray-100"
+                  } text-md font-light`}
+                >
+                  No comments
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>

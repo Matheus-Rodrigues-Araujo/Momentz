@@ -49,6 +49,23 @@ body {
   height: 280px;
 }
 
+.custom-scrollbars__content {
+	overflow: auto;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.custom-scrollbars__content::-webkit-scrollbar {
+	display: none;
+}
+
+.post-comments{
+  overflow-y: auto;
+  width: 25dvw;
+  max-height: calc(70dvh - 90px);
+}
+
+
 @media screen and (max-width: 600px) {
   .skeleton-img {
     min-width: 80vw;
