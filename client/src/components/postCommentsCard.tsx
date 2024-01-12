@@ -38,6 +38,7 @@ export const PostCommentsCard = ({
         className={`${theme === "dark" ? "" : ""}
         flex justify-center
         w-10/12
+        h-[80dvh]
         `}
       >
         <img src={image} alt="Post image" className="post-comments-image" />

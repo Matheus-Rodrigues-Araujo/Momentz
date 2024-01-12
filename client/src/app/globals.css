@@ -61,6 +61,10 @@ body {
 	display: none;
 }
 
+.post-comments-container{
+  width: calc(var(--post-height) - 20px);
+}
+
 .post-comments{
   overflow-y: auto;
   max-height: calc(var(--post-height) - var(--margin-space));
