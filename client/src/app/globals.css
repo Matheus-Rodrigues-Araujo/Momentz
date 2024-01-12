@@ -65,7 +65,6 @@ body {
   max-height: calc(70dvh - 90px);
 }
 
-
 @media screen and (max-width: 600px) {
   .skeleton-img {
     min-width: 80vw;
