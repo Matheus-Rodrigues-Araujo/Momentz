@@ -35,17 +35,17 @@ export const PostCommentsCard = ({
       } fixed z-40 top-0 left-0 flex justify-center items-center min-w-full min-h-full`}
     >
       <div
-        className={`${
-          theme === "dark" ? "bg-black" : "bg-gray-100"
-        } flex gap-2 rounded-md p-3 justify-center h-[80dvh] `}
+        className={`${theme === "dark" ? "" : ""}
+        flex justify-center h-[80dvh] 
+        w-10/12
+        `}
       >
         <img
           src={image}
           alt="Post image"
-          className=" rounded-xl"
-          style={{ maxWidth: "100%", height: "auto" }}
+          className="post-comments-image"
         />
-        <div className="bg-black p-2 grid-span-6">
+        <div className={`${ theme === 'dark' ? "bg-black" : "bg-white" } px-1 grid-span-6`}>
           <div className="flex justify-between">
             <div className="flex items-center gap-2">
               <Image
@@ -95,8 +95,8 @@ export const PostCommentsCard = ({
             >
               {commentContent.length ? (
                 commentContent.map((data: any) => (
-                  <div className="flex items-center gap-2 mt-1 py-1">
-                    <div className="w-full flex items-center ">
+                  <div className="flex items-center  mt-1 py-1">
+                    <div className="w-6/12 flex items-center ">
                       <Image
                         src={profileImage}
                         width={50}
@@ -107,7 +107,7 @@ export const PostCommentsCard = ({
                       <p
                         className={`${
                           theme === "dark" ? "text-white " : "text-black"
-                        }`}
+                        } text-sm `}
                       >
                         User
                       </p>
@@ -116,7 +116,7 @@ export const PostCommentsCard = ({
                     <p
                       className={`${
                         theme === "dark" ? "text-white " : "text-black bg-white"
-                      } w-80 text-[14px] text-left`}
+                      } w-80 text-[14px] text-left text-sm`}
                     >
                       {data.content}
                     </p>
@@ -127,7 +127,7 @@ export const PostCommentsCard = ({
                   className={`${
                     theme === "dark"
                       ? "text-white bg-black"
-                      : "text-black bg-gray-100"
+                      : "text-black bg-white"
                   } text-md font-light`}
                 >
                   No comments

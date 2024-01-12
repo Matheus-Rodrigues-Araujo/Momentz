@@ -11,7 +11,7 @@ const config: Config = {
       colors: {
         customDark: '#0e0d0e',
         transparentBlack: "rgba(0,0,0,0.8)",
-        transparentWhite: "rgba(255,255,255,0.6)",
+        transparentWhite: "rgb(222 222 222 / 60%)",
         customGray: '#211E1F',
         customLightGray: '#8E8787',
         customYellow: '#EFD370',

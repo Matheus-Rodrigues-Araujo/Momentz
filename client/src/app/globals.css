@@ -6,6 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --post-height: 70dvh;
+  --margin-space: 90px;
 }
 
 body {
@@ -61,8 +63,20 @@ body {
 
 .post-comments{
   overflow-y: auto;
-  width: 25dvw;
-  max-height: calc(70dvh - 90px);
+  max-height: calc(var(--post-height) - var(--margin-space));
+}
+
+.post-comments-image{
+  max-width: var(--post-height);
+  object-fit:fill;
+  height: auto;
+}
+
+@media screen and (max-width: 845px) {
+  :root{
+    --post-height: 60dvh;
+    --margin-space: 10px;
+  }
 }
 
 @media screen and (max-width: 600px) {
