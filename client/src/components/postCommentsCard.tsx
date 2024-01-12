@@ -36,7 +36,7 @@ export const PostCommentsCard = ({
     >
       <div
         className={`${theme === "dark" ? "" : ""}
-        flex justify-center 
+        flex justify-center
         w-10/12
         `}
       >
@@ -47,7 +47,7 @@ export const PostCommentsCard = ({
           } px-1 grid-span-6`}
         >
           <div className="flex justify-between">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 py-1">
               <Image
                 src={profileImage}
                 width={50}
