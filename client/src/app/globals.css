@@ -6,7 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --post-height: 70dvh;
+  --post-height: 60dvh;
   --margin-space: 90px;
 }
 
@@ -72,9 +72,9 @@ body {
   height: auto;
 }
 
-@media screen and (max-width: 845px) {
+@media screen and (max-width: 768px) {
   :root{
-    --post-height: 60dvh;
+    --post-height: 50dvh;
     --margin-space: 10px;
   }
 }

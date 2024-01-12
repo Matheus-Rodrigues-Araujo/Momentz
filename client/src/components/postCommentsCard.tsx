@@ -36,16 +36,16 @@ export const PostCommentsCard = ({
     >
       <div
         className={`${theme === "dark" ? "" : ""}
-        flex justify-center h-[80dvh] 
+        flex justify-center 
         w-10/12
         `}
       >
-        <img
-          src={image}
-          alt="Post image"
-          className="post-comments-image"
-        />
-        <div className={`${ theme === 'dark' ? "bg-black" : "bg-white" } px-1 grid-span-6`}>
+        <img src={image} alt="Post image" className="post-comments-image" />
+        <div
+          className={`${
+            theme === "dark" ? "bg-black" : "bg-white"
+          } px-1 grid-span-6`}
+        >
           <div className="flex justify-between">
             <div className="flex items-center gap-2">
               <Image
@@ -87,7 +87,7 @@ export const PostCommentsCard = ({
             />
           </div>
 
-          <div className="post-comments-container" >
+          <div className="post-comments-container">
             <div
               className={`${
                 theme === "dark" ? "bg-black" : "bg-white"
