@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         customDark: '#0e0d0e',
+        customWhite: '#f8f8f8',
         transparentBlack: "rgba(0,0,0,0.8)",
         transparentWhite: "rgb(222 222 222 / 60%)",
         customGray: '#211E1F',
@@ -22,6 +23,7 @@ const config: Config = {
         customLightpink: '#fc49ae',
         customLighterPink: '#F1688E',
         customLightbrown: '#AD4965',
+        customShadow: 'shadow-[0px_0px_4px_0px_black]',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

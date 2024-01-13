@@ -41,13 +41,25 @@ export const PostCommentsCard = ({
         h-[80dvh]
         `}
       >
-        <img src={image} alt="Post image" className="post-comments-image" />
+        <img
+          src={image}
+          alt="Post image"
+          className="hidden md:block post-comments-image"
+        />
+        {/* apply here */}
         <div
-          className={`${
-            theme === "dark" ? "bg-black" : "bg-white"
-          } px-1 grid-span-6`}
+          className={`${theme === "dark" ? "bg-black light-shadow" : "bg-white dark-shadow"} 
+          rounded-[0.7rem] max-[500px]:rounded-t-[0.7rem] max-[500px]:absolute bottom-0 h-[75vh] px-2 max-[500px]:w-full max-[550px]:w-auto 
+          md:static px-1 grid span-6 md:h-auto md:w-auto 
+          `
+          }
+        
         >
-          <div className="flex justify-between">
+          <div
+            className={`${
+              theme === "dark" ? "bg-black" : "bg-white"
+            } relative flex justify-between`}
+          >
             <div className="flex items-center gap-2 py-1">
               <Image
                 src={profileImage}
@@ -68,7 +80,7 @@ export const PostCommentsCard = ({
               onClick={setCommentsCardVisibility}
               className={`${
                 theme === "dark" ? "text-white" : "text-black"
-              } close-btn text-lg font-bold hover:text-red-600`}
+              } absolute right-3 top-3 close-btn text-lg font-bold hover:text-red-600  max-[315px]:right-10 top-4`}
             >
               X
             </button>
@@ -80,15 +92,43 @@ export const PostCommentsCard = ({
                 : { borderBottom: "1px solid black" }
             }
           >
-            <PostContent
-              loading={loading}
-              content={content}
-              username={username}
-              profileImage={profileImage}
-            />
-          </div>
+            <div className="flex flex-wrap flex-col mt-4 gap-2">
+              {loading ? (
+                <Skeleton
+                  width={80}
+                  height={20}
+                  className="rounded-full mr-2 product-image"
+                  style={{ borderRadius: "2em" }}
+                />
+              ) : (
+                <p
+                  className={`${
+                    theme === "dark" ? "text-white" : "text-black"
+                  } text-lg font-medium self-start`}
+                >
+                  {username}
+                </p>
+              )}
+              {loading ? (
+                <Skeleton
+                  width={250}
+                  height={20}
+                  className="rounded-full mr-2 product-image"
+                  style={{ borderRadius: "2em" }}
+                />
+              ) : (
+                <p
+                  className={`${
+                    theme === "dark" ? "text-white" : "text-customDark"
+                  } text-md content mt-4`}
+                >
+                  {content}
+                </p>
+              )}
+            </div>
+          </div> 
 
-          <div className="post-comments-container">
+          <div className="md:post-comments-container">
             <div
               className={`${
                 theme === "dark" ? "bg-black" : "bg-white"
@@ -96,8 +136,9 @@ export const PostCommentsCard = ({
             >
               {commentContent.length ? (
                 commentContent.map((data: any) => (
-                  <div className="flex items-center  mt-1 py-1">
-                    <div className="w-6/12 flex items-center ">
+                  // <div className="grid gap-1 bg-customDark md:flex gap-0 items-center mt-1 py-1 md:bg-black">
+                  <div className={`${theme === 'dark' ? 'bg-black' : 'bg-white' }  flex flex-col items-start gap-2 md:flex-row mt-1 py-1 md:items-center md:gap-0`}>
+                    <div className="w-full md:w-6/12 flex items-center ">
                       <Image
                         src={profileImage}
                         width={50}
@@ -116,8 +157,8 @@ export const PostCommentsCard = ({
 
                     <p
                       className={`${
-                        theme === "dark" ? "text-white " : "text-black bg-white"
-                      } w-80 text-[14px] text-left text-sm`}
+                        theme === "dark" ? "text-white " : "text-black"
+                      } w-80 text-left text-sm  `}
                     >
                       {data.content}
                     </p>

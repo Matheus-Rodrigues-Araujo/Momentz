@@ -6,7 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --post-height: 60dvh;
+  --post-height: 70dvh;
+  --post-width: 60dvh;
   --margin-space: 90px;
 }
 
@@ -62,7 +63,7 @@ body {
 }
 
 .post-comments-container{
-  width: calc(var(--post-height) - 20px);
+  width: calc(var(--post-width) - 20px);
 }
 
 .post-comments{
@@ -71,20 +72,35 @@ body {
 }
 
 .post-comments-image{
-  max-width: var(--post-height);
-  object-fit:fill;
+  max-width: var(--post-width);
   height: auto;
+  object-fit:fill;
 }
 
-@media screen and (max-width: 768px) {
+.dark-shadow{
+  box-shadow: -2px -2px 4px -1px #848484;
+}
+
+.light-shadow{
+  box-shadow: -2px -2px 4px -1px #696363;
+}
+
+@media screen and (max-width: 797px) {
   :root{
     --post-height: 50dvh;
-    --margin-space: 10px;
+    --post-width: 50dvh;
+    --margin-space: 0px;
   }
 }
 
 @media screen and (max-width: 600px) {
   .skeleton-img {
     min-width: 80vw;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .dark-shadow, .light-shadow{
+    box-shadow: none;
   }
 }
