@@ -53,40 +53,40 @@ body {
 }
 
 .custom-scrollbars__content {
-	overflow: auto;
-	scrollbar-width: none;
-	-ms-overflow-style: none;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .custom-scrollbars__content::-webkit-scrollbar {
-	display: none;
+  display: none;
 }
 
-.post-comments-container{
+.post-comments-container {
   width: calc(var(--post-width) - 20px);
 }
 
-.post-comments{
+.post-comments {
   overflow-y: auto;
   max-height: calc(var(--post-height) - var(--margin-space));
 }
 
-.post-comments-image{
+.post-comments-image {
   max-width: var(--post-width);
   height: auto;
-  object-fit:fill;
+  object-fit: fill;
 }
 
-.dark-shadow{
+.dark-shadow {
   box-shadow: -2px -2px 4px -1px #848484;
 }
 
-.light-shadow{
+.light-shadow {
   box-shadow: -2px -2px 4px -1px #696363;
 }
 
 @media screen and (max-width: 797px) {
-  :root{
+  :root {
     --post-height: 50dvh;
     --post-width: 50dvh;
     --margin-space: 0px;
@@ -100,7 +100,8 @@ body {
 }
 
 @media screen and (min-width: 500px) {
-  .dark-shadow, .light-shadow{
+  .dark-shadow,
+  .light-shadow {
     box-shadow: none;
   }
 }

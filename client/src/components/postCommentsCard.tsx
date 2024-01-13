@@ -48,12 +48,12 @@ export const PostCommentsCard = ({
         />
         {/* apply here */}
         <div
-          className={`${theme === "dark" ? "bg-black light-shadow" : "bg-white dark-shadow"} 
+          className={`${
+            theme === "dark" ? "bg-black light-shadow" : "bg-white dark-shadow"
+          } 
           rounded-[0.7rem] max-[500px]:rounded-t-[0.7rem] max-[500px]:absolute bottom-0 h-[75vh] px-2 max-[500px]:w-full max-[550px]:w-auto 
           md:static px-1 grid span-6 md:h-auto md:w-auto 
-          `
-          }
-        
+          `}
         >
           <div
             className={`${
@@ -126,7 +126,7 @@ export const PostCommentsCard = ({
                 </p>
               )}
             </div>
-          </div> 
+          </div>
 
           <div className="md:post-comments-container">
             <div
@@ -137,7 +137,11 @@ export const PostCommentsCard = ({
               {commentContent.length ? (
                 commentContent.map((data: any) => (
                   // <div className="grid gap-1 bg-customDark md:flex gap-0 items-center mt-1 py-1 md:bg-black">
-                  <div className={`${theme === 'dark' ? 'bg-black' : 'bg-white' }  flex flex-col items-start gap-2 md:flex-row mt-1 py-1 md:items-center md:gap-0`}>
+                  <div
+                    className={`${
+                      theme === "dark" ? "bg-black" : "bg-white"
+                    }  flex flex-col items-start gap-2 md:flex-row mt-1 py-1 md:items-center md:gap-0`}
+                  >
                     <div className="w-full md:w-6/12 flex items-center ">
                       <Image
                         src={profileImage}
