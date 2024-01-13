@@ -80,7 +80,7 @@ export const PostCommentsCard = ({
               onClick={setCommentsCardVisibility}
               className={`${
                 theme === "dark" ? "text-white" : "text-black"
-              } close-btn text-lg font-bold hover:text-red-600 max-[310px]:absolute top-2 right-16`}
+              } close-btn text-lg font-bold hover:text-red-600 max-[310px]:absolute top-2 right-20`}
             >
               X
             </button>
