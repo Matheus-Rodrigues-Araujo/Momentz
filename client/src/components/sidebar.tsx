@@ -153,37 +153,37 @@ export default function Sidebar() {
               <p className={`${theme === 'dark' ? 'text-white' : 'text-black'} hidden xl:block`}>More</p>
             </div>
             {isDropdownOpen && (
-              <div className="w-[125px] fixed grid bg-customGray rounded-md shadow-md right-2 md:left-6 md:right-0 bottom-[90px]">
+              <div className={`${theme === "dark" ? "bg-customGray": "bg-white" } w-[125px] fixed grid rounded-md shadow-md right-2 md:left-6 md:right-0 bottom-[90px]`}>
                 <Link
                   href="#"
-                  className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white"
+                  className={`${theme === "dark" ? "text-white" : "text-black"} flex items-center gap-2 text-sm p-3 hover:bg-customLighterPink hover:text-white`}
                 >
-                  <UserCircleIcon className=" h-6 w-6 text-customDark  text-white" />
+                  <UserCircleIcon className={`${theme === "dark" ? "text-white" : "text-customDark"} h-6 w-6`} />
                   <p>My Profile</p>
                 </Link>
                 <Link
                   href="/settings"
-                  className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white"
+                  className={`${theme === "dark" ? "text-white" : "text-black"} flex items-center gap-2 text-sm p-3 hover:bg-customLighterPink hover:text-white`}
                 >
-                  <Cog8ToothIcon className=" h-6 w-6 text-customDark  text-white" />
+                  <Cog8ToothIcon className={`${theme === "dark" ? "text-white" : "text-customDark"} h-6 w-6`} />
                   <p>Settings</p>
                 </Link>
                 <button
                   onClick={handleTheme}
-                  className="flex items-center gap-2 text-white text-sm p-3 hover:bg-customLighterPink hover:text-white"
+                  className={`${theme === "dark" ? "text-white" : "text-black"} flex items-center gap-2 text-sm p-3 hover:bg-customLighterPink hover:text-white`}
                 >
                   {theme === "dark" ? (
                     <MoonIcon className=" h-6 w-6 text-customDark text-white" />
                   ) : (
-                    <SunIcon className=" h-7 w-7 text-customDark  text-white" />
+                    <SunIcon className=" h-7 w-7 text-customDark  text-black" />
                   )}
                   <p>Theme</p>
                 </button>
                 <button
                   onClick={logout}
-                  className="flex items-center gap-2 text-white text-sm p-3 hover:bg-red-600 hover:text-white"
+                  className={`${theme === "dark" ? "text-white" : "text-black" } logout-btn flex items-center gap-2 text-sm p-3 hover:bg-red-600 hover:text-white`}
                 >
-                  <ArrowLeftOnRectangleIcon className=" h-6 w-6 text-customDark  text-white" />
+                  <ArrowLeftOnRectangleIcon className={`${theme === "dark" ? "text-white" : "text-customDark"} h-6 w-6`} />
                   <p>Logout</p>
                 </button>
               </div>

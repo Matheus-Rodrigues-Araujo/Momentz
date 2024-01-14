@@ -42,6 +42,10 @@ body {
   color: white;
 }
 
+.logout-btn:hover svg{
+  color: white;
+}
+
 .clip-custom {
   position: absolute;
   clip: rect(0px, 65px, 200px, 0px);
@@ -84,6 +88,7 @@ body {
 .light-shadow {
   box-shadow: -2px -2px 4px -1px #696363;
 }
+
 
 @media screen and (max-width: 797px) {
   :root {

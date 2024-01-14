@@ -46,32 +46,32 @@ export const PostCommentsCard = ({
           alt="Post image"
           className="hidden md:block post-comments-image"
         />
-        {/* apply here */}
         <div
           className={`${
             theme === "dark" ? "bg-black light-shadow" : "bg-white dark-shadow"
           } 
-          rounded-[0.7rem] max-[500px]:rounded-t-[0.7rem] max-[500px]:absolute bottom-0 h-[75vh] px-2 max-[500px]:w-full max-[550px]:w-auto 
-          md:static px-1 grid span-6 md:h-auto md:w-auto 
+          rounded-[0.7rem] max-[500px]:rounded-t-[0.7rem] 
+          absolute bottom-0 h-[75vh] px-2 w-full
+          md:static rounded-none md:h-auto md:w-[300px] lg:w-[500px]
           `}
         >
           <div
             className={`${
               theme === "dark" ? "bg-black" : "bg-white"
-            } relative flex justify-between`}
+            } relative flex justify-between max-[880px]:flex-col-reverse`}
           >
-            <div className="flex items-center gap-2 py-1">
+            <div className="flex items-center gap-2 py-1 max-[880px]:gap-0">
               <Image
                 src={profileImage}
                 width={50}
                 height={50}
                 alt="Profile image"
-                className="object-cover w-10 h-10 rounded-full mr-2  "
+                className="object-cover w-10 h-10 rounded-full mr-2  max-[880px]:w-8 max-[880px]:h-8 max-[880px]:mr-1"
               />
               <p
                 className={`${
                   theme === "dark" ? "text-white" : "text-black"
-                } text-md`}
+                } text-sm`}
               >
                 {username}
               </p>
@@ -80,11 +80,14 @@ export const PostCommentsCard = ({
               onClick={setCommentsCardVisibility}
               className={`${
                 theme === "dark" ? "text-white" : "text-black"
-              } close-btn text-lg font-bold hover:text-red-600 max-[310px]:absolute top-2 right-20`}
+              } close-btn text-lg font-bold pr-1 hover:text-red-600 max-[330px]:absolute top-3 right-4 max-[330px]:pr-0
+              // max-[880px]:ml-auto
+              `}
             >
               X
             </button>
           </div>
+
           <div
             style={
               theme === "dark"
@@ -104,7 +107,7 @@ export const PostCommentsCard = ({
                 <p
                   className={`${
                     theme === "dark" ? "text-white" : "text-black"
-                  } text-lg font-medium self-start`}
+                  } text-sm font-medium self-start`}
                 >
                   {username}
                 </p>
@@ -136,11 +139,11 @@ export const PostCommentsCard = ({
             >
               {commentContent.length ? (
                 commentContent.map((data: any) => (
-                  // <div className="grid gap-1 bg-customDark md:flex gap-0 items-center mt-1 py-1 md:bg-black">
                   <div
-                    className={`${
-                      theme === "dark" ? "bg-black" : "bg-white"
-                    }  flex flex-col items-start gap-2 md:flex-row mt-1 py-1 md:items-center md:gap-0`}
+                    className={`${theme === "dark" ? "bg-black" : "bg-white"}  
+                    flex flex-col gap-2 sm:items-start sm:justify-center
+                    lg:flex-row mt-1 py-1
+                    `}
                   >
                     <div className="w-full md:w-6/12 flex items-center ">
                       <Image
@@ -153,7 +156,7 @@ export const PostCommentsCard = ({
                       <p
                         className={`${
                           theme === "dark" ? "text-white " : "text-black"
-                        } text-sm `}
+                        } text-sm`}
                       >
                         User
                       </p>
@@ -162,7 +165,7 @@ export const PostCommentsCard = ({
                     <p
                       className={`${
                         theme === "dark" ? "text-white " : "text-black"
-                      } w-80 text-left text-sm  `}
+                      } text-left text-sm md:my-auto md:w-[70%]`}
                     >
                       {data.content}
                     </p>
