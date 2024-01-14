@@ -160,7 +160,7 @@ export const PostCard: React.FC<{ post: IPostCard }> = ({ post }) => {
 
   return (
     <div
-      className="post-card cursor-pointer bg-gray-900 shadow-x-2 shadow-y-9 shadow-blur-2 rounded-none md:p-4"
+      className="post-card cursor-pointer bg-gray-900 shadow-x-2 shadow-y-9 shadow-blur-2 rounded-none md:p-4 max-[450px]:cursor-none"
       style={{ backgroundColor: "var(--gray)" }}
     >
       <div className="p-0 mb-4 rounded-md">
