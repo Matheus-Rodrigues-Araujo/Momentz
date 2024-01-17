@@ -1,5 +1,5 @@
 {
-  "name": "instagram-clone",
+  "name": "momentz",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Matheus-Rodrigues-Araujo/instagram-clone.git"
+    "url": "git+https://github.com/Matheus-Rodrigues-Araujo/Momentz.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Matheus-Rodrigues-Araujo/instagram-clone/issues"
+    "url": "https://github.com/Matheus-Rodrigues-Araujo/Momentz/issues"
   },
-  "homepage": "https://github.com/Matheus-Rodrigues-Araujo/instagram-clone#readme"
+  "homepage": "https://github.com/Matheus-Rodrigues-Araujo/Momentz#readme"
 }
