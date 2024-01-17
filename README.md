@@ -14,7 +14,7 @@ Social media platform created for social interaction and sharing unforgettable m
 git clone https://github.com/Matheus-Rodrigues-Araujo/instagram-clone.git
 ```
 
-2º: Go to the client folder and run `npm install` to install all the dependencies
+2º: Go to the 'app' folder and run `npm install` to install all the dependencies
 
 3º: Create a .env.local file and add your Database URI and your JWT Secret
 
