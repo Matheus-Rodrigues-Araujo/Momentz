@@ -11,7 +11,7 @@ Social media platform created for social interaction and sharing unforgettable m
 1º: Fork the repository:
 
 ```
-git clone https://github.com/Matheus-Rodrigues-Araujo/instagram-clone.git
+git clone https://github.com/Matheus-Rodrigues-Araujo/Momentz.git
 ```
 
 2º: Go to the 'app' folder and run `npm install` to install all the dependencies
@@ -33,11 +33,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Screenshots
 
-![Alt text](<Captura de tela 2024-01-16 233728-1.jpg>)
-(![Feed](<Captura de tela 2024-01-16 234049.jpg>)
-
-<!-- ![Alt text](<Captura de tela 2024-01-16 233728.jpg>) -->
-
-![Alt text](<Captura de tela 2024-01-16 233347.jpg>)
-![Alt text](<Captura de tela 2024-01-16 233530.jpg>)
-![Alt text](<Captura de tela 2024-01-16 234641.jpg>)
+![!\[Feed in Desktop Screen\](<Captura de tela 2024-01-16 233728-1.jpg>)](<screenshots/Captura de tela 2024-01-16 233728-1.jpg>)
+![(!\[Feed in Mobile Screen\](<Captura de tela 2024-01-16 234049.jpg>)](<screenshots/Captura de tela 2024-01-16 234049.jpg>)
+![!\[Sign In page\](<Captura de tela 2024-01-16 233347.jpg>)](<screenshots/Captura de tela 2024-01-16 233347.jpg>)
+![!\[Sign Up page\](<Captura de tela 2024-01-16 233530.jpg>)](<screenshots/Captura de tela 2024-01-16 233530.jpg>)
+![!\[Post Creation\](<Captura de tela 2024-01-16 234641.jpg>)](<screenshots/Captura de tela 2024-01-16 234641.jpg>)
